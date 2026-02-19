@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { join } from 'path';  
@@ -12,7 +15,7 @@ async function bootstrap() {
   if (!existsSync(uploadDir)) {
     mkdirSync(uploadDir);
   }
-  console.log("databaseurl:"+process.env.DATABASE_URL);
-  await app.listen(process.env.PORT ?? 3001);
+  // await app.listen(process.env.PORT ?? 3001);
+  await app.listen(3000);
 }
 bootstrap();
