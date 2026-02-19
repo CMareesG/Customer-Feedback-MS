@@ -1,11 +1,9 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { join } from 'path';  
 import { existsSync, mkdirSync } from 'fs';
 import * as dotenv from 'dotenv';
+import * as express from 'express';
 
 dotenv.config();  
 
@@ -16,6 +14,7 @@ async function bootstrap() {
     mkdirSync(uploadDir);
   }
   // await app.listen(process.env.PORT ?? 3001);
+  app.use('/uploads', express.static(join(process.cwd(), 'uploads')));  
   await app.listen(3000);
 }
 bootstrap();

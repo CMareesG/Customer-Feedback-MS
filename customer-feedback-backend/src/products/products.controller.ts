@@ -13,24 +13,25 @@ export class ProductsController {
   create(@UploadedFile() file:Express.Multer.File,@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto, file);
   }
-
+  
   @Get()
   findAll() {
     return this.productsService.findAll();
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.productsService.findOne(+id);
-  // }
-
+  
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productsService.findOne(id);
+  }
+    
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+  @UseInterceptors(FileInterceptor('file'))
+  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto, @UploadedFile() file:Express.Multer.File) {
+    return this.productsService.update(id, updateProductDto, file);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
   }
 }

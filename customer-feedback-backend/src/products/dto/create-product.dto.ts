@@ -10,10 +10,8 @@ export class CreateProductDto {
     @MinLength(2)
     description:string;
 
-    @IsOptional()
-    @IsString()
-    img?:string;
 
     @IsNotEmpty()
-    subCategoryId:number;
+    categoryId:string;
+    img:string;
 }
