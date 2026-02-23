@@ -9,26 +9,34 @@ export class NotificationController {
 
   @Post()
   create(@Body() createNotificationDto: CreateNotificationDto) {
-    return this.notificationService.create(createNotificationDto);
+    return this.notificationService.createNotification(createNotificationDto);
   }
 
   @Get()
   findAll() {
-    return this.notificationService.findAll();
+    return this.notificationService.getAllNotification();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.notificationService.findOne(+id);
+    return this.notificationService.getNotificationById(id);
+  }
+
+  @Get("user/:id")
+  findAllByUser(@Param('id') id: string) {
+    return this.notificationService.getNotificationByUserId(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNotificationDto: UpdateNotificationDto) {
-    return this.notificationService.update(+id, updateNotificationDto);
+    return this.notificationService.updateNotification(
+      id,
+      updateNotificationDto,
+    );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.notificationService.remove(+id);
+    return this.notificationService.deleteNotification(id);
   }
 }
