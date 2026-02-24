@@ -1,38 +1,79 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateResponseDto } from './dto/create-response.dto';
+import { UpdateResponseDto } from './dto/update-response.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ResponseService {
   constructor(private prisma: PrismaService) {}
 
-  async create(feedbackId: string, message: string) {
-    const adminId = "admin-456"; // Use the ID from your test data
-
-    // 1️⃣ Check if feedback exists
-    const feedback = await this.prisma.feedback.findUnique({
-      where: { id: feedbackId },
-    });
-
-    if (!feedback) {
-      throw new NotFoundException('Feedback not found');
-    }
-
-    // 2️⃣ Check if admin exists
+  async createResponse(dto: CreateResponseDto) {
+    
     const admin = await this.prisma.user.findUnique({
-      where: { id: adminId },
+      where: { id: dto.adminId },
     });
+    if (!admin) throw new NotFoundException('admin not found');
 
-    if (!admin) {
-      throw new NotFoundException('Admin user not found');
-    }
-
-    // 3️⃣ Create response
+    const feedback = await this.prisma.feedback.findUnique({
+      where: { id: dto.feedbackId },
+    });
+    if (!feedback) throw new NotFoundException('feedback not found');
     return this.prisma.response.create({
-      data: {
-        message,
-        feedbackId,
-        adminId,
+      data: dto,
+    });
+  }
+
+  async getAllResponse() {
+    return this.prisma.response.findMany({
+      orderBy: {
+        createdAt: 'desc',
       },
     });
+  }
+
+  async getResponseById(id: string) {
+    const response = await this.prisma.response.findUnique({
+      where: { id },
+    });
+
+    if (!response) {
+      throw new NotFoundException('Response not found');
+    }
+
+    return response;
+  }
+
+  async updateResponse(id: string, dto: UpdateResponseDto) {
+    const existingResponse = await this.prisma.response.findUnique({
+      where: { id },
+    });
+
+    if (!existingResponse) {
+      throw new NotFoundException('Response not found');
+    }
+
+    return this.prisma.response.update({
+      where: { id },
+      data: dto,
+    });
+  }
+
+  async deleteResponse(id: string) {
+    const response = await this.prisma.response.findUnique({
+      where: { id },
+    });
+
+    if (!response) {
+      throw new NotFoundException('Response not found');
+    }
+
+    await this.prisma.response.delete({
+      where: { id },
+    });
+
+    return {
+      success: true,
+      message: 'Response deleted successfully',
+    };
   }
 }
