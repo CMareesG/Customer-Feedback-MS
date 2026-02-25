@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   GLOBAL BASE STYLES
+========================= */
+@layer base {
+  body {
+    @apply bg-gray-100 text-gray-900 font-sans;
+  }
+
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
+  h2 {
+    @apply text-xl font-semibold;
+  }
+}
+
+/* =========================
+   REUSABLE COMPONENT STYLES
+========================= */
+@layer components {
+
+  /* Main page wrapper */
+  .page-container {
+    @apply p-8;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white shadow-md rounded-xl p-6;
+  }
+
+  /* Stats card */
+  .stat-card {
+    @apply bg-white shadow-md rounded-xl p-6 flex items-center justify-between;
+  }
+
+  /* Feedback item row */
+  .feedback-row {
+    @apply flex justify-between items-center p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition;
+  }
+
+  /* Badge */
+  .badge {
+    @apply text-xs px-3 py-1 rounded-full;
+  }
+
+  .badge-pending {
+    @apply bg-yellow-100 text-yellow-700;
+  }
+
+  .badge-resolved {
+    @apply bg-green-100 text-green-700;
+  }
+
+}
