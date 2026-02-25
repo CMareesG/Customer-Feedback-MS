@@ -5,6 +5,10 @@ import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ResponseModule } from './response/response.module';
+
+@Module({
+  imports: [FeedbackModule, PrismaModule, PrismaModule, ResponseModule],
 import { UserModule } from "./user/user.module";
 import { CategoriesModule } from './categories/categories.module';
 
