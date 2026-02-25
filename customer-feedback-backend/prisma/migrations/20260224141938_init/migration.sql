@@ -1,15 +1,5 @@
-/*
-  Warnings:
-
-  - A unique constraint covering the columns `[userId,productId]` on the table `Feedback` will be added. If there are existing duplicate values, this will fail.
-  - Added the required column `updatedAt` to the `Feedback` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('CUSTOMER', 'ADMIN');
-
--- AlterTable
-ALTER TABLE "Feedback" ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL;
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -19,7 +9,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'CUSTOMER',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -34,7 +24,7 @@ CREATE TABLE "Category" (
     "isActive" BOOLEAN NOT NULL DEFAULT true,
     "sortOrder" INTEGER NOT NULL DEFAULT 0,
     "createdAtTime" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAtTime" TIMESTAMP(3) NOT NULL,
+    "updatedAtTime" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -47,9 +37,22 @@ CREATE TABLE "Product" (
     "img" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Feedback" (
+    "id" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "rating" INTEGER NOT NULL,
+    "review" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Feedback_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -59,7 +62,7 @@ CREATE TABLE "Response" (
     "adminId" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Response_pkey" PRIMARY KEY ("id")
 );
@@ -74,6 +77,28 @@ CREATE TABLE "Notification" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Notification_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RefreshToken" (
+    "id" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "RefreshToken_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RevokedToken" (
+    "id" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "reason" TEXT,
+    "revokedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "RevokedToken_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -92,6 +117,15 @@ CREATE UNIQUE INDEX "Category_parentId_name_key" ON "Category"("parentId", "name
 CREATE INDEX "Product_categoryId_idx" ON "Product"("categoryId");
 
 -- CreateIndex
+CREATE INDEX "Feedback_productId_idx" ON "Feedback"("productId");
+
+-- CreateIndex
+CREATE INDEX "Feedback_userId_idx" ON "Feedback"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Feedback_userId_productId_key" ON "Feedback"("userId", "productId");
+
+-- CreateIndex
 CREATE INDEX "Response_feedbackId_idx" ON "Response"("feedbackId");
 
 -- CreateIndex
@@ -101,13 +135,10 @@ CREATE INDEX "Response_adminId_idx" ON "Response"("adminId");
 CREATE INDEX "Notification_userId_idx" ON "Notification"("userId");
 
 -- CreateIndex
-CREATE INDEX "Feedback_productId_idx" ON "Feedback"("productId");
+CREATE UNIQUE INDEX "RefreshToken_token_key" ON "RefreshToken"("token");
 
 -- CreateIndex
-CREATE INDEX "Feedback_userId_idx" ON "Feedback"("userId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Feedback_userId_productId_key" ON "Feedback"("userId", "productId");
+CREATE UNIQUE INDEX "RevokedToken_token_key" ON "RevokedToken"("token");
 
 -- AddForeignKey
 ALTER TABLE "Category" ADD CONSTRAINT "Category_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -129,3 +160,6 @@ ALTER TABLE "Response" ADD CONSTRAINT "Response_adminId_fkey" FOREIGN KEY ("admi
 
 -- AddForeignKey
 ALTER TABLE "Notification" ADD CONSTRAINT "Notification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
