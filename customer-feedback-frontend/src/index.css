@@ -31,12 +31,11 @@
 
   /* Card */
   .card {
-    @apply bg-white shadow-md rounded-xl p-6;
+    @apply bg-white shadow-md rounded-xl p-6 text-gray-900 opacity-100;
   }
-
-  /* Stats card */
+  
   .stat-card {
-    @apply bg-white shadow-md rounded-xl p-6 flex items-center justify-between;
+    @apply bg-white shadow-md rounded-xl p-6 flex items-center justify-between text-gray-900 opacity-100;
   }
 
   /* Feedback item row */

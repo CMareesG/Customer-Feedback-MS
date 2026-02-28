@@ -12,7 +12,7 @@ interface Props {
   reviews: Review[];
 }
 
-const ReviewList: React.FC<Props> = ({ reviews }) => {
+const FeedbackList: React.FC<Props> = ({ reviews }) => {
   return (
     <div className="card">
       <h2 className="mb-4">Recent Feedbacks</h2>
@@ -48,4 +48,4 @@ const ReviewList: React.FC<Props> = ({ reviews }) => {
   );
 };
 
-export default ReviewList;
+export default FeedbackList;

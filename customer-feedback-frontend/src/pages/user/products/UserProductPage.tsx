@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import RatingBreakdown from "../components/users/product_feedback/rating_breakdown";
-import RatingSummary from "../components/users/product_feedback/rating_summary";
-import ReviewList from "../components/users/product_feedback/review_list";
-import AddReviewForm from "../components/users/product_feedback/add_review_form";
+import RatingBreakdown from "../../../components/feedback/RatingBreakdown";
+import RatingSummary from "../../../components/feedback/RatingSummary";
+import FeedbackList from "../../../components/feedback/FeedbackList";
+import AddFeedbackForm from "../../../components/feedback/AddFeedbackForm";
 
 interface Review {
   id: number;
@@ -49,8 +49,8 @@ const ProductFeedbackPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ReviewList reviews={reviews} />
-        <AddReviewForm onAddReview={handleAddReview} />
+        <FeedbackList reviews={reviews} />
+        <AddFeedbackForm onAddReview={handleAddReview} />
       </div>
 
     </div>

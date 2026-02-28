@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Delete,
-  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ResponseService } from './response.service';
 import { CreateResponseDto } from './dto/create-response.dto';

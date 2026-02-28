@@ -1,16 +1,18 @@
-//import { useState } from 'react'
-//import './App.css'
-import SidebarLayout from './components/sidebar'
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./routes/AppRoutes";
+
+/**
+ * Root App Component
+ * Only responsible for initializing Router
+ * All routes are handled in AppRoutes.tsx
+ */
 
 function App() {
-  
-
   return (
-    <>
-      <SidebarLayout/>
-        
-    </>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

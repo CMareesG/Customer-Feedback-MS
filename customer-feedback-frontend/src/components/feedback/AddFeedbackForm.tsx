@@ -5,7 +5,7 @@ interface Props {
   onAddReview: (rating: number, comment: string) => void;
 }
 
-const AddReviewForm: React.FC<Props> = ({ onAddReview }) => {
+const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
@@ -53,4 +53,4 @@ const AddReviewForm: React.FC<Props> = ({ onAddReview }) => {
   );
 };
 
-export default AddReviewForm;
+export default AddFeedbackForm;

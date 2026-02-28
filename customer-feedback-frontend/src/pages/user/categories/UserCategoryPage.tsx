@@ -82,7 +82,7 @@ const categoryProducts: Record<string, Product[]> = {
   ],
 };
 
-const CategoryPage: React.FC = () => {
+const UserCategoryPage: React.FC = () => {
   const { categoryName } = useParams();
   const navigate = useNavigate();
 
@@ -91,7 +91,7 @@ const CategoryPage: React.FC = () => {
   return (
     <div>
       {/* Title */}
-      <h1 className="mb-6 capitalize">
+      <h1 className="mb-6 capitalize text-blue-900 text-2xl font-bold">
         {categoryName?.replace("-", " ")} Products
       </h1>
 
@@ -144,4 +144,4 @@ const CategoryPage: React.FC = () => {
   );
 };
 
-export default CategoryPage;
+export default UserCategoryPage;
