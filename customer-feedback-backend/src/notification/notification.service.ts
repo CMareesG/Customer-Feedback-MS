@@ -8,7 +8,7 @@ export class NotificationService {
   constructor(private prisma: PrismaService) {}
 
   async createNotification(dto: CreateNotificationDto) {
-    await this.isUserExist(dto.userId)
+    await this.isUserExist(dto.userId);
     return this.prisma.notification.create({
       data: dto,
     });
@@ -82,7 +82,6 @@ export class NotificationService {
 
   async isUserExist(userId: string): Promise<void> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if(!user)
-      throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('User not found');
   }
 }
