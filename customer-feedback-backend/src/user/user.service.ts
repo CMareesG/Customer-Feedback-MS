@@ -1,11 +1,11 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import * as bcrypt from "bcryptjs";
-import { PrismaService } from "src/prisma/prisma.service";
-import { JwtService } from "@nestjs/jwt";
-import { Role } from "generated/prisma/enums";
-import { v4 as uuidv4 } from "uuid";
-import { add } from "date-fns";
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import * as bcrypt from 'bcryptjs';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { JwtService } from '@nestjs/jwt';
+import { Role } from '@prisma/client';
+import { v4 as uuidv4 } from 'uuid';
+import { add } from 'date-fns';
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
     const exists = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
-    if (exists) throw new ForbiddenException("Email already in use");
+    if (exists) throw new ForbiddenException('Email already in use');
     const hashed = await bcrypt.hash(dto.password, 10);
     return this.prisma.user.create({
       data: {
@@ -33,10 +33,10 @@ export class UserService {
 
   async login(email: string, password: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) throw new ForbiddenException("Invalid credentials");
+    if (!user) throw new ForbiddenException('Invalid credentials');
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw new ForbiddenException("Invalid credentials");
+    if (!isMatch) throw new ForbiddenException('Invalid credentials');
 
     const accessToken = await this.signAccessToken(
       user.id,
@@ -66,23 +66,23 @@ export class UserService {
   async logout(accessToken: string, refreshToken: string) {
     // Blacklist access token
     await this.prisma.revokedToken.create({
-      data: { token: accessToken, reason: "logout" },
+      data: { token: accessToken, reason: 'logout' },
     });
     // Delete refresh token
     await this.prisma.refreshToken.delete({ where: { token: refreshToken } });
-    return { message: "Logged out successfully" };
+    return { message: 'Logged out successfully' };
   }
 
   async refreshTokens(refreshToken: string) {
     const record = await this.prisma.refreshToken.findUnique({
       where: { token: refreshToken },
     });
-    if (!record) throw new ForbiddenException("Invalid refresh token");
+    if (!record) throw new ForbiddenException('Invalid refresh token');
 
     const user = await this.prisma.user.findUnique({
       where: { id: record.userId },
     });
-    if (!user) throw new ForbiddenException("User not found");
+    if (!user) throw new ForbiddenException('User not found');
 
     const newAccessToken = this.signAccessToken(user.id, user.email, user.role);
     return { accessToken: newAccessToken };
