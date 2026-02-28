@@ -3,7 +3,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import * as bcrypt from "bcryptjs";
 import { PrismaService } from "src/prisma/prisma.service";
 import { JwtService } from "@nestjs/jwt";
-import { Role } from "generated/prisma/enums";
+import { Role } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import { add } from "date-fns";
 

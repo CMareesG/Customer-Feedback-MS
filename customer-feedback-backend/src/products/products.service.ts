@@ -4,7 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { join } from 'path';
 import * as fs from 'fs/promises';
-import { Product } from 'generated/prisma/client';
+import { Product } from '@prisma/client';
 
 @Injectable()
 export class ProductsService {

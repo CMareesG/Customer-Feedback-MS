@@ -5,130 +5,125 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-
 enum Role {
   CUSTOMER
   ADMIN
 }
 
-
 model User {
-  id            String   @id @default(uuid())
-  name          String
-  email         String   @unique
-  password      String
-  role          Role     @default(CUSTOMER)
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  role     Role   @default(CUSTOMER)
 
   feedbacks     Feedback[]
   responses     Response[]
   notifications Notification[]
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   refreshTokens RefreshToken[]
 }
 
-
 model Category {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
-  slug        String   @unique
+  slug        String  @unique
   description String?
   parentId    String?
-  isActive    Boolean  @default(true)
-  sortOrder   Int      @default(0)
+  isActive    Boolean @default(true)
+  sortOrder   Int     @default(0)
 
-  parent      Category? @relation("CategoryToChildren", fields: [parentId], references: [id], onDelete: Cascade)
-  children    Category[] @relation("CategoryToChildren")
+  parent   Category?  @relation("CategoryToChildren", fields: [parentId], references: [id], onDelete: Cascade)
+  children Category[] @relation("CategoryToChildren")
 
-  products    Product[]
+  products Product[]
 
   createdAtTime DateTime @default(now())
-  updatedAtTime DateTime @updatedAt @default(now())
+  updatedAtTime DateTime @default(now()) @updatedAt
 
-  @@index([parentId])
   @@unique([parentId, name])
+  @@index([parentId])
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String @id @default(uuid())
   name        String
   description String
   img         String
 
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  feedbacks   Feedback[]
+  feedbacks Feedback[]
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([categoryId])
 }
 
 model Feedback {
-  id        String   @id @default(uuid())
+  id String @id @default(uuid())
 
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  rating    Int
-  review    String
+  rating Int
+  review String
 
   responses Response[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
+  @@unique([userId, productId])
   @@index([productId])
   @@index([userId])
-  @@unique([userId, productId])
 }
 
-
 model Response {
-  id         String   @id @default(uuid())
+  id String @id @default(uuid())
 
   feedbackId String
   feedback   Feedback @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
 
-  adminId    String
-  admin      User     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String
+  admin   User   @relation(fields: [adminId], references: [id], onDelete: Cascade)
 
-  message    String
+  message String
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@index([feedbackId])
   @@index([adminId])
 }
 
-
 model Notification {
-  id        String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  title     String
-  message   String
+  title   String
+  message String
 
-  isRead    Boolean  @default(false)
+  isRead Boolean @default(false)
 
-  createdAt DateTime @default(now()) 
+  createdAt DateTime @default(now())
 
   @@index([userId])
 }

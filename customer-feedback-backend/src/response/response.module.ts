@@ -6,6 +6,6 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 @Module({
   imports: [PrismaModule],
   providers: [ResponseService],
-  controllers: [ResponseController]
+  controllers: [ResponseController],
 })
 export class ResponseModule {}
