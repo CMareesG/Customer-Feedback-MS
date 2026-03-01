@@ -4,13 +4,13 @@ import { MessageSquare, Clock, CheckCircle } from "lucide-react";
 interface StatsProps {
   total: number;
   pending: number;
-  resolved: number;
+  average: number;
 }
 
 const UserFeedbackStats: React.FC<StatsProps> = ({
   total,
   pending,
-  resolved,
+  average,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -36,8 +36,8 @@ const UserFeedbackStats: React.FC<StatsProps> = ({
       {/* Resolved Reviews */}
       <div className="stat-card">
         <div>
-          <p className="text-gray-500 text-sm">Resolved</p>
-          <h2 className="text-3xl font-bold">{resolved}</h2>
+          <p className="text-gray-500 text-sm">Average</p>
+          <h2 className="text-3xl font-bold">{average}</h2>
         </div>
         <CheckCircle className="text-green-600" size={32} />
       </div>

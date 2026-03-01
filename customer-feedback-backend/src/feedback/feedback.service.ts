@@ -5,11 +5,9 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FeedbackService {
+  constructor(private prisma: PrismaService) {}
 
-  constructor(private prisma: PrismaService)
-  {}
-
-  async createFeedback(dto: CreateFeedbackDto){
+  async createFeedback(dto: CreateFeedbackDto) {
     return this.prisma.feedback.create({
       data: {
         productId: dto.productId,
@@ -29,7 +27,6 @@ export class FeedbackService {
   }
 
   async getFeedbackById(id: string) {
-
     const feedback = await this.prisma.feedback.findUnique({
       where: { id },
     });
@@ -41,8 +38,85 @@ export class FeedbackService {
     return feedback;
   }
 
-  async updateFeedback(id: string, dto: UpdateFeedbackDto){
-      
+  async getDashboardStats(userId: string) {
+    // total feedback given by user
+    const totalFeedback = await this.prisma.feedback.count({
+      where: { userId },
+    });
+
+    // resolved feedback count (feedback having at least one response)
+    const resolvedFeedback = await this.prisma.feedback.count({
+      where: {
+        userId,
+        responses: {
+          some: {},
+        },
+      },
+    });
+
+    // pending feedback count (feedback having no response)
+    const pendingFeedback = await this.prisma.feedback.count({
+      where: {
+        userId,
+        responses: {
+          none: {},
+        },
+      },
+    });
+
+    // average rating
+    const avgResult = await this.prisma.feedback.aggregate({
+      where: { userId },
+      _avg: {
+        rating: true,
+      },
+    });
+
+    const averageRating = avgResult._avg.rating ?? 0;
+
+    return {
+      totalFeedback,
+      resolvedFeedback,
+      pendingFeedback,
+      averageRating: Number(averageRating.toFixed(1)),
+    };
+  }
+
+  async getRecentFeedback(userId: string) {
+    return this.prisma.feedback.findMany({
+      where: { userId },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+
+      take: 5,
+    });
+  }
+
+  async updateFeedback(id: string, dto: UpdateFeedbackDto) {
     const existingFeedback = await this.prisma.feedback.findUnique({
       where: { id },
     });
@@ -57,8 +131,7 @@ export class FeedbackService {
     });
   }
 
-  async deleteFeedback(id: string){
-
+  async deleteFeedback(id: string) {
     const feedback = await this.prisma.feedback.findUnique({
       where: { id },
     });
@@ -73,10 +146,7 @@ export class FeedbackService {
 
     return {
       success: true,
-      message: "Feedback deleted successfully",
+      message: 'Feedback deleted successfully',
     };
-
   }
-
-
 }

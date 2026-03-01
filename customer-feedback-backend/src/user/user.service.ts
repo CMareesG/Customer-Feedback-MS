@@ -12,7 +12,7 @@ export class UserService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async createUser(dto: CreateUserDto) {
     // admin only
@@ -55,7 +55,7 @@ export class UserService {
       },
     });
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user: user.role };
   }
 
   signAccessToken(userId: string, email: string, role: Role) {

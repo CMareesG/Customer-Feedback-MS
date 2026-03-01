@@ -18,6 +18,7 @@ import UserFeedbackPage from "../pages/user/feedback/UserFeedbackPage";
 
 /* SHARED */
 import AboutPage from "../pages/shared/AboutPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 /**
  * Role should come from JWT/AuthContext later
@@ -34,39 +35,42 @@ const AppRoutes = () => {
             <Route path="/forgot" element={<ForgotPassword />} />
 
             {/* PROTECTED ROUTES */}
-            <Route element={<SidebarLayout />}>
+            <Route element={<ProtectedRoute />}>
+                <Route element={<SidebarLayout />}>
 
-                {/* USER ROUTES */}
-                {role === "user" && (
-                    <>
-                        <Route path="/dashboard" element={<UserDashboard />} />
+                    {/* USER ROUTES */}
+                    {role === "user" && (
+                        <>
+                            <Route path="/dashboard" element={<UserDashboard />} />
 
-                        <Route path="/categories/:categoryName" element={<UserCategoryPage />} />
+                            <Route path="/categories/:categoryName" element={<UserCategoryPage />} />
 
-                        <Route
-                            path="/feedback/:productId"
-                            element={<UserFeedbackPage />}
-                        />
+                            <Route
+                                path="/feedback/:productId"
+                                element={<UserFeedbackPage />}
+                            />
 
-                        {/* <Route
-              path="/products/:productId/feedback"
-              element={<UserFeedbackPage />}
-            /> */}
+                            {/* <Route
+path="/products/:productId/feedback"
+element={<UserFeedbackPage />}
+/> */}
 
-                        <Route path="/about" element={<AboutPage />} />
-                    </>
-                )}
+                            <Route path="/about" element={<AboutPage />} />
+                        </>
+                    )}
 
-                {/* ADMIN ROUTES */}
-                {/* {role === "admin" && (
-          <>
-            <Route path="/dashboard" element={<AdminDashboard />} />
+                    {/* ADMIN ROUTES */}
+                    {/* {role === "admin" && (
+<>
+<Route path="/dashboard" element={<AdminDashboard />} />
 
-            <Route path="/about" element={<AboutPage />} />
-          </>
-        )} */}
+<Route path="/about" element={<AboutPage />} />
+</>
+)} */}
 
+                </Route>
             </Route>
+
 
         </Routes>
     );
