@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Feedback } from '@prisma/client';
 
 @Injectable()
 export class FeedbackService {
@@ -148,5 +149,9 @@ export class FeedbackService {
       success: true,
       message: 'Feedback deleted successfully',
     };
+  }
+
+  async getFeedbackByProductId(productId:string):Promise<Feedback[]>{
+    return await this.prisma.feedback.findMany({where:{productId}});
   }
 }

@@ -43,7 +43,7 @@ const AppRoutes = () => {
                         <>
                             <Route path="/dashboard" element={<UserDashboard />} />
 
-                            <Route path="/categories/:categoryName" element={<UserCategoryPage />} />
+                            <Route path="/categories/:categoryName/:categoryId" element={<UserCategoryPage />} />
 
                             <Route
                                 path="/feedback/:productId"

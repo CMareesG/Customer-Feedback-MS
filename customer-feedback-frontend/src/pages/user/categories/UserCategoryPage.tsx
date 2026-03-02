@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Star } from "lucide-react";
+import type { product } from "../../../types/product";
+import { fetchProductByCategoryId } from "../../../services/productService";
 
 interface Product {
   id: number;
@@ -83,10 +85,19 @@ const categoryProducts: Record<string, Product[]> = {
 };
 
 const UserCategoryPage: React.FC = () => {
-  const { categoryName } = useParams();
+  console.log(useParams());
+  const { categoryName,categoryId } = useParams();
+  const [products,setProducts]=useState<product[]>([]);
   const navigate = useNavigate();
+  useEffect(()=>{
+    async function getProducts(){
+      const data: product[] = await fetchProductByCategoryId(categoryId || "");
+      setProducts(data);
+    }
+    getProducts();
+  },[categoryId]);
 
-  const products = categoryProducts[categoryName || ""] || [];
+  // const products = categoryProducts[categoryName || ""] || [];
 
   return (
     <div>
@@ -106,7 +117,7 @@ const UserCategoryPage: React.FC = () => {
             {/* Image */}
             <div className="h-40 mb-4 overflow-hidden rounded-lg">
               <img
-                src={product.image}
+                src={product.img}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />

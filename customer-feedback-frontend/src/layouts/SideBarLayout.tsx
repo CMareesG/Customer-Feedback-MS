@@ -1,12 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   ChevronDown,
   ChevronUp,
   ShoppingBag,
-  Shirt,
-  Sofa,
   Info,
   Phone,
   User,
@@ -148,7 +146,7 @@ const SidebarLayout = () => {
                                 console.log(subcategory);
                                 return <NavLink
                                   key={index}
-                                  to={`categories/${subcategory.slug}`}
+                                  to={`categories/${subcategory.slug}/${subcategory.id}`}
                                   className="flex items-center gap-2 hover:text-white text-gray-400"
                                 >
                                   {subcategory.name}
