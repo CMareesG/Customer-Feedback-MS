@@ -55,7 +55,7 @@ export class UserService {
       },
     });
 
-    return { accessToken, refreshToken, user: user.role };
+    return { accessToken, refreshToken, user: user.role, userId:user.id };
   }
 
   signAccessToken(userId: string, email: string, role: Role) {

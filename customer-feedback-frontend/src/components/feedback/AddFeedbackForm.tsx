@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { Star } from "lucide-react";
 
 interface Props {
-  onAddFeedback: (rating: number, comment: string) => void;
+  onAddFeedback: (rating: number, review: string, productId:string,userId:string) => void;
+  productId:string;
 }
 
-const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback }) => {
+const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [review, setReview] = useState("");
 
   const handleSubmit = () => {
-    if (!rating || !comment) return;
-
-    onAddFeedback(rating, comment);
+    if (!rating || !review) return;
+    console.log({rating,review,productId,userId:localStorage.getItem("userId")});
+    onAddFeedback(rating, review, productId,localStorage.getItem("userId")??"");
     setRating(0);
-    setComment("");
+    setReview("");
   };
 
   return (
@@ -37,8 +38,8 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback }) => {
       </div>
 
       <textarea
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
         placeholder="Write your feedback..."
         className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />

@@ -23,7 +23,7 @@ export class FeedbackController {
   constructor(private feedbackService: FeedbackService) {}
 
   @Post()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   createFeedback(@Body() dto: CreateFeedbackDto, @Req() req) {
     return this.feedbackService.createFeedback(dto);
   }
@@ -34,7 +34,9 @@ export class FeedbackController {
   }
 
   @Get('product/:productId')
-  async getFeedbackByProduct(@Param('productId') productId:string):Promise<extendedFeedback[]>{
+  async getFeedbackByProduct(
+    @Param('productId') productId: string,
+  ): Promise<extendedFeedback[]> {
     return await this.feedbackService.getFeedbackByProductId(productId);
   }
 

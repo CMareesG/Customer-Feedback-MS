@@ -5,7 +5,7 @@ import AddFeedbackForm from "../../../components/feedback/AddFeedbackForm";
 import { useEffect, useState } from "react";
 import type { feedback } from "../../../types/feedback";
 import { useParams, type Params } from "react-router-dom";
-import { getFeedbackByProduct } from "../../../services/feedbackService";
+import { addFeedbackForProduct, getFeedbackByProduct } from "../../../services/feedbackService";
 
 const UserFeedbackPage = () => {
   const { productId }: Readonly<Params<string>> = useParams();
@@ -14,9 +14,21 @@ const UserFeedbackPage = () => {
     async function getFeedbacks(): Promise<void> {
       const feedbacks: feedback[] = await getFeedbackByProduct(productId || "");
       setFeedbacks(feedbacks);
+      console.log("userid",localStorage.getItem("userId"));
     }
     getFeedbacks();
   }, [productId]);
+  async function addFeedback(rating:number,review:string,productId:string,userId:string){
+    const newFeedback:feedback = await addFeedbackForProduct(rating,review,productId,userId);
+    console.log("newfeedback",newFeedback);
+    setFeedbacks((prev:feedback[]):feedback[]=>{
+      console.log("set", [...prev, newFeedback]);
+      return [
+        ...prev,
+        newFeedback
+      ]
+    })
+  }
 
 
   return (
@@ -30,9 +42,8 @@ const UserFeedbackPage = () => {
       <FeedbackList feedbacks={feedbacks} />
 
       <AddFeedbackForm
-        onAddFeedback={(rating, review) =>
-          console.log(rating, review)
-        }
+        onAddFeedback={addFeedback}
+        productId={productId||""}
       />
 
     </div>

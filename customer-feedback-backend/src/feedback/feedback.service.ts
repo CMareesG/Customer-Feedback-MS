@@ -9,8 +9,9 @@ import { extendedFeedback } from 'src/types/feedback';
 export class FeedbackService {
   constructor(private prisma: PrismaService) { }
 
-  async createFeedback(dto: CreateFeedbackDto): Promise<Feedback> {
-    return await this.prisma.feedback.create({
+  async createFeedback(dto: CreateFeedbackDto): Promise<extendedFeedback> {
+    console.log("feedback",dto.userId);
+    const feedback =  await this.prisma.feedback.create({
       data: {
         productId: dto.productId,
         userId: dto.userId,
@@ -18,6 +19,14 @@ export class FeedbackService {
         review: dto.review,
       },
     });
+    const user: User | null = await this.prisma.user.findUnique({
+      where: { id: feedback.userId },
+    });
+    if (!user) throw new NotFoundException('User not found');
+    return {
+      ...feedback,
+      name: user.name,
+    };
   }
 
   async getAllFeedback() {

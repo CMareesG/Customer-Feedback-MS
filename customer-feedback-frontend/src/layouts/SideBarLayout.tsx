@@ -129,7 +129,7 @@ const SidebarLayout = () => {
                             className="flex items-center justify-between w-full px-5 py-3 mx-3 rounded-lg hover:bg-gray-800 text-gray-300"
                           >
                             <div className="flex items-center gap-3">
-                              <ShoppingBag size={20} />
+                              {/* <ShoppingBag size={20} /> */}
                               {category.name}
                             </div>
                             {category.isOpen ? (
