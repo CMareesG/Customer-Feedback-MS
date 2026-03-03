@@ -4,14 +4,14 @@ import RatingSummary from "../../../components/feedback/RatingSummary";
 import FeedbackList from "../../../components/feedback/FeedbackList";
 import AddFeedbackForm from "../../../components/feedback/AddFeedbackForm";
 
-interface Review {
+interface Feedback {
   id: number;
   name: string;
   rating: number;
   comment: string;
 }
 
-const initialReviews: Review[] = [
+const initialFeedbacks: Feedback[] = [
   {
     id: 1,
     name: "Robert Karamazov",
@@ -27,30 +27,30 @@ const initialReviews: Review[] = [
 ];
 
 const ProductFeedbackPage: React.FC = () => {
-  const [reviews, setReviews] = useState(initialReviews);
-
-  const handleAddReview = (rating: number, comment: string) => {
-    const newReview: Review = {
-      id: reviews.length + 1,
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>(initialFeedbacks);
+  console.log("Userpage",feedbacks);
+  const handleAddFeedback = (rating: number, comment: string) => {
+    const newFeedback: Feedback = {
+      id: feedbacks.length + 1,
       name: "You",
       rating,
       comment,
     };
 
-    setReviews([newReview, ...reviews]);
+    setFeedbacks([newFeedback, ...feedbacks]);
   };
 
   return (
     <div className="space-y-8">
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <RatingBreakdown reviews={reviews} />
-        <RatingSummary reviews={reviews} />
+        <RatingBreakdown feedbacks={feedbacks} />
+        <RatingSummary feedbacks={feedbacks} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <FeedbackList reviews={reviews} />
-        <AddFeedbackForm onAddReview={handleAddReview} />
+        <FeedbackList feedbacks={feedbacks} />
+        <AddFeedbackForm onAddFeedback={handleAddFeedback} />
       </div>
 
     </div>

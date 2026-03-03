@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { Star } from "lucide-react";
 
 interface Props {
-  onAddReview: (rating: number, comment: string) => void;
+  onAddFeedback: (rating: number, comment: string) => void;
 }
 
-const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
+const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
   const handleSubmit = () => {
     if (!rating || !comment) return;
 
-    onAddReview(rating, comment);
+    onAddFeedback(rating, comment);
     setRating(0);
     setComment("");
   };
 
   return (
     <div className="card">
-      <h2 className="mb-4">Add a Review</h2>
+      <h2 className="mb-4">Add a Feedback</h2>
 
       <div className="flex gap-1 mb-4">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -39,7 +39,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
       <textarea
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        placeholder="Write your review..."
+        placeholder="Write your feedback..."
         className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
       />
 

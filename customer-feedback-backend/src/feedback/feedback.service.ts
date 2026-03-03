@@ -2,14 +2,15 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Feedback } from '@prisma/client';
+import { Feedback, User } from '@prisma/client';
+import { extendedFeedback } from 'src/types/feedback';
 
 @Injectable()
 export class FeedbackService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async createFeedback(dto: CreateFeedbackDto) {
-    return this.prisma.feedback.create({
+  async createFeedback(dto: CreateFeedbackDto): Promise<Feedback> {
+    return await this.prisma.feedback.create({
       data: {
         productId: dto.productId,
         userId: dto.userId,
@@ -151,7 +152,16 @@ export class FeedbackService {
     };
   }
 
-  async getFeedbackByProductId(productId:string):Promise<Feedback[]>{
-    return await this.prisma.feedback.findMany({where:{productId}});
+  async getFeedbackByProductId(productId: string): Promise<extendedFeedback[]> {
+    const response: Feedback[] = await this.prisma.feedback.findMany({ where: { productId } });
+    const feedbacks: Promise<extendedFeedback[]> = Promise.all(response.map(async (feedback:Feedback):Promise<extendedFeedback> => {
+      const user: User | null = await this.prisma.user.findUnique({ where: { id: feedback.userId } });
+      if (!user) throw new NotFoundException('User not found');
+      return {
+        ...feedback,
+        name: user.name
+      }
+    }))
+    return feedbacks;
   }
 }

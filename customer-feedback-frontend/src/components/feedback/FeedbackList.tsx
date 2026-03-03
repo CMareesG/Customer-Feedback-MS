@@ -1,27 +1,27 @@
 import React from "react";
 import { Star } from "lucide-react";
 
-interface Review {
+interface Feedback {
   id: number;
   name: string;
   rating: number;
-  comment: string;
+  review: string;
 }
 
 interface Props {
-  reviews: Review[];
+  feedbacks: Feedback[];
 }
 
-const FeedbackList: React.FC<Props> = ({ reviews }) => {
+const FeedbackList: React.FC<Props> = ({ feedbacks }) => {
   return (
     <div className="card">
       <h2 className="mb-4">Recent Feedbacks</h2>
 
       <div className="space-y-4">
-        {reviews.map((review) => (
-          <div key={review.id} className="p-4 border rounded-lg">
+        {feedbacks.map((feedback) => (
+          <div key={feedback.id} className="p-4 border rounded-lg">
             <div className="flex justify-between items-center mb-2">
-              <p className="font-medium">{review.name}</p>
+              <p className="font-medium">{feedback.name}</p>
 
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -29,7 +29,7 @@ const FeedbackList: React.FC<Props> = ({ reviews }) => {
                     key={star}
                     size={16}
                     className={
-                      star <= review.rating
+                      star <= feedback.rating
                         ? "text-yellow-400 fill-yellow-400"
                         : "text-gray-300"
                     }
@@ -39,7 +39,7 @@ const FeedbackList: React.FC<Props> = ({ reviews }) => {
             </div>
 
             <p className="text-sm text-gray-600">
-              {review.comment}
+              {feedback.review}
             </p>
           </div>
         ))}

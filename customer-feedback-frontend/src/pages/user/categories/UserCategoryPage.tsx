@@ -111,7 +111,7 @@ const UserCategoryPage: React.FC = () => {
         {products.map((product) => (
           <div
             key={product.id}
-            onClick={() => navigate(`/feedback/${product.id}`)}
+            onClick={() => navigate(`/product/feedback/${product.id}`)}
             className="card cursor-pointer hover:scale-[1.02] transition duration-200"
           >
             {/* Image */}

@@ -1,15 +1,15 @@
 import React from "react";
 
 interface Props {
-  reviews: { rating: number }[];
+  feedbacks: { rating: number }[];
 }
 
-const RatingBreakdown: React.FC<Props> = ({ reviews }) => {
-  const totalReviews = reviews.length;
+const RatingBreakdown: React.FC<Props> = ({ feedbacks }) => {
+  const totalFeedbacks = feedbacks.length;
 
   const ratingCounts = [5, 4, 3, 2, 1].map((star) => ({
     star,
-    count: reviews.filter((r) => r.rating === star).length,
+    count: feedbacks.filter((r) => r.rating === star).length,
   }));
 
   return (
@@ -18,7 +18,7 @@ const RatingBreakdown: React.FC<Props> = ({ reviews }) => {
 
       {ratingCounts.map(({ star, count }) => {
         const percentage =
-          totalReviews === 0 ? 0 : (count / totalReviews) * 100;
+          totalFeedbacks === 0 ? 0 : (count / totalFeedbacks) * 100;
 
         return (
           <div key={star} className="flex items-center gap-4 mb-3">

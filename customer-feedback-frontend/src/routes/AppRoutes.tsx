@@ -46,7 +46,7 @@ const AppRoutes = () => {
                             <Route path="/categories/:categoryName/:categoryId" element={<UserCategoryPage />} />
 
                             <Route
-                                path="/feedback/:productId"
+                                path="product/feedback/:productId"
                                 element={<UserFeedbackPage />}
                             />
 
