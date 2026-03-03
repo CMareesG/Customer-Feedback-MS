@@ -8,11 +8,19 @@ export const getFeedbackByProduct = async (productId:string):Promise<feedback[]>
 };
 
 export const addFeedbackForProduct = async (rating:number,review:string,productId:string,userId:string):Promise<feedback> => {
-  const response:AxiosResponse = await api.post(`/feedback`,{
-    productId,
-    rating,
-    review,
-    userId
-  });
+  const response: AxiosResponse = await api.post(
+    `/feedback`,
+    {
+      productId,
+      rating,
+      review,
+      userId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    },
+  );
   return response.data;
 }

@@ -23,7 +23,7 @@ export class FeedbackController {
   constructor(private feedbackService: FeedbackService) {}
 
   @Post()
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   createFeedback(@Body() dto: CreateFeedbackDto, @Req() req) {
     return this.feedbackService.createFeedback(dto);
   }
