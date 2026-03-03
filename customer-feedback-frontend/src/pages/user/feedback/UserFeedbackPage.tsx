@@ -8,19 +8,16 @@ import { useParams, type Params } from "react-router-dom";
 import { getFeedbackByProduct } from "../../../services/feedbackService";
 
 const UserFeedbackPage = () => {
-  const { productId }:Readonly<Params<string>> = useParams();
-  const [feedbacks,setFeedbacks] = useState<feedback[]>([]);
-  useEffect(()=>{
-    async function getFeedback(productId:string):Promise<void>{
-      const feedbacks:feedback[] = await getFeedbackByProduct(productId);
+  const { productId }: Readonly<Params<string>> = useParams();
+  const [feedbacks, setFeedbacks] = useState<feedback[]>([]);
+  useEffect(() => {
+    async function getFeedbacks(): Promise<void> {
+      const feedbacks: feedback[] = await getFeedbackByProduct(productId || "");
       setFeedbacks(feedbacks);
     }
-  },[productId]);
-  // const feedbacks = [
-  //   { id: 1, name: "John", rating: 5, comment: "Excellent product" },
-  //   { id: 2, name: "Sam", rating: 4, comment: "Good product" },
-  // ];
-  
+    getFeedbacks();
+  }, [productId]);
+
 
   return (
 
