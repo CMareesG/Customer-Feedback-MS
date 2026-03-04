@@ -25,7 +25,7 @@ export class FeedbackController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   createFeedback(@Body() dto: CreateFeedbackDto, @Req() req) {
-    return this.feedbackService.createFeedback(dto);
+    return this.feedbackService.createFeedback(dto,req.user.id);
   }
 
   @Get()

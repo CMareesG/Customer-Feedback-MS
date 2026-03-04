@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Star } from "lucide-react";
 
 interface Props {
-  onAddFeedback: (rating: number, review: string, productId:string,userId:string) => void;
+  onAddFeedback: (rating: number, review: string, productId:string) => void;
   productId:string;
 }
 
@@ -12,8 +12,8 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
 
   const handleSubmit = () => {
     if (!rating || !review) return;
-    console.log({rating,review,productId,userId:localStorage.getItem("userId")});
-    onAddFeedback(rating, review, productId,localStorage.getItem("userId")??"");
+    // console.log({rating,review,productId,userId:localStorage.getItem("userId")});
+    onAddFeedback(rating, review, productId);
     setRating(0);
     setReview("");
   };

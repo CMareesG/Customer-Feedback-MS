@@ -7,14 +7,13 @@ export const getFeedbackByProduct = async (productId:string):Promise<feedback[]>
   return response.data;
 };
 
-export const addFeedbackForProduct = async (rating:number,review:string,productId:string,userId:string):Promise<feedback> => {
+export const addFeedbackForProduct = async (rating:number,review:string,productId:string):Promise<feedback> => {
   const response: AxiosResponse = await api.post(
     `/feedback`,
     {
       productId,
       rating,
       review,
-      userId,
     },
     {
       headers: {

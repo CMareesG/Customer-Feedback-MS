@@ -14,12 +14,11 @@ const UserFeedbackPage = () => {
     async function getFeedbacks(): Promise<void> {
       const feedbacks: feedback[] = await getFeedbackByProduct(productId || "");
       setFeedbacks(feedbacks);
-      console.log("userid",localStorage.getItem("userId"));
     }
     getFeedbacks();
   }, [productId]);
-  async function addFeedback(rating:number,review:string,productId:string,userId:string){
-    const newFeedback:feedback = await addFeedbackForProduct(rating,review,productId,userId);
+  async function addFeedback(rating:number,review:string,productId:string){
+    const newFeedback:feedback = await addFeedbackForProduct(rating,review,productId);
     console.log("newfeedback",newFeedback);
     setFeedbacks((prev:feedback[]):feedback[]=>{
       console.log("set", [...prev, newFeedback]);

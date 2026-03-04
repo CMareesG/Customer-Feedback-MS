@@ -9,12 +9,12 @@ import { extendedFeedback } from 'src/types/feedback';
 export class FeedbackService {
   constructor(private prisma: PrismaService) { }
 
-  async createFeedback(dto: CreateFeedbackDto): Promise<extendedFeedback> {
-    console.log("feedback",dto.userId);
+  async createFeedback(dto: CreateFeedbackDto,userId:string): Promise<extendedFeedback> {
+    console.log("feedback",userId);
     const feedback =  await this.prisma.feedback.create({
       data: {
         productId: dto.productId,
-        userId: dto.userId,
+        userId,
         rating: dto.rating,
         review: dto.review,
       },
