@@ -19,7 +19,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
 
   return (
     <div className="card">
-      <h2 className="mb-4">Add a Review</h2>
+      <h2 className="mb-4 text-text-primary">Add a Review</h2>
 
       <div className="flex gap-1 mb-4">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -30,7 +30,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
             className={`cursor-pointer ${
               star <= rating
                 ? "text-yellow-400 fill-yellow-400"
-                : "text-gray-300"
+                : "text-text-muted"
             }`}
           />
         ))}
@@ -40,12 +40,12 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddReview }) => {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Write your review..."
-        className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        className="input-field mb-4 h-24 resize-none"
       />
 
       <button
         onClick={handleSubmit}
-        className="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition"
+        className="btn-primary w-full"
       >
         Submit
       </button>

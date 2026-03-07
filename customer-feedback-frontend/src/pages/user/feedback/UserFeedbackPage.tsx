@@ -12,19 +12,23 @@ const UserFeedbackPage = () => {
 
   return (
 
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="page-container">
 
-      <RatingSummary reviews={reviews} />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <RatingBreakdown reviews={reviews} />
+        <RatingSummary reviews={reviews} />
 
-      <FeedbackList reviews={reviews} />
+        <RatingBreakdown reviews={reviews} />
 
-      <AddFeedbackForm
-        onAddReview={(rating, comment) =>
-          console.log(rating, comment)
-        }
-      />
+        <FeedbackList reviews={reviews} />
+
+        <AddFeedbackForm
+          onAddReview={(rating, comment) =>
+            console.log(rating, comment)
+          }
+        />
+
+      </div>
 
     </div>
 

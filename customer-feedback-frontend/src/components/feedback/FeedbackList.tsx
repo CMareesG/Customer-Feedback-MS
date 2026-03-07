@@ -15,13 +15,13 @@ interface Props {
 const FeedbackList: React.FC<Props> = ({ reviews }) => {
   return (
     <div className="card">
-      <h2 className="mb-4">Recent Feedbacks</h2>
+      <h2 className="mb-4 text-text-primary">Recent Feedbacks</h2>
 
       <div className="space-y-4">
         {reviews.map((review) => (
-          <div key={review.id} className="p-4 border rounded-lg">
+          <div key={review.id} className="p-4 border border-white/10 rounded-lg bg-white/5">
             <div className="flex justify-between items-center mb-2">
-              <p className="font-medium">{review.name}</p>
+              <p className="font-medium text-text-primary">{review.name}</p>
 
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -31,14 +31,14 @@ const FeedbackList: React.FC<Props> = ({ reviews }) => {
                     className={
                       star <= review.rating
                         ? "text-yellow-400 fill-yellow-400"
-                        : "text-gray-300"
+                        : "text-text-muted"
                     }
                   />
                 ))}
               </div>
             </div>
 
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-text-muted">
               {review.comment}
             </p>
           </div>

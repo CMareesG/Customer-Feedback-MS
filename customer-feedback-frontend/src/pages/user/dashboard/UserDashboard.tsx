@@ -99,9 +99,9 @@ const UserDashboard = () => {
 
     return (
 
-        <div className="p-8">
+        <div className="page-container">
 
-            <h1 className="text-2xl font-bold text-blue-900 mb-6">
+            <h1 className="text-2xl font-bold text-text-primary mb-6">
                 Dashboard
             </h1>
 

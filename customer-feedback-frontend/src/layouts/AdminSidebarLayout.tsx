@@ -2,21 +2,18 @@ import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
-  ChevronDown,
-  ChevronUp,
   ShoppingBag,
-  Shirt,
-  Sofa,
-  Info,
-  Phone,
-  User,
+  Users,
+  Package,
   Settings,
   LogOut,
   Menu,
   X,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
-const SidebarLayout = () => {
+const AdminSidebarLayout = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
@@ -48,13 +45,16 @@ const SidebarLayout = () => {
               </div>
               Feedback360
             </div>
+            <span className="text-xs text-accent-1 font-semibold ml-[52px]">
+              ADMIN
+            </span>
           </div>
 
           <nav className="mt-5 space-y-2">
 
-            {/* Dashboard */}
+            {/* Admin Dashboard */}
             <NavLink
-              to="/dashboard"
+              to="/admin/dashboard"
               className={({ isActive }) =>
                 `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
                   isActive
@@ -69,74 +69,67 @@ const SidebarLayout = () => {
             </NavLink>
 
             {/* Categories */}
-            <div>
-              <button
-                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                className="flex items-center justify-between w-full px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
-              >
-                <div className="flex items-center gap-3">
-                  <ShoppingBag size={20} />
-                  Categories
-                </div>
-                {isCategoryOpen ? (
-                  <ChevronUp size={18} />
-                ) : (
-                  <ChevronDown size={18} />
-                )}
-              </button>
+            <NavLink
+              to="/admin/categories"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
+                  isActive
+                    ? "bg-accent-1 text-white"
+                    : "hover:bg-white/10 text-text-muted"
+                }`
+              }
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <ShoppingBag size={20} />
+              Categories
+            </NavLink>
 
-              {isCategoryOpen && (
-                <div className="ml-10 mt-2 space-y-2 text-sm">
+            {/* Products */}
+            <NavLink
+              to="/admin/products"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
+                  isActive
+                    ? "bg-accent-1 text-white"
+                    : "hover:bg-white/10 text-text-muted"
+                }`
+              }
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <Package size={20} />
+              Products
+            </NavLink>
 
-                  <NavLink
-                    to="/categories/electronics"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <ShoppingBag size={16} />
-                    Electronics
-                  </NavLink>
-
-                  <NavLink
-                    to="/categories/clothing"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <Shirt size={16} />
-                    Clothing
-                  </NavLink>
-
-                  <NavLink
-                    to="/categories/home-decor"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <Sofa size={16} />
-                    Home Decor
-                  </NavLink>
-
-                </div>
-              )}
-            </div>
+            {/* Users */}
+            <NavLink
+              to="/admin/users"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
+                  isActive
+                    ? "bg-accent-1 text-white"
+                    : "hover:bg-white/10 text-text-muted"
+                }`
+              }
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <Users size={20} />
+              Users
+            </NavLink>
 
             {/* About */}
             <NavLink
-              to="/about"
-              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
+              to="/admin/about"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
+                  isActive
+                    ? "bg-accent-1 text-white"
+                    : "hover:bg-white/10 text-text-muted"
+                }`
+              }
               onClick={() => setIsSidebarOpen(false)}
             >
-              <Info size={20} />
+              <ShoppingBag size={20} />
               About
-            </NavLink>
-
-            {/* Contact */}
-            <NavLink
-              to="/contact"
-              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              <Phone size={20} />
-              Contact
             </NavLink>
 
           </nav>
@@ -144,15 +137,6 @@ const SidebarLayout = () => {
 
         {/* Bottom Section */}
         <div className="mb-5 space-y-2">
-
-          <NavLink
-            to="/profile"
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <User size={20} />
-            Profile
-          </NavLink>
 
           <NavLink
             to="/settings"
@@ -200,4 +184,5 @@ const SidebarLayout = () => {
   );
 };
 
-export default SidebarLayout;
+export default AdminSidebarLayout;
+
