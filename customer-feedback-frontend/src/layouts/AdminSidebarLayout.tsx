@@ -9,8 +9,7 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronDown,
-  ChevronUp,
+  User,
 } from "lucide-react";
 
 const AdminSidebarLayout = () => {
@@ -139,7 +138,16 @@ const AdminSidebarLayout = () => {
         <div className="mb-5 space-y-2">
 
           <NavLink
-            to="/settings"
+            to="/admin/profile"
+            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <User size={20} />
+            Profile
+          </NavLink>
+
+          <NavLink
+            to="/admin/settings"
             className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
             onClick={() => setIsSidebarOpen(false)}
           >

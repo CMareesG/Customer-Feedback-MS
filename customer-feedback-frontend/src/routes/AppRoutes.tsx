@@ -13,12 +13,17 @@ import UserDashboard from "../pages/user/dashboard/UserDashboard";
 import UserCategoryPage from "../pages/user/categories/UserCategoryPage";
 // import UserProductPage from "../pages/user/products/UserProductPage";
 import UserFeedbackPage from "../pages/user/feedback/UserFeedbackPage";
+import UserProfile from "../pages/user/profile/UserProfile";
+import UserSettings from "../pages/user/settings/UserSettings";
+import UserContact from "../pages/user/contact/UserContact";
 
 /* ADMIN */
 import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
 import AdminCategoryPage from "../pages/admin/categories/AdminCategoryPage";
 import AdminProductPage from "../pages/admin/products/AdminProductPage";
 import AdminUserPage from "../pages/admin/users/AdminUserPage";
+import AdminProfile from "../pages/admin/profile/AdminProfile";
+import AdminSettings from "../pages/admin/settings/AdminSettings";
 
 /* SHARED */
 import AboutPage from "../pages/shared/AboutPage";
@@ -42,6 +47,9 @@ const AppRoutes = () => {
                     <Route path="/categories/:categoryName" element={<UserCategoryPage />} />
                     <Route path="/feedback/:productId" element={<UserFeedbackPage />} />
                     <Route path="/about" element={<AboutPage />} />
+                    <Route path="/profile" element={<UserProfile />} />
+                    <Route path="/settings" element={<UserSettings />} />
+                    <Route path="/contact" element={<UserContact />} />
                 </Route>
 
                 {/* ADMIN ROUTES WITH ADMIN SIDEBAR */}
@@ -51,6 +59,8 @@ const AppRoutes = () => {
                     <Route path="/admin/products" element={<AdminProductPage />} />
                     <Route path="/admin/users" element={<AdminUserPage />} />
                     <Route path="/admin/about" element={<AboutPage />} />
+                    <Route path="/admin/profile" element={<AdminProfile />} />
+                    <Route path="/admin/settings" element={<AdminSettings />} />
                 </Route>
 
             </Route>
