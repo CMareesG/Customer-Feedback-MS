@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 interface Feedback {
-  id: number;
+  id: string;
   title: string;
   status: "pending" | "resolved";
   date: string;
