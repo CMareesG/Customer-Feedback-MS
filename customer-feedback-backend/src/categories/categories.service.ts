@@ -9,7 +9,7 @@ export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateCategoryDto) {
-    // Validate parent
+
     if (dto.parentId) {
       const parentFound = await this.prisma.category.findUnique({
         where: { id: dto.parentId },
@@ -19,11 +19,10 @@ export class CategoriesService {
         throw new BadRequestException('Parent category not found');
       }
     }
-
-    // Generate slug
+    
     const slug = slugify(dto.name, { lower: true });
 
-    // Check duplicate slug
+    
     const existingSlug = await this.prisma.category.findUnique({
       where: { slug },
     });
@@ -69,36 +68,43 @@ export class CategoriesService {
   }
 
   async update(id: string, dto: UpdateCategoryDto) {
+
     const category = await this.findOne(id);
 
-    // Prevent self-parenting
     if (dto.parentId && dto.parentId === id) {
       throw new BadRequestException('Category cannot be its own parent');
     }
 
-    // Validate new parent
-    if (dto.parentId) {
+    const data: any = {
+      name: dto.name,
+      description: dto.description,
+      isActive: dto.isActive,
+      sortOrder: dto.sortOrder,
+    };
+
+    if (dto.name) 
+    {
+      data.slug = slugify(dto.name, { lower: true });
+    }
+
+    if (dto.parentId === null || dto.parentId === '') 
+    {
+      data.parent = { disconnect: true };
+    } 
+    else if (dto.parentId) 
+    {
       const parent = await this.prisma.category.findUnique({
         where: { id: dto.parentId },
       });
-
       if (!parent) {
         throw new BadRequestException('Parent category not found');
       }
-    }
-
-    // If name updated, regenerate slug
-    let slug;
-    if (dto.name) {
-      slug = slugify(dto.name, { lower: true });
+      data.parent = { connect: { id: dto.parentId } };
     }
 
     return this.prisma.category.update({
       where: { id },
-      data: {
-        ...dto,
-        ...(slug && { slug }),
-      },
+      data,
     });
   }
 

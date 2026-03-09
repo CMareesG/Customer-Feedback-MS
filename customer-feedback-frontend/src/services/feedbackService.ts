@@ -3,7 +3,12 @@ import { api } from "./api";
 import type { Feedback } from '../types/feedback';
 
 export const getFeedbackByProduct = async (productId:string):Promise<Feedback[]> => {
-  const response:AxiosResponse = await api.get(`/feedback/product/${productId}`);
+  const response:AxiosResponse = await api.get(`/feedback/product/${productId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    },);
   return response.data;
 };
 

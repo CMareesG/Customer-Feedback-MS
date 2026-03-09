@@ -3,6 +3,13 @@ import type { category } from "../types/category";
 import { api } from "./api";
 
 export const getCategories = async ():Promise<category[]> => {
-  const response:AxiosResponse = await api.get("/categories");
+  const response:AxiosResponse = await api.get("/categories",{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
   return response.data;
 };

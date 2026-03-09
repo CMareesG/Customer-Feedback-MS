@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Role } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import { add } from 'date-fns';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -101,10 +102,27 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async updateUserRole(id: string, newRole: Role) {
-    return this.prisma.user.update({
-      where: { id },
-      data: { role: newRole },
-    });
+  async updateUser(id: string, dto: UpdateUserDto) {
+  if (dto.password) {
+    dto.password = await bcrypt.hash(dto.password, 10);
+  }
+
+  const user =  await this.prisma.user.update({
+    where: { id },
+    data:{
+      name:dto.name,
+      email:dto.email,
+      password:dto.password,
+      role:dto.role,
+    },
+  });
+  return user;
+}
+
+  async deleteUser(id:string)
+  { 
+    return this.prisma.user.delete({
+      where:{id},
+    })
   }
 }
