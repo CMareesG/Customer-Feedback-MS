@@ -5,7 +5,6 @@ import {
   ShoppingBag,
   Users,
   Package,
-  Settings,
   LogOut,
   Menu,
   X,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react";
 
 const AdminSidebarLayout = () => {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -24,7 +22,6 @@ const AdminSidebarLayout = () => {
   return (
     <div className="flex min-h-screen bg-bg-1 text-text-primary">
 
-      {/* SIDEBAR */}
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="p-5">
           <button
@@ -35,7 +32,6 @@ const AdminSidebarLayout = () => {
           </button>
         </div>
 
-        {/* Top Section */}
         <div className="flex-1">
           <div className="p-5 text-2xl font-bold border-b border-white/10">
             <div className="flex items-center gap-3">
@@ -51,7 +47,6 @@ const AdminSidebarLayout = () => {
 
           <nav className="mt-5 space-y-2">
 
-            {/* Admin Dashboard */}
             <NavLink
               to="/admin/dashboard"
               className={({ isActive }) =>
@@ -67,7 +62,6 @@ const AdminSidebarLayout = () => {
               Dashboard
             </NavLink>
 
-            {/* Categories */}
             <NavLink
               to="/admin/categories"
               className={({ isActive }) =>
@@ -83,7 +77,6 @@ const AdminSidebarLayout = () => {
               Categories
             </NavLink>
 
-            {/* Products */}
             <NavLink
               to="/admin/products"
               className={({ isActive }) =>
@@ -99,7 +92,6 @@ const AdminSidebarLayout = () => {
               Products
             </NavLink>
 
-            {/* Users */}
             <NavLink
               to="/admin/users"
               className={({ isActive }) =>
@@ -115,7 +107,6 @@ const AdminSidebarLayout = () => {
               Users
             </NavLink>
 
-            {/* About */}
             <NavLink
               to="/admin/about"
               className={({ isActive }) =>
@@ -134,7 +125,6 @@ const AdminSidebarLayout = () => {
           </nav>
         </div>
 
-        {/* Bottom Section */}
         <div className="mb-5 space-y-2">
 
           <NavLink
@@ -144,15 +134,6 @@ const AdminSidebarLayout = () => {
           >
             <User size={20} />
             Profile
-          </NavLink>
-
-          <NavLink
-            to="/admin/settings"
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <Settings size={20} />
-            Settings
           </NavLink>
 
           <button
@@ -165,7 +146,6 @@ const AdminSidebarLayout = () => {
         </div>
       </div>
 
-      {/* OVERLAY for mobile */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -173,7 +153,6 @@ const AdminSidebarLayout = () => {
         ></div>
       )}
 
-      {/* PAGE CONTENT */}
       <div className="flex-1 lg:ml-0">
         <div className="lg:hidden p-4">
           <button

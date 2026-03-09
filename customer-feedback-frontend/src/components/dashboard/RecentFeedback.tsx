@@ -19,7 +19,6 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
   return (
     <div className="card">
       
-      {/* Header */}
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-text-primary">Recent Reviews</h2>
         <button
@@ -30,7 +29,6 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
         </button>
       </div>
 
-      {/* List */}
       <div className="space-y-4">
         {feedbacks.map((item) => (
           <div

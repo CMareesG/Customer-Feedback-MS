@@ -22,7 +22,6 @@ const ForgotPassword = () => {
 
         <form className="auth-form" onSubmit={handleReset}>
           <div className="input-group">
-            <span className="input-icon">📧</span>
             <input
               type="email"
               placeholder="Enter your registered email"

@@ -15,16 +15,14 @@ const UserFeedbackStats: React.FC<StatsProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-      {/* Total Reviews */}
       <div className="stat-card">
         <div>
           <p className="text-text-muted text-sm">Total Reviews</p>
           <h2 className="text-3xl font-bold text-text-primary">{total}</h2>
         </div>
-        <MessageSquare className="text-accent-1" size={32} />
+        <MessageSquare className="text-accent-1 text-grey" size={32} />
       </div>
 
-      {/* Pending Reviews */}
       <div className="stat-card">
         <div>
           <p className="text-text-muted text-sm">Pending</p>
@@ -33,7 +31,6 @@ const UserFeedbackStats: React.FC<StatsProps> = ({
         <Clock className="text-yellow-400" size={32} />
       </div>
 
-      {/* Resolved Reviews */}
       <div className="stat-card">
         <div>
           <p className="text-text-muted text-sm">Average</p>

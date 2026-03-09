@@ -107,7 +107,6 @@ const AdminCategoryPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-text-primary">
           Categories & Subcategories
@@ -130,7 +129,6 @@ const AdminCategoryPage = () => {
         </div>
       </div>
 
-      {/* Category List */}
       <CategoryList
         categories={categories}
         onEdit={handleEdit}
@@ -138,7 +136,6 @@ const AdminCategoryPage = () => {
         isLoading={isLoading}
       />
 
-      {/* Form Modal */}
       <CategoryForm
         category={formModal.category || undefined}
         isOpen={formModal.isOpen}

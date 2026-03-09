@@ -5,7 +5,6 @@ const AboutPage: React.FC = () => {
   return (
     <div className="page-container space-y-8">
 
-      {/* Header */}
       <div>
         <h1 className="mb-2 text-text-primary">About Feedback360</h1>
         <p className="text-text-muted max-w-3xl">
@@ -15,7 +14,6 @@ const AboutPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Mission Section */}
       <div className="card">
         <h2 className="mb-3 text-text-primary">Our Mission</h2>
         <p className="text-text-muted leading-relaxed">
@@ -26,7 +24,6 @@ const AboutPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Features Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <div className="card flex items-start gap-4">
@@ -75,7 +72,6 @@ const AboutPage: React.FC = () => {
 
       </div>
 
-      {/* Footer Note */}
       <div className="card text-center">
         <p className="text-text-muted text-sm">
           © {new Date().getFullYear()} Feedback360. All rights reserved.

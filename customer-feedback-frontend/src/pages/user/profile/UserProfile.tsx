@@ -11,8 +11,8 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserData>({
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Name",
+    email: "name@example.com",
     role: "CUSTOMER",
   });
 
@@ -20,7 +20,6 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     setIsLoading(true);
-    // Simulate API call
     setTimeout(() => {
       setUserData(formData);
       setIsEditing(false);
@@ -35,16 +34,13 @@ const UserProfile = () => {
 
   return (
     <div className="page-container max-w-4xl mx-auto space-y-8">
-      {/* Header */}
+  
       <div>
         <h1 className="text-2xl font-bold text-text-primary mb-2">My Profile</h1>
         <p className="text-text-muted">Manage your account information and preferences</p>
       </div>
-
-      {/* Profile Card */}
       <div className="card">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-          {/* Avatar Section */}
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent-1 to-accent-2 flex items-center justify-center text-4xl font-bold text-white">
@@ -56,11 +52,8 @@ const UserProfile = () => {
             </div>
             <span className="mt-3 text-text-muted text-sm">Click to change photo</span>
           </div>
-
-          {/* Info Section */}
           <div className="flex-1 w-full">
             <div className="space-y-6">
-              {/* Name Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Full Name</label>
                 {isEditing ? (
@@ -77,8 +70,6 @@ const UserProfile = () => {
                   </div>
                 )}
               </div>
-
-              {/* Email Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Email Address</label>
                 {isEditing ? (
@@ -96,7 +87,6 @@ const UserProfile = () => {
                 )}
               </div>
 
-              {/* Role Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Account Type</label>
                 <div className="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
@@ -106,7 +96,6 @@ const UserProfile = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-4 mt-8">
               {isEditing ? (
                 <>
@@ -138,7 +127,6 @@ const UserProfile = () => {
         </div>
       </div>
 
-      {/* Account Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card text-center">
           <div className="text-3xl font-bold text-accent-1">12</div>

@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-// ==================== CATEGORIES ====================
+
 
 export const getAllCategories = async () => {
   const response = await api.get("/categories");
@@ -33,10 +33,16 @@ export const deleteCategory = async (id: string) => {
   return response.data;
 };
 
-// ==================== USERS ====================
 
 export const getAllUsers = async () => {
-  const response = await api.get("/user/all");
+  const response = await api.get("/user/all",{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
   return response.data;
 };
 
@@ -68,7 +74,7 @@ export const deleteUser = async (id: string) => {
   return response.data;
 };
 
-// ==================== PRODUCTS ====================
+
 
 export const getAllProducts = async () => {
   const response = await api.get("/products");
@@ -106,7 +112,6 @@ export const deleteProduct = async (id: string) => {
   return response.data;
 };
 
-// ==================== FEEDBACK ====================
 
 export const getFeedbackByProduct = async (productId: string) => {
   const response = await api.get("/feedback");
@@ -137,7 +142,7 @@ export const deleteFeedback = async (id: string) => {
   return response.data;
 };
 
-// ==================== RESPONSES ====================
+
 
 export const createResponse = async (data: {
   feedbackId: string;

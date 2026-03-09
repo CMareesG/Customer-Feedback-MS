@@ -36,7 +36,6 @@ const ProductList: React.FC<ProductListProps> = ({
           key={product.id}
           className="bg-bg-2 border border-white/10 rounded-lg overflow-hidden hover:border-accent-1/50 transition"
         >
-          {/* Product Image */}
           {product.img && (
             <img
               src={product.img}

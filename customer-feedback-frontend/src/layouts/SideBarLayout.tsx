@@ -8,7 +8,6 @@ import {
   Info,
   Phone,
   User,
-  Settings,
   LogOut,
   Menu,
   X,
@@ -23,7 +22,6 @@ const SidebarLayout = () => {
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState<categoryStatus[]>(
     [],
   );
-  // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -32,9 +30,7 @@ const SidebarLayout = () => {
   };
 
   async function handleCategories(): Promise<void> {
-    console.log("before category:", isCategoryOpen);
     await setIsCategoryOpen(!isCategoryOpen);
-    console.log("after category:", !isCategoryOpen);
     if (categories.length === 0) {
       const response = await getCategories();
       const parentCategories: category[] = response.filter(
@@ -74,12 +70,10 @@ const SidebarLayout = () => {
       });
     });
   }
-  // useEffect(() => {}, [isCategoryOpen]);
 
   return (
     <div className="flex min-h-screen bg-bg-1 text-text-primary">
 
-      {/* SIDEBAR */}
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="p-5">
           <button
@@ -90,19 +84,14 @@ const SidebarLayout = () => {
           </button>
         </div>
 
-        {/* Top Section */}
         <div className="flex-1">
           <div className="p-5 text-2xl font-bold border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-accent-1 to-accent-2 rounded-lg flex items-center justify-center font-bold text-white">
-                CF
-              </div>
-              Feedback360
+            <div className="ml-8 gap-3">
+              FeedbackMS
             </div>
           </div>
 
           <nav className="mt-5 space-y-2">
-            {/* Dashboard */}
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
@@ -118,7 +107,6 @@ const SidebarLayout = () => {
               Dashboard
             </NavLink>
 
-            {/* Categories */}
             <div>
               <button
                 onClick={handleCategories}
@@ -149,7 +137,6 @@ const SidebarLayout = () => {
                             className="flex items-center justify-between w-full px-5 py-3 mx-3 rounded-lg hover:bg-gray-800 text-gray-300"
                           >
                             <div className="flex items-center gap-3">
-                              {/* <ShoppingBag size={20} /> */}
                               {category.name}
                             </div>
                             {category.isOpen ? (
@@ -179,37 +166,11 @@ const SidebarLayout = () => {
                       );
                     },
                   )}
-                  {/* <NavLink
-                    to="/categories/electronics"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <ShoppingBag size={16} />
-                    Electronics
-                  </NavLink>
-
-                  <NavLink
-                    to="/categories/clothing"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <Shirt size={16} />
-                    Clothing
-                  </NavLink>
-
-                  <NavLink
-                    to="/categories/home-decor"
-                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
-                    onClick={() => setIsSidebarOpen(false)}
-                  >
-                    <Sofa size={16} />
-                    Home Decor
-                  </NavLink> */}
+                  
                 </div>
               )}
             </div>
 
-            {/* About */}
             <NavLink
               to="/about"
               className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
@@ -219,7 +180,6 @@ const SidebarLayout = () => {
               About
             </NavLink>
 
-            {/* Contact */}
             <NavLink
               to="/contact"
               className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
@@ -231,7 +191,6 @@ const SidebarLayout = () => {
           </nav>
         </div>
 
-        {/* Bottom Section */}
         <div className="mb-5 space-y-2">
           <NavLink
             to="/profile"
@@ -240,15 +199,6 @@ const SidebarLayout = () => {
           >
             <User size={20} />
             Profile
-          </NavLink>
-
-          <NavLink
-            to="/settings"
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <Settings size={20} />
-            Settings
           </NavLink>
 
           <button
@@ -261,7 +211,6 @@ const SidebarLayout = () => {
         </div>
       </div>
 
-      {/* OVERLAY for mobile */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -269,7 +218,6 @@ const SidebarLayout = () => {
         ></div>
       )}
 
-      {/* PAGE CONTENT */}
       <div className="flex-1 lg:ml-0">
         <div className="lg:hidden p-4">
           <button

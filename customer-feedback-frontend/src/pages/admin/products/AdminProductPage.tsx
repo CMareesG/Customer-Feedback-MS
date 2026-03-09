@@ -202,7 +202,6 @@ const AdminProductPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-text-primary">
           Products Management
@@ -218,9 +217,7 @@ const AdminProductPage = () => {
         )}
       </div>
 
-      {/* Category Selection */}
       <div className="grid grid-cols-2 gap-4">
-        {/* Categories */}
         <div>
           <h2 className="font-semibold text-text-primary mb-3">Categories</h2>
           <div className="space-y-2">
@@ -247,7 +244,6 @@ const AdminProductPage = () => {
           </div>
         </div>
 
-        {/* Subcategories */}
         <div>
           <h2 className="font-semibold text-text-primary mb-3">
             Subcategories
@@ -278,7 +274,6 @@ const AdminProductPage = () => {
         </div>
       </div>
 
-      {/* Products */}
       {selectedSubcategory && (
         <div>
           <h2 className="font-semibold text-text-primary mb-4">Products</h2>
@@ -292,7 +287,6 @@ const AdminProductPage = () => {
         </div>
       )}
 
-      {/* Modals */}
       <ProductForm
         product={formModal.product || undefined}
         categoryId={selectedSubcategory}

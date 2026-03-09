@@ -79,7 +79,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-text-primary">
           Dashboard Overview
@@ -89,7 +88,6 @@ const AdminDashboard = () => {
         </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat, index) => (
           <div
@@ -107,7 +105,6 @@ const AdminDashboard = () => {
         ))}
       </div>
 
-      {/* Quick Actions */}
       <div className="bg-bg-2 rounded-lg border border-white/10 p-6">
         <h2 className="text-xl font-bold text-text-primary mb-4">
           Quick Actions
@@ -140,7 +137,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Recent Activity */}
       <div className="bg-bg-2 rounded-lg border border-white/10 p-6">
         <h2 className="text-xl font-bold text-text-primary mb-4">
           System Overview

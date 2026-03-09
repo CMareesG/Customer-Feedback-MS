@@ -12,7 +12,7 @@ interface Props {
   feedbacks: Feedback[];
 }
 
-const FeedbackList: React.FC<Props> = ({ feedbacks }) => {
+const FeedbackList: React.FC<Props> = ({ feedbacks }:Props) => {
   return (
     <div className="card">
       <h2 className="mb-4 text-text-primary">Recent Feedbacks</h2>

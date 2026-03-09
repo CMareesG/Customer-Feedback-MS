@@ -20,7 +20,6 @@ const AdminProfile = () => {
 
   const handleSave = async () => {
     setIsLoading(true);
-    // Simulate API call
     setTimeout(() => {
       setAdminData(formData);
       setIsEditing(false);
@@ -35,13 +34,11 @@ const AdminProfile = () => {
 
   return (
     <div className="page-container max-w-4xl mx-auto space-y-8">
-      {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-text-primary mb-2">Admin Profile</h1>
         <p className="text-text-muted">Manage your administrator account and preferences</p>
       </div>
 
-      {/* Admin Badge Banner */}
       <div className="bg-gradient-to-r from-accent-1 to-accent-2 rounded-xl p-6 text-white">
         <div className="flex items-center gap-3">
           <Shield size={28} />
@@ -52,10 +49,8 @@ const AdminProfile = () => {
         </div>
       </div>
 
-      {/* Profile Card */}
       <div className="card">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-          {/* Avatar Section */}
           <div className="flex flex-col items-center">
             <div className="relative">
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent-1 to-accent-2 flex items-center justify-center text-4xl font-bold text-white">
@@ -71,10 +66,8 @@ const AdminProfile = () => {
             <span className="mt-3 text-text-muted text-sm">Click to change photo</span>
           </div>
 
-          {/* Info Section */}
           <div className="flex-1 w-full">
             <div className="space-y-6">
-              {/* Name Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Full Name</label>
                 {isEditing ? (
@@ -93,7 +86,6 @@ const AdminProfile = () => {
                 )}
               </div>
 
-              {/* Email Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Email Address</label>
                 {isEditing ? (
@@ -112,7 +104,6 @@ const AdminProfile = () => {
                 )}
               </div>
 
-              {/* Role Field */}
               <div>
                 <label className="block text-text-muted text-sm mb-2">Account Type</label>
                 <div className="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
@@ -122,7 +113,6 @@ const AdminProfile = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-4 mt-8">
               {isEditing ? (
                 <>
@@ -154,7 +144,6 @@ const AdminProfile = () => {
         </div>
       </div>
 
-      {/* Admin Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card flex items-center gap-4">
           <div className="w-14 h-14 bg-accent-1/20 rounded-xl flex items-center justify-center">
@@ -185,7 +174,6 @@ const AdminProfile = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className="card">
         <h2 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

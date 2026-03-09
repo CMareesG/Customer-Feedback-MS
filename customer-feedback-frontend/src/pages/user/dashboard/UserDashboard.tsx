@@ -58,11 +58,9 @@ const UserDashboard = () => {
                 await getRecentFeedback();
 
 
-            // set stats directly from backend
             setStats(statsData);
 
 
-            // format recent feedback
             const formatted =
                 feedbackData.map((f: any) => ({
 

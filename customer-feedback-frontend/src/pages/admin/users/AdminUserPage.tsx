@@ -95,7 +95,6 @@ const AdminUserPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-text-primary">Users</h1>
         <button
@@ -107,7 +106,6 @@ const AdminUserPage = () => {
         </button>
       </div>
 
-      {/* User List */}
       <div className="bg-bg-2 rounded-lg border border-white/10 overflow-hidden">
         <UserList
           users={users}
@@ -117,7 +115,6 @@ const AdminUserPage = () => {
         />
       </div>
 
-      {/* Form Modal */}
       <UserForm
         user={formModal.user || undefined}
         isOpen={formModal.isOpen}

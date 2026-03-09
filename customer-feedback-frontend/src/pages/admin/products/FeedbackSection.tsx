@@ -62,7 +62,6 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
           <div className="space-y-4">
             {feedbacks.map((feedback) => (
               <div key={feedback.id} className="bg-bg-1 rounded-lg p-4">
-                {/* Feedback Header */}
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <h3 className="font-semibold text-text-primary">
@@ -87,10 +86,8 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                   </div>
                 </div>
 
-                {/* Feedback Review */}
                 <p className="text-text-primary mb-4">{feedback.review}</p>
 
-                {/* Existing Responses */}
                 {feedback.responses && feedback.responses.length > 0 && (
                   <div className="bg-bg-2 rounded-lg p-3 mb-4">
                     <h4 className="text-sm font-semibold text-text-muted mb-2">
@@ -109,7 +106,6 @@ const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                   </div>
                 )}
 
-                {/* Response Form */}
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();

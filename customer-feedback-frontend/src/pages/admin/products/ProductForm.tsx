@@ -97,7 +97,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Image Upload */}
           <div>
             <label className="block text-sm font-medium mb-2">
               Product Image

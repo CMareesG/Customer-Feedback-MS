@@ -41,7 +41,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
         value={review}
         onChange={(e) => setReview(e.target.value)}
         placeholder="Write your feedback..."
-        className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        className="w-full border rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-black"
       />
 
       <button

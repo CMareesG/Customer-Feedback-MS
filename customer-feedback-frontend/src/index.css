@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================
-   CSS VARIABLES
-========================= */
+
 :root {
   --bg-1: #0f1724;
   --bg-2: #081023;
@@ -15,9 +13,6 @@
   --text-muted: rgba(255,255,255,0.45);
 }
 
-/* =========================
-   GLOBAL BASE STYLES
-========================= */
 @layer base {
   * {
     margin: 0;
@@ -43,17 +38,12 @@
   }
 }
 
-/* =========================
-   REUSABLE COMPONENT STYLES
-========================= */
 @layer components {
 
-  /* Main page wrapper */
   .page-container {
     @apply p-8;
   }
 
-  /* Card */
   .card {
     background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
     border-radius: 16px;
@@ -73,12 +63,10 @@
     @apply card flex items-center justify-between;
   }
 
-  /* Feedback item row */
   .feedback-row {
     @apply flex justify-between items-center p-4 border border-white/10 rounded-lg hover:bg-white/5 cursor-pointer transition;
   }
-
-  /* Badge */
+  
   .badge {
     @apply text-xs px-3 py-1 rounded-full;
   }
@@ -91,7 +79,6 @@
     @apply bg-green-500/20 text-green-400;
   }
 
-  /* Button */
   .btn-primary {
     @apply px-4 py-2 rounded-lg font-semibold text-white;
     background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
@@ -104,7 +91,6 @@
     opacity: 0.98;
   }
 
-  /* Input */
   .input-field {
     @apply w-full px-4 py-3 bg-transparent border border-white/10 rounded-lg;
     color: var(--text-primary);

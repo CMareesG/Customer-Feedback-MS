@@ -47,7 +47,6 @@ const CategoryList: React.FC<CategoryListProps> = ({
 
           return (
             <div key={category.id} className="border border-white/10 rounded-lg">
-              {/* Category */}
               <div className="bg-bg-2 p-4 flex items-center justify-between hover:bg-white/5 transition">
                 <div className="flex items-center gap-3 flex-1">
                   {children.length > 0 && (
@@ -94,7 +93,6 @@ const CategoryList: React.FC<CategoryListProps> = ({
                 </div>
               </div>
 
-              {/* Subcategories */}
               {isExpanded && children.length > 0 && (
                 <div className="bg-bg-1 border-t border-white/10 p-4 space-y-2">
                   {children.map((subcat) => (
