@@ -30,7 +30,9 @@ export class UserService {
       },
     });
   }
-
+  async getMe(id: string) {
+    return await this.prisma.user.findUnique({ where: { id } });
+  }
   async login(email: string, password: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new ForbiddenException('Invalid credentials');

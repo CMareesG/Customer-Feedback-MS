@@ -31,6 +31,7 @@ export class UserController {
   // LOGIN
   @Post("login")
   login(@Body() dto: { email: string; password: string }) {
+    console.log("login attempt:", dto.email);
     return this.userService.login(dto.email, dto.password);
   }
 
@@ -52,7 +53,7 @@ export class UserController {
   @UseGuards(AuthGuard("jwt"))
   @Get("me")
   getMe(@Req() req) {
-    return req.user;
+    return this.userService.getMe(req.user.id);
   }
 
   // ADMIN ONLY: get all users
