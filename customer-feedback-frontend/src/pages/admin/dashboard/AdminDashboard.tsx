@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Users, Package, ShoppingBag, MessageSquare } from "lucide-react";
 import {
   getAllUsers,
@@ -22,6 +22,10 @@ const AdminDashboard = () => {
     feedback: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  // useRef(() => {
+  //   loadStats();
+  // });
 
   useEffect(() => {
     loadStats();

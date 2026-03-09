@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import UserFeedbackStats
     from "../../../components/dashboard/UserFeedbackStats";
@@ -40,6 +40,10 @@ const UserDashboard = () => {
 
     const [feedbacks, setFeedbacks] =
         useState<FeedbackItem[]>([]);
+
+    useRef(()=>{
+        loadDashboard();
+    })
 
 
     useEffect(() => {
