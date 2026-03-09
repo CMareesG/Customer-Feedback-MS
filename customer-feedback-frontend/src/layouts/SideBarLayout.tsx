@@ -27,6 +27,7 @@ const SidebarLayout = () => {
 
   const handleLogout = () => {
     navigate("/");
+    localStorage.clear();
   };
 
   async function handleCategories(): Promise<void> {
