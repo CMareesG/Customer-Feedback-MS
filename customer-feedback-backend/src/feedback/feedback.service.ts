@@ -50,12 +50,10 @@ export class FeedbackService {
   }
 
   async getDashboardStats(userId: string) {
-    // total feedback given by user
     const totalFeedback = await this.prisma.feedback.count({
       where: { userId },
     });
 
-    // resolved feedback count (feedback having at least one response)
     const resolvedFeedback = await this.prisma.feedback.count({
       where: {
         userId,
@@ -65,7 +63,6 @@ export class FeedbackService {
       },
     });
 
-    // pending feedback count (feedback having no response)
     const pendingFeedback = await this.prisma.feedback.count({
       where: {
         userId,
@@ -75,7 +72,6 @@ export class FeedbackService {
       },
     });
 
-    // average rating
     const avgResult = await this.prisma.feedback.aggregate({
       where: { userId },
       _avg: {
@@ -173,4 +169,29 @@ export class FeedbackService {
     }))
     return feedbacks;
   }
+
+  async getUserFeedbackForProduct(userId: string, productId: string): Promise<extendedFeedback | null> {
+    const feedback = await this.prisma.feedback.findFirst({
+      where: {
+        userId,
+        productId,
+      },
+    });
+
+    if (!feedback) {
+      return null;
+    }
+
+    const user: User | null = await this.prisma.user.findUnique({
+      where: { id: feedback.userId },
+    });
+
+    if (!user) throw new NotFoundException('User not found');
+
+    return {
+      ...feedback,
+      name: user.name,
+    };
+  }
 }
+

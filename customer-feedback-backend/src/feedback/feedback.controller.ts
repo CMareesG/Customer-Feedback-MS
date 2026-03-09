@@ -48,13 +48,22 @@ export class FeedbackController {
   }
 
   @UseGuards(AuthGuard('jwt'),RolesGuard)
+  @Get('user/product/:productId')
+  @Roles(Role.ADMIN,Role.CUSTOMER)
+  async getUserFeedbackForProduct(
+    @Param('productId') productId: string,
+    @Req() req,
+  ): Promise<extendedFeedback | null> {
+    return await this.feedbackService.getUserFeedbackForProduct(req.user.id, productId);
+  }
+
+  @UseGuards(AuthGuard('jwt'),RolesGuard)
   @Roles(Role.ADMIN,Role.CUSTOMER)
   @Get('user/dashboard-stats')
   getDashboardStats(@Req() req) {
     return this.feedbackService.getDashboardStats(req.user.id);
   }
 
-  // NEW — Recent feedback of logged-in user
   @UseGuards(AuthGuard('jwt'),RolesGuard)
   @Roles(Role.ADMIN,Role.CUSTOMER)
   @Get('user/recent')
@@ -70,9 +79,18 @@ export class FeedbackController {
   }
 
   @UseGuards(AuthGuard('jwt'),RolesGuard)
-  @Roles(Role.ADMIN)
   @Patch(':id')
-  updateFeedback(@Param('id') id: string, @Body() dto: UpdateFeedbackDto) {
+  @Roles(Role.CUSTOMER)
+  async updateFeedback(
+    @Param('id') id: string, 
+    @Body() dto: UpdateFeedbackDto,
+    @Req() req
+  ) {
+    const feedback = await this.feedbackService.getFeedbackById(id);
+    if (feedback.userId !== req.user.id) {
+      throw new Error('You can only update your own feedback');
+    }
+    
     return this.feedbackService.updateFeedback(id, dto);
   }
 
@@ -83,3 +101,4 @@ export class FeedbackController {
     return this.feedbackService.deleteFeedback(id);
   }
 }
+
