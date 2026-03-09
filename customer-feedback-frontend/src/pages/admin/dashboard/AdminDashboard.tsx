@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Users, Package, ShoppingBag, MessageSquare } from "lucide-react";
 import {
   getAllUsers,
@@ -6,12 +6,20 @@ import {
   getAllCategories,
   getAllFeedback,
 } from "../../../services/adminService";
+import RecentFeedback from "../../../components/dashboard/RecentFeedback";
 
 interface StatCard {
   icon: React.ReactNode;
   label: string;
   value: number;
   color: string;
+}
+
+interface FeedbackItem {
+    id: number;
+    title: string;
+    status: "resolved" | "pending";
+    date: string;
 }
 
 const AdminDashboard = () => {
@@ -22,14 +30,31 @@ const AdminDashboard = () => {
     feedback: 0,
   });
   const [isLoading, setIsLoading] = useState(false);
-
+  const [Feedbacks, setFeedbacks] = useState<FeedbackItem[]>([]);
+  
   // useRef(() => {
   //   loadStats();
   // });
 
   useEffect(() => {
+    fetchRecentFeedback();
     loadStats();
   }, []);
+
+
+  const fetchRecentFeedback = async () => {
+    try{
+      setIsLoading(true);
+      const feedback = await getAllFeedback();
+      console.log(feedback);
+      setFeedbacks(feedback.slice(0, 5));
+    } catch (error){
+      console.error("Error fetching recent feedback:", error);
+    } finally {
+      setIsLoading(false);
+    }
+
+  }
 
   const loadStats = async () => {
     try {
@@ -141,7 +166,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className="bg-bg-2 rounded-lg border border-white/10 p-6">
+      {/* <div className="bg-bg-2 rounded-lg border border-white/10 p-6">
         <h2 className="text-xl font-bold text-text-primary mb-4">
           System Overview
         </h2>
@@ -161,7 +186,9 @@ const AdminDashboard = () => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <RecentFeedback feedbacks = {Feedbacks} feedbackURL="/admin/feedbacks" ></RecentFeedback>
     </div>
   );
 };

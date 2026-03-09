@@ -11,9 +11,10 @@ interface Feedback {
 
 interface Props {
   feedbacks: Feedback[];
+  feedbackURL?: string;
 }
 
-const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
+const RecentFeedback: React.FC<Props> = ({ feedbacks , feedbackURL }) => {
   const navigate = useNavigate();
 
   return (
@@ -33,7 +34,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
         {feedbacks.map((item) => (
           <div
             key={item.id}
-            onClick={() => navigate("/feedback")}
+            onClick={() => navigate(feedbackURL || "/feedback")}
             className="feedback-row"
           >
             <div>

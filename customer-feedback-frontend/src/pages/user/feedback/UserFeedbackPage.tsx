@@ -10,13 +10,16 @@ import { addFeedbackForProduct, getFeedbackByProduct } from "../../../services/f
 const UserFeedbackPage = () => {
   const { productId }: Readonly<Params<string>> = useParams();
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);
+  
   useEffect(() => {
     async function getFeedbacks(): Promise<void> {
       const feedbacks: Feedback[] = await getFeedbackByProduct(productId || "");
       setFeedbacks(feedbacks);
     }
+    
     getFeedbacks();
   }, [productId]);
+
   async function addFeedback(rating:number,review:string,productId:string){
     const newFeedback:Feedback = await addFeedbackForProduct(rating,review,productId);
     console.log("newfeedback",newFeedback);

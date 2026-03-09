@@ -18,6 +18,7 @@ import AdminCategoryPage from "../pages/admin/categories/AdminCategoryPage";
 import AdminProductPage from "../pages/admin/products/AdminProductPage";
 import AdminUserPage from "../pages/admin/users/AdminUserPage";
 import AdminProfile from "../pages/admin/profile/AdminProfile";
+import AdminFeedBack from "../pages/admin/feedbacks/AdminFeedBack";
 
 import AboutPage from "../pages/shared/AboutPage";
 import ProtectedRoute from "./ProtectedRoute";
@@ -60,6 +61,7 @@ const AppRoutes = () => {
                                 <Route path="/admin/users" element={<AdminUserPage />} />
                                 <Route path="/admin/about" element={<AboutPage />} />
                                 <Route path="/admin/profile" element={<AdminProfile />} />
+                                <Route path="/admin/feedbacks" element={<AdminFeedBack />} />
                             </Route>
                         </>
                         )}
