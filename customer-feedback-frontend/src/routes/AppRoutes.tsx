@@ -62,7 +62,7 @@ const AppRoutes = () => {
                                 <Route path="/admin/profile" element={<AdminProfile />} />
                             </Route>
                         </>
-                        )}
+                    )}
             </Route>
 
         </Routes>

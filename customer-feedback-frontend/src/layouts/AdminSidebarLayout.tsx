@@ -10,13 +10,23 @@ import {
   X,
   User,
 } from "lucide-react";
+import { logout } from "../services/authService";
 
 const AdminSidebarLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if(refreshToken){
+      await logout(refreshToken)
+      navigate("/");
+      console.log("Loged out successfully");
+      localStorage.clear();
+    }
+    else{
+      console.log("Refresh token not found");
+    }
   };
 
   return (
