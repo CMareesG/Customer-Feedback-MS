@@ -52,7 +52,14 @@ export const createUser = async (data: {
   password: string;
   role: "CUSTOMER" | "ADMIN";
 }) => {
-  const response = await api.post("/user/create", data);
+  const response = await api.post("/user/create", data,{
+    
+headers: {
+      Authorization: `Bearer ${localStorage.getItem(
+            "accessToken")}`,
+    },
+
+  });
   return response.data;
 };
 
@@ -65,12 +72,28 @@ export const updateUser = async (
     role: "CUSTOMER" | "ADMIN";
   }
 ) => {
-  const response = await api.patch(`/user/${id}/role`, { role: data.role });
+  const response = await api.patch(`/user/${id}/role`, { role: data.role },
+    {
+    headers: {
+      
+      Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      "Content-Type": "application/json",
+    },
+  }
+  );
   return response.data;
 };
 
+
 export const deleteUser = async (id: string) => {
-  const response = await api.delete(`/user/${id}`);
+  const response = await api.delete(`/user/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
   return response.data;
 };
 
@@ -92,6 +115,11 @@ export const getProductsByCategory = async (categoryId: string) => {
 export const createProduct = async (formData: FormData) => {
   const response = await api.post("/products", formData, {
     headers: {
+      
+      Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
       "Content-Type": "multipart/form-data",
     },
   });

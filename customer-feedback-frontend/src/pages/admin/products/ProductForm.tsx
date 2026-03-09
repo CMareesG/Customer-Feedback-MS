@@ -31,6 +31,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     description: "",
     categoryId: categoryId,
   });
+
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
@@ -41,6 +42,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         description: product.description,
         categoryId: product.categoryId,
       });
+
       if (product.img) {
         setImagePreview(product.img);
       }
@@ -48,10 +50,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
       setFormData({
         name: "",
         description: "",
-        categoryId: categoryId,
+        categoryId,
       });
       setImagePreview(null);
     }
+
     setImageFile(null);
   }, [product, isOpen, categoryId]);
 
@@ -60,23 +63,24 @@ const ProductForm: React.FC<ProductFormProps> = ({
     if (file) {
       setImageFile(file);
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
+      reader.onloadend = () => setImagePreview(reader.result as string);
       reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("categoryId", formData.categoryId);
+
+    const fd = new FormData();
+    fd.append("name", formData.name);
+    fd.append("description", formData.description);
+    fd.append("categoryId", formData.categoryId);
+
     if (imageFile) {
-      formDataToSend.append("img", imageFile);
+      fd.append("file", imageFile); 
     }
-    onSubmit(formDataToSend);
+
+    onSubmit(fd);
   };
 
   if (!isOpen) return null;
@@ -84,23 +88,22 @@ const ProductForm: React.FC<ProductFormProps> = ({
   return (
     <div className="fixed inset-0 bg-black/50 z-40 flex items-center justify-center p-4">
       <div className="bg-bg-2 rounded-lg max-w-md w-full p-6 text-text-primary max-h-[90vh] overflow-y-auto">
+
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">
-            {product ? "Edit" : "Create"} Product
+            {product ? "Edit Product" : "Create Product"}
           </h2>
-          <button
-            onClick={onClose}
-            className="text-text-muted hover:text-text-primary"
-          >
+
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary">
             <X size={24} />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Product Image
-            </label>
+            <label className="block text-sm font-medium mb-2">Product Image</label>
+
             <div className="space-y-2">
               {imagePreview && (
                 <img
@@ -109,11 +112,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
                   className="w-full h-32 object-cover rounded-lg"
                 />
               )}
+
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary focus:outline-none focus:border-accent-1"
+                className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary"
               />
             </div>
           </div>
@@ -122,29 +126,25 @@ const ProductForm: React.FC<ProductFormProps> = ({
             <label className="block text-sm font-medium mb-2">Name *</label>
             <input
               type="text"
+              required
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              required
-              className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-1"
-              placeholder="Enter product name"
+              className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
-              Description *
-            </label>
+            <label className="block text-sm font-medium mb-2">Description *</label>
             <textarea
+              required
               value={formData.description}
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
-              required
-              className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-1 resize-none"
-              placeholder="Enter product description"
               rows={3}
+              className="w-full bg-bg-1 border border-white/10 rounded-lg px-4 py-2 text-text-primary resize-none"
             />
           </div>
 
@@ -152,18 +152,20 @@ const ProductForm: React.FC<ProductFormProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 rounded-lg border border-white/10 text-text-muted hover:bg-white/5 transition"
+              className="flex-1 px-4 py-2 rounded-lg border border-white/10 text-text-muted hover:bg-white/5"
             >
               Cancel
             </button>
+
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-4 py-2 rounded-lg bg-accent-1 text-white hover:bg-accent-1/80 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 rounded-lg bg-accent-1 text-white hover:bg-accent-1/80 disabled:opacity-50"
             >
               {isLoading ? "Saving..." : "Save"}
             </button>
           </div>
+
         </form>
       </div>
     </div>

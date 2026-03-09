@@ -25,8 +25,11 @@ export class ProductsController {
   create(
     @UploadedFile() file: Express.Multer.File,
     @Body() createProductDto: CreateProductDto,
+    
   ) {
+    
     return this.productsService.create(createProductDto, file);
+    
   }
 
   @Get()
@@ -59,3 +62,4 @@ export class ProductsController {
     return await this.productsService.findAllByCategory(categoryId);
   }
 }
+
