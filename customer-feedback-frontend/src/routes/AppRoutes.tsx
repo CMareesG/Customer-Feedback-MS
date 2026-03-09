@@ -20,6 +20,8 @@ import AdminProfile from "../pages/admin/profile/AdminProfile";
 import AdminFeedBack from "../pages/admin/feedbacks/AdminFeedBack";
 
 import AboutPage from "../pages/shared/AboutPage";
+
+import FeedBackCard from "../components/feedback/FeedBackCard";
  
 import ProtectedRoute from "./ProtectedRoute";
  
@@ -59,6 +61,8 @@ return (
      <Route path="/admin/users" element={<AdminUserPage />} />
      <Route path="/admin/about" element={<AboutPage />} />
      <Route path="/admin/profile" element={<AdminProfile />} />
+     <Route path="/admin/feedbacks" element={<AdminFeedBack />} />
+     <Route path="/feedback/:feedbackId" element={<FeedBackCard />} />
  
     </Route>
  

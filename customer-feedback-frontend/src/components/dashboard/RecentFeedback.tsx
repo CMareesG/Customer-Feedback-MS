@@ -23,7 +23,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks , feedbackURL }) => {
       <div className="flex justify-between items-center mb-5">
         <h2 className="text-text-primary">Recent Reviews</h2>
         <button
-          onClick={() => navigate("/feedback")}
+          onClick={() => navigate(feedbackURL || "/feedback")}
           className="flex items-center gap-2 text-accent-1 hover:text-accent-2 text-sm transition"
         >
           View All <ArrowRight size={16} />
@@ -34,7 +34,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks , feedbackURL }) => {
         {feedbacks.map((item) => (
           <div
             key={item.id}
-            onClick={() => navigate(feedbackURL || "/feedback")}
+            onClick={() => navigate(`/feedback/${item.id}`)}
             className="feedback-row"
           >
             <div>

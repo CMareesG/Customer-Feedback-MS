@@ -1,7 +1,5 @@
 import { api } from "./api";
 
-
-
 export const getAllCategories = async () => {
   const response = await api.get("/categories");
   return response.data;
@@ -123,6 +121,11 @@ export const getFeedbackByProduct = async (productId: string) => {
 
 export const getAllFeedback = async () => {
   const response = await api.get("/feedback");
+  return response.data;
+};
+
+export const getAllRecentFeedback = async () => {
+  const response = await api.get('/feedback/admin/recent');
   return response.data;
 };
 

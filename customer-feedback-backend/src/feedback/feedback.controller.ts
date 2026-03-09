@@ -54,6 +54,11 @@ export class FeedbackController {
     return this.feedbackService.getRecentFeedback(req.user.id);
   }
 
+  @Get('admin/recent')
+  getAllRecentFeedback() {
+    return this.feedbackService.getAllRecentFeedback();
+  }
+
   @Get(':id')
   getFeedbackById(@Param('id') id: string) {
     return this.feedbackService.getFeedbackById(id);

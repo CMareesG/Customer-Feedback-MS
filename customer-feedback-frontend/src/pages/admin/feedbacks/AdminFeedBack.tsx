@@ -1,4 +1,8 @@
+import { useEffect } from "react";
 const AdminFeedBack: React.FC = () => {
+    useEffect(() => {
+        
+    },[])
   return (
     <>  
         <div className="p-6">
