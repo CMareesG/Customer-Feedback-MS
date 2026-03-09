@@ -20,6 +20,7 @@ import { Roles } from "./roles.decorator";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller("user")
+
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -36,9 +37,10 @@ export class UserController {
     return this.userService.login(dto.email, dto.password);
   }
 
- 
-  @UseGuards(AuthGuard("jwt"))
+  // Logout
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Post("logout")
+  @Roles(Role.ADMIN,Role.CUSTOMER)
   logout(@Req() req, @Body() body: { refreshToken: string }) {
     
     const accessToken = req.headers.authorization.split(" ")[1];
@@ -50,29 +52,24 @@ export class UserController {
   refresh(@Body() body: { refreshToken: string }) {
     return this.userService.refreshTokens(body.refreshToken);
   }
-  
-  @UseGuards(AuthGuard("jwt"))
+  // GET CURRENT USER
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Get("me")
+  @Roles(Role.ADMIN,Role.CUSTOMER)
   getMe(@Req() req) {
     return req.user;
   }
 
-  @UseGuards(AuthGuard("jwt"), RolesGuard)
+  // ADMIN ONLY: get all users
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Roles(Role.ADMIN)
   @Get("all")
   getAllUsers() {
     return this.userService.getAllUsers();
   }
 
-  
-  @UseGuards(AuthGuard("jwt"), RolesGuard)
-  @Roles(Role.ADMIN)
-  @Patch(":id")
-  updateRole(@Param("id") id: string, @Body() dto: UpdateUserDto) {
-    return this.userService.updateUser(id, dto);
-  }
-
-  @UseGuards(AuthGuard("jwt"), RolesGuard)
+  // ADMIN ONLY: update user role
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Roles(Role.ADMIN)
   @Delete(":id")
   removeRole(@Param("id") id:string){
