@@ -160,11 +160,12 @@ const AdminProductPage = () => {
 
   const handleSubmit = async (formData: FormData) => {
     try {
+          // console.log("hangle name:",formData.get("name"),formData.get("description"),formData.get("categoryId"),formData.get("img"));
       setIsLoading(true);
       if (formModal.product) {
         await updateProduct(formModal.product.id, formData);
       } else {
-        formData.append("categoryId", selectedSubcategory);
+        // formData.append("categoryId", selectedSubcategory);
         await createProduct(formData);
       }
       await loadProductsByCategory(selectedSubcategory);
