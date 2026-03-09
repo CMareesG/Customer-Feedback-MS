@@ -74,8 +74,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
     formDataToSend.append("description", formData.description);
     formDataToSend.append("categoryId", formData.categoryId);
     if (imageFile) {
-      formDataToSend.append("img", imageFile);
+      formDataToSend.append("file", imageFile);
     }
+    console.log("name:",formDataToSend.get("name"),formDataToSend.get("description"),formDataToSend.get("categoryId"),formDataToSend.get("img"));
     onSubmit(formDataToSend);
   };
 
