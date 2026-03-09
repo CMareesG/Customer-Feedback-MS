@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { getCategories } from "../services/categoryService";
 import type { category, categoryStatus } from "../types/category";
+import { logout } from "../services/authService";
 
 const SidebarLayout = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
@@ -25,9 +26,17 @@ const SidebarLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/");
-    localStorage.clear();
+  const handleLogout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if(refreshToken){
+      await logout(refreshToken)
+      navigate("/");
+      console.log("Loged out successfully");
+      localStorage.clear();
+    }
+    else{
+      console.log("Refresh token not found");
+    }
   };
 
   async function handleCategories(): Promise<void> {
