@@ -2,20 +2,21 @@ import React from "react";
 import { Star } from "lucide-react";
 
 interface Props {
-  reviews: { rating: number }[];
+  feedbacks: { rating: number }[];
 }
 
-const RatingSummary: React.FC<Props> = ({ reviews }) => {
-  const totalReviews = reviews.length;
+const RatingSummary: React.FC<Props> = ({ feedbacks }) => {
+  console.log("rate sum",feedbacks);
+  const totalFeedbacks = feedbacks.length;
 
   const averageRating =
-    totalReviews === 0
+    totalFeedbacks === 0
       ? 0
-      : reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews;
+      : feedbacks.reduce((acc, r) => acc + r.rating, 0) / totalFeedbacks;
 
   return (
     <div className="card flex flex-col items-center justify-center text-center">
-      <h1 className="text-4xl font-bold text-yellow-500">
+      <h1 className="text-4xl font-bold text-yellow-400">
         {averageRating.toFixed(1)}
       </h1>
 
@@ -27,14 +28,14 @@ const RatingSummary: React.FC<Props> = ({ reviews }) => {
             className={
               star <= Math.round(averageRating)
                 ? "text-yellow-400 fill-yellow-400"
-                : "text-gray-300"
+                : "text-text-muted"
             }
           />
         ))}
       </div>
 
       <p className="text-gray-500 text-sm">
-        {totalReviews} Ratings
+        {totalFeedbacks} Ratings
       </p>
     </div>
   );

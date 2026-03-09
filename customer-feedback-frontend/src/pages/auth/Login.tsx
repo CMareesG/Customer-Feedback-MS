@@ -22,14 +22,12 @@ const Login = () => {
 
       const response = await loginUser(email, password);
 
-      // store tokens
       localStorage.setItem("accessToken", response.accessToken);
       localStorage.setItem("refreshToken", response.refreshToken);
       localStorage.setItem("userRole", response.user);
 
-      // redirect based on role
-      if (response.user.role === "ADMIN") {
-        navigate("/dashboard");
+      if (response.user === "ADMIN") {
+        navigate("/admin/dashboard");
       } else {
         navigate("/dashboard");
       }
@@ -76,7 +74,7 @@ const Login = () => {
 
           <div className="input-group">
 
-            <span className="input-icon">📧</span>
+            <span className="input-icon"></span>
 
             <input
               type="email"
@@ -91,7 +89,7 @@ const Login = () => {
 
           <div className="input-group">
 
-            <span className="input-icon">🔒</span>
+            <span className="input-icon"></span>
 
             <input
               type="password"
@@ -119,13 +117,6 @@ const Login = () => {
           </button>
 
         </form>
-
-        <p className="auth-switch">
-          Don’t have an account?
-          <span onClick={() => navigate("/signup")}>
-            Sign Up
-          </span>
-        </p>
 
       </div>
       {showError && (

@@ -15,6 +15,8 @@ import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
 
 import { AuthGuard } from '@nestjs/passport';
+import { Feedback } from '@prisma/client';
+import { extendedFeedback } from 'src/types/feedback';
 
 @Controller('feedback')
 export class FeedbackController {
@@ -23,12 +25,19 @@ export class FeedbackController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   createFeedback(@Body() dto: CreateFeedbackDto, @Req() req) {
-    return this.feedbackService.createFeedback(dto);
+    return this.feedbackService.createFeedback(dto,req.user.id);
   }
 
   @Get()
   getAllFeedback() {
     return this.feedbackService.getAllFeedback();
+  }
+
+  @Get('product/:productId')
+  async getFeedbackByProduct(
+    @Param('productId') productId: string,
+  ): Promise<extendedFeedback[]> {
+    return await this.feedbackService.getFeedbackByProductId(productId);
   }
 
   // NEW — Dashboard stats

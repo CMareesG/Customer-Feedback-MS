@@ -5,11 +5,12 @@ import { ProductsController } from './products.controller';
 import { extname, join } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { FeedbackModule } from 'src/feedback/feedback.module';
 
 const uploadDir = join(process.cwd(), 'uploads');
 
 @Module({
-  imports: [PrismaModule,
+  imports: [FeedbackModule,PrismaModule,
     MulterModule.register({
       storage: diskStorage({
         destination: (req, file, cb) => {

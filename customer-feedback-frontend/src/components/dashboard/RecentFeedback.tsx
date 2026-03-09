@@ -19,18 +19,16 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
   return (
     <div className="card">
       
-      {/* Header */}
       <div className="flex justify-between items-center mb-5">
-        <h2>Recent Reviews</h2>
+        <h2 className="text-text-primary">Recent Reviews</h2>
         <button
           onClick={() => navigate("/feedback")}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm"
+          className="flex items-center gap-2 text-accent-1 hover:text-accent-2 text-sm transition"
         >
           View All <ArrowRight size={16} />
         </button>
       </div>
 
-      {/* List */}
       <div className="space-y-4">
         {feedbacks.map((item) => (
           <div
@@ -39,8 +37,8 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks }) => {
             className="feedback-row"
           >
             <div>
-              <p className="font-medium">{item.title}</p>
-              <p className="text-sm text-gray-500">{item.date}</p>
+              <p className="font-medium text-text-primary">{item.title}</p>
+              <p className="text-sm text-text-muted">{item.date}</p>
             </div>
 
             <span

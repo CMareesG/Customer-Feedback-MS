@@ -13,6 +13,8 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Product } from '@prisma/client';
+import { ExtendedProduct } from 'src/types/product';
 
 @Controller('products')
 export class ProductsController {
@@ -48,7 +50,12 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string):Promise<object> {
     return this.productsService.remove(id);
+  }
+
+  @Get('category/:categoryId')
+  async findAllByCategory(@Param('categoryId') categoryId:string):Promise<ExtendedProduct[]>{
+    return await this.productsService.findAllByCategory(categoryId);
   }
 }
