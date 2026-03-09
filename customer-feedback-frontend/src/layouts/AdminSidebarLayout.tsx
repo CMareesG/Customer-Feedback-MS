@@ -17,6 +17,7 @@ const AdminSidebarLayout = () => {
 
   const handleLogout = () => {
     navigate("/");
+    localStorage.clear();
   };
 
   return (
