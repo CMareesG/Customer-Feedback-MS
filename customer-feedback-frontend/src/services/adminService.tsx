@@ -153,6 +153,7 @@ export const getProductsByCategory = async (categoryId: string) => {
 };
 
 export const createProduct = async (formData: FormData) => {
+  // console.log("hangle name:",formData.get("name"),formData.get("description"),formData.get("categoryId"),formData.get("img"));
   const response = await api.post("/products", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -163,6 +164,7 @@ export const createProduct = async (formData: FormData) => {
           )}`,
         }
   });
+  // console.log("Create product:",response.data);
   return response.data;
 };
 
