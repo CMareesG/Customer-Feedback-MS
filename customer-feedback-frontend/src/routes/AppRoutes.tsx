@@ -42,7 +42,7 @@ const AppRoutes = () => {
                            
                             <Route element={<SidebarLayout />}>
                                 <Route path="/dashboard" element={<UserDashboard />} />
-                                <Route path="/categories/:categoryName/:categoryId" element={<UserCategoryPage />} />
+                                <Route path="/categories/:categoryId" element={<UserCategoryPage />} />
                                 <Route path="product/feedback/:productId" element={<UserFeedbackPage />} />
                                 <Route path="/about" element={<AboutPage />} />
                                 <Route path="/profile" element={<UserProfile />} />

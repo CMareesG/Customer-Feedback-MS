@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Star } from "lucide-react";
 import type { product } from "../../../types/product";
 import { fetchProductByCategoryId } from "../../../services/productService";
@@ -7,9 +7,12 @@ import { fetchProductByCategoryId } from "../../../services/productService";
 
 const UserCategoryPage: React.FC = () => {
   console.log(useParams());
-  const { categoryName,categoryId } = useParams();
+  const { categoryId } = useParams();
+  const location = useLocation();
+  const{categoryName} = location.state;
   const [products,setProducts]=useState<product[]>([]);
   const navigate = useNavigate();
+
   useEffect(()=>{
     async function getProducts(){
       const data: product[] = await fetchProductByCategoryId(categoryId || "");
