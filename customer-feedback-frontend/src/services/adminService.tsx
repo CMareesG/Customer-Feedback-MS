@@ -100,7 +100,7 @@ export const updateUser = async (
     role: "CUSTOMER" | "ADMIN";
   }
 ) => {
-  const response = await api.patch(`/user/${id}/role`, { role: data.role },{
+  const response = await api.patch(`/user/${id}`,data,{
       headers: {
         Authorization:
           `Bearer ${localStorage.getItem(
