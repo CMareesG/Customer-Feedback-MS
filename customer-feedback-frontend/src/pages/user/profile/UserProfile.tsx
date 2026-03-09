@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, Mail, Shield, Camera, Save } from "lucide-react";
+
+import { getUser } from "../../../services/userService";
 
 interface UserData {
   name: string;
@@ -11,12 +13,31 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserData>({
-    name: "Name",
-    email: "name@example.com",
-    role: "CUSTOMER",
+    name: "",
+    email: "",
+    role: "",
   });
 
   const [formData, setFormData] = useState<UserData>(userData);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const u = await getUser();
+        setUserData(u);
+        setFormData(u);
+      } catch (err) {
+        console.error("failed to load user:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  
+  // if (!userData.name) {
+  //   return <div className="page-container max-w-4xl mx-auto">Loading profile...</div>;
+  // }
 
   const handleSave = async () => {
     setIsLoading(true);

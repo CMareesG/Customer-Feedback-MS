@@ -6,9 +6,9 @@ const AboutPage: React.FC = () => {
     <div className="page-container space-y-8">
 
       <div>
-        <h1 className="mb-2 text-text-primary">About Feedback360</h1>
+        <h1 className="mb-2 text-text-primary">About FeedbackMS</h1>
         <p className="text-text-muted max-w-3xl">
-          Feedback360 is a modern customer feedback management system designed
+          FeedbackMS is a modern customer feedback management system designed
           to help businesses collect, analyze, and improve product experiences
           through structured reviews and insights.
         </p>
@@ -74,7 +74,7 @@ const AboutPage: React.FC = () => {
 
       <div className="card text-center">
         <p className="text-text-muted text-sm">
-          © {new Date().getFullYear()} Feedback360. All rights reserved.
+          © {new Date().getFullYear()} FeedbackMS. All rights reserved.
         </p>
       </div>
 
