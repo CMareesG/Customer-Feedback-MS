@@ -29,7 +29,7 @@ const Login = () => {
 
       // redirect based on role
       if (response.user === "ADMIN") {
-        navigate("/dashboard");
+        navigate("/admin/dashboard");
       } else {
         navigate("/dashboard");
       }

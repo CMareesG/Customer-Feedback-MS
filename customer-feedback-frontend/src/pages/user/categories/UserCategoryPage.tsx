@@ -100,9 +100,9 @@ const UserCategoryPage: React.FC = () => {
   // const products = categoryProducts[categoryName || ""] || [];
 
   return (
-    <div>
+    <div className="page-container">
       {/* Title */}
-      <h1 className="mb-6 capitalize text-blue-900 text-2xl font-bold">
+      <h1 className="mb-6 capitalize text-text-primary text-2xl font-bold">
         {categoryName?.replace("-", " ")} Products
       </h1>
 
@@ -124,7 +124,7 @@ const UserCategoryPage: React.FC = () => {
             </div>
 
             {/* Name */}
-            <h2 className="mb-2">{product.name}</h2>
+            <h2 className="mb-2 text-text-primary">{product.name}</h2>
 
             {/* Rating */}
             <div className="flex items-center gap-1 mb-1">
@@ -135,17 +135,17 @@ const UserCategoryPage: React.FC = () => {
                   className={
                     star <= Math.round(product.rating)
                       ? "text-yellow-400 fill-yellow-400"
-                      : "text-gray-300"
+                      : "text-text-muted"
                   }
                 />
               ))}
-              <span className="text-sm text-gray-600 ml-2">
+              <span className="text-sm text-text-muted ml-2">
                 {product.rating}
               </span>
             </div>
 
             {/* Reviews */}
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-text-muted">
               {product.reviews} Reviews
             </p>
           </div>

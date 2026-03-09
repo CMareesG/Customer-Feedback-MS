@@ -14,7 +14,7 @@ const RatingBreakdown: React.FC<Props> = ({ feedbacks }) => {
 
   return (
     <div className="card lg:col-span-2">
-      <h2 className="mb-4">Rating Breakdown</h2>
+      <h2 className="mb-4 text-text-primary">Rating Breakdown</h2>
 
       {ratingCounts.map(({ star, count }) => {
         const percentage =
@@ -22,16 +22,16 @@ const RatingBreakdown: React.FC<Props> = ({ feedbacks }) => {
 
         return (
           <div key={star} className="flex items-center gap-4 mb-3">
-            <span className="w-12 text-sm">{star} Star</span>
+            <span className="w-12 text-sm text-text-primary">{star} Star</span>
 
-            <div className="flex-1 bg-gray-200 rounded-full h-3">
+            <div className="flex-1 bg-white/10 rounded-full h-3">
               <div
                 className="bg-yellow-400 h-3 rounded-full"
                 style={{ width: `${percentage}%` }}
               />
             </div>
 
-            <span className="text-sm w-10 text-right">{count}</span>
+            <span className="text-sm w-10 text-right text-text-primary">{count}</span>
           </div>
         );
       })}

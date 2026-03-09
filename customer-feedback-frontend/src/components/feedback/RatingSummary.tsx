@@ -16,7 +16,7 @@ const RatingSummary: React.FC<Props> = ({ feedbacks }) => {
 
   return (
     <div className="card flex flex-col items-center justify-center text-center">
-      <h1 className="text-4xl font-bold text-yellow-500">
+      <h1 className="text-4xl font-bold text-yellow-400">
         {averageRating.toFixed(1)}
       </h1>
 
@@ -28,7 +28,7 @@ const RatingSummary: React.FC<Props> = ({ feedbacks }) => {
             className={
               star <= Math.round(averageRating)
                 ? "text-yellow-400 fill-yellow-400"
-                : "text-gray-300"
+                : "text-text-muted"
             }
           />
         ))}

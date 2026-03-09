@@ -10,6 +10,8 @@ import {
   User,
   Settings,
   LogOut,
+  Menu,
+  X,
 } from "lucide-react";
 import { getCategories } from "../services/categoryService";
 import type { category, categoryStatus } from "../types/category";
@@ -21,6 +23,8 @@ const SidebarLayout = () => {
   const [isSubcategoryOpen, setIsSubcategoryOpen] = useState<categoryStatus[]>(
     [],
   );
+  // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -73,13 +77,28 @@ const SidebarLayout = () => {
   // useEffect(() => {}, [isCategoryOpen]);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-bg-1 text-text-primary">
+
       {/* SIDEBAR */}
-      <div className="w-64 bg-gray-900 text-white flex flex-col justify-between">
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+        <div className="p-5">
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="lg:hidden absolute top-4 right-4 text-text-primary"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
         {/* Top Section */}
-        <div>
-          <div className="p-5 text-2xl font-bold border-b border-gray-700">
-            Feedback360
+        <div className="flex-1">
+          <div className="p-5 text-2xl font-bold border-b border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-accent-1 to-accent-2 rounded-lg flex items-center justify-center font-bold text-white">
+                CF
+              </div>
+              Feedback360
+            </div>
           </div>
 
           <nav className="mt-5 space-y-2">
@@ -89,10 +108,11 @@ const SidebarLayout = () => {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-5 py-3 rounded-lg mx-3 transition ${
                   isActive
-                    ? "bg-white text-black"
-                    : "hover:bg-gray-800 text-gray-300"
+                    ? "bg-accent-1 text-white"
+                    : "hover:bg-white/10 text-text-muted"
                 }`
               }
+              onClick={() => setIsSidebarOpen(false)}
             >
               <LayoutDashboard size={20} />
               Dashboard
@@ -161,7 +181,8 @@ const SidebarLayout = () => {
                   )}
                   {/* <NavLink
                     to="/categories/electronics"
-                    className="flex items-center gap-2 hover:text-white text-gray-400"
+                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
+                    onClick={() => setIsSidebarOpen(false)}
                   >
                     <ShoppingBag size={16} />
                     Electronics
@@ -169,7 +190,8 @@ const SidebarLayout = () => {
 
                   <NavLink
                     to="/categories/clothing"
-                    className="flex items-center gap-2 hover:text-white text-gray-400"
+                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
+                    onClick={() => setIsSidebarOpen(false)}
                   >
                     <Shirt size={16} />
                     Clothing
@@ -177,7 +199,8 @@ const SidebarLayout = () => {
 
                   <NavLink
                     to="/categories/home-decor"
-                    className="flex items-center gap-2 hover:text-white text-gray-400"
+                    className="flex items-center gap-2 hover:text-text-primary text-text-muted"
+                    onClick={() => setIsSidebarOpen(false)}
                   >
                     <Sofa size={16} />
                     Home Decor
@@ -189,7 +212,8 @@ const SidebarLayout = () => {
             {/* About */}
             <NavLink
               to="/about"
-              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-gray-800 text-gray-300"
+              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
+              onClick={() => setIsSidebarOpen(false)}
             >
               <Info size={20} />
               About
@@ -198,7 +222,8 @@ const SidebarLayout = () => {
             {/* Contact */}
             <NavLink
               to="/contact"
-              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-gray-800 text-gray-300"
+              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
+              onClick={() => setIsSidebarOpen(false)}
             >
               <Phone size={20} />
               Contact
@@ -210,7 +235,8 @@ const SidebarLayout = () => {
         <div className="mb-5 space-y-2">
           <NavLink
             to="/profile"
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-gray-800 text-gray-300"
+            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <User size={20} />
             Profile
@@ -218,7 +244,8 @@ const SidebarLayout = () => {
 
           <NavLink
             to="/settings"
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-gray-800 text-gray-300"
+            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Settings size={20} />
             Settings
@@ -226,7 +253,7 @@ const SidebarLayout = () => {
 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-red-600 text-gray-300 w-[calc(100%-1.5rem)] transition"
+            className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-red-500 text-text-muted w-[calc(100%-1.5rem)] transition"
           >
             <LogOut size={20} />
             Logout
@@ -234,9 +261,27 @@ const SidebarLayout = () => {
         </div>
       </div>
 
+      {/* OVERLAY for mobile */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* PAGE CONTENT */}
-      <div className="flex-1 p-8">
-        <Outlet />
+      <div className="flex-1 lg:ml-0">
+        <div className="lg:hidden p-4">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="text-text-primary"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
+        <div className="p-4 lg:p-8">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

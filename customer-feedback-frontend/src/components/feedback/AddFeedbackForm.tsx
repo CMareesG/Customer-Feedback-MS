@@ -31,7 +31,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
             className={`cursor-pointer ${
               star <= rating
                 ? "text-yellow-400 fill-yellow-400"
-                : "text-gray-300"
+                : "text-text-muted"
             }`}
           />
         ))}
@@ -46,7 +46,7 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
 
       <button
         onClick={handleSubmit}
-        className="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition"
+        className="btn-primary w-full"
       >
         Submit
       </button>

@@ -15,7 +15,7 @@ interface Props {
 const FeedbackList: React.FC<Props> = ({ feedbacks }) => {
   return (
     <div className="card">
-      <h2 className="mb-4">Recent Feedbacks</h2>
+      <h2 className="mb-4 text-text-primary">Recent Feedbacks</h2>
 
       <div className="space-y-4">
         {feedbacks.map((feedback) => (
@@ -31,7 +31,7 @@ const FeedbackList: React.FC<Props> = ({ feedbacks }) => {
                     className={
                       star <= feedback.rating
                         ? "text-yellow-400 fill-yellow-400"
-                        : "text-gray-300"
+                        : "text-text-muted"
                     }
                   />
                 ))}
