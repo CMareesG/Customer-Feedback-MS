@@ -35,3 +35,19 @@ export const getRecentFeedback = async () => {
 
   return res.data;
 };
+
+export const getProductById = async  (feedbackId : string) => {
+  const res = await api.get(
+    `/feedback/${feedbackId}`,
+    {
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    }
+  );
+
+  return res.data;
+}

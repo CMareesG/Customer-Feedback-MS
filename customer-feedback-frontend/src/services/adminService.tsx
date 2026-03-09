@@ -129,6 +129,11 @@ export const getAllRecentFeedback = async () => {
   return response.data;
 };
 
+export const getUserFeedbacks = async () => {
+  const response = await api.get('/feedback/admin/users');
+  return response.data;
+}
+
 export const updateFeedback = async (
   id: string,
   data: {

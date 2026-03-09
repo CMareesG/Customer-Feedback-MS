@@ -16,7 +16,7 @@ interface StatCard {
 }
 
 interface FeedbackItem {
-    id: number;
+    id: string;
     title: string;
     status: "resolved" | "pending";
     date: string;
@@ -172,28 +172,6 @@ const AdminDashboard = () => {
                     </a>
                 </div>
             </div>
-
-            {/* <div className="bg-bg-2 rounded-lg border border-white/10 p-6">
-        <h2 className="text-xl font-bold text-text-primary mb-4">
-          System Overview
-        </h2>
-        <div className="space-y-3">
-          <div className="flex justify-between items-center p-3 bg-bg-1 rounded-lg">
-            <span className="text-text-primary">Active Users</span>
-            <span className="font-semibold text-accent-1">{stats.users}</span>
-          </div>
-          <div className="flex justify-between items-center p-3 bg-bg-1 rounded-lg">
-            <span className="text-text-primary">Total Products</span>
-            <span className="font-semibold text-accent-2">{stats.products}</span>
-          </div>
-          <div className="flex justify-between items-center p-3 bg-bg-1 rounded-lg">
-            <span className="text-text-primary">Total Feedback</span>
-            <span className="font-semibold text-cyan-400">
-              {stats.feedback}
-            </span>
-          </div>
-        </div>
-      </div> */}
 
             <RecentFeedback
                 feedbacks={Feedbacks}

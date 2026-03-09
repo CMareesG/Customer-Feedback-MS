@@ -1,14 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getUserFeedbacks } from "../../../services/adminService";
+import FeedBackCard from "../../../components/feedback/FeedBackCard";
 const AdminFeedBack: React.FC = () => {
+    const [feedbacks, setFeedbacks] = useState([]);
+
+    const getFeedbacks = async () => {
+        try {
+            const res = await getUserFeedbacks();
+            console.log(res);
+            setFeedbacks(res);
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
     useEffect(() => {
-        
-    },[])
-  return (
-    <>  
-        <div className="p-6">
-            <h1 className="text-2xl font-bold text-text-primary">Admin Feedback</h1>
-        </div>
-    </>
+        getFeedbacks();
+    }, []);
+
+    return (
+        <>
+            <div>
+                {feedbacks.map((feedback) => {
+                    return <FeedBackCard key={feedback.id} feedback={feedback} />;
+                })}
+            </div>
+        </>
     );
 };
 

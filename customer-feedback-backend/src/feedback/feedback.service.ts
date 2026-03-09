@@ -7,7 +7,7 @@ import { extendedFeedback } from 'src/types/feedback';
 
 @Injectable()
 export class FeedbackService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async createFeedback(
     dto: CreateFeedbackDto,
@@ -127,6 +127,38 @@ export class FeedbackService {
       take: 5,
     });
   }
+
+  async getUserFeedbacks() {
+    return this.prisma.feedback.findMany({
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
 
   async getRecentFeedback(userId: string) {
     return this.prisma.feedback.findMany({
