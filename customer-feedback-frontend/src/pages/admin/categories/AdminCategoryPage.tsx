@@ -25,6 +25,9 @@ const AdminCategoryPage = () => {
     isSubcategory: false,
     category: null as Category | null,
   });
+  const [createCategoryAlert, setCreateCategoryAlert] = useState("");
+  const [deleteCategoryAlert,setDeleteCategoryAlert] = useState("");
+  const [updateCategoryAlert,setUpdateCategoryAlert] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -68,10 +71,13 @@ const AdminCategoryPage = () => {
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this category?")) {
+      const categoryname=categories.find(c=>c.id===id)
       try {
         setIsLoading(true);
         await deleteCategory(id);
         await loadCategories();
+        setDeleteCategoryAlert(`Category "${categoryname?.name}" has been deleted`);
+        setTimeout(() => setDeleteCategoryAlert(""), 3000);
       } catch (error) {
         console.error("Error deleting category:", error);
       } finally {
@@ -89,8 +95,12 @@ const AdminCategoryPage = () => {
       setIsLoading(true);
       if (formModal.category) {
         await updateCategory(formModal.category.id, data);
+        setUpdateCategoryAlert(`Category "${data.name}" has been updated`);
+        setTimeout(() => setUpdateCategoryAlert(""), 3000);
       } else {
         await createCategory(data);
+        setCreateCategoryAlert(`Category "${data.name}" has been created`);
+        setTimeout(() => setCreateCategoryAlert(""), 3000);
       }
       await loadCategories();
       setFormModal({ isOpen: false, isSubcategory: false, category: null });
@@ -145,6 +155,27 @@ const AdminCategoryPage = () => {
         categories={categories}
         isSubcategory={formModal.isSubcategory}
       />
+      {createCategoryAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {createCategoryAlert}
+          </div>
+      )}
+      {deleteCategoryAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {deleteCategoryAlert}
+          </div>
+      )}
+      {updateCategoryAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {updateCategoryAlert}
+          </div>
+      )}
     </div>
   );
 };

@@ -58,6 +58,12 @@ const AdminProductPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
 
+  const [createProductAlert,setCreateProductAlert] = useState("");
+  const [deleteProductAlert,setDeleteProductAlert] = useState("");
+  const [updateProductAlert,setUpdateProductAlert] = useState("");
+  
+
+
   const [formModal, setFormModal] = useState({
     isOpen: false,
     product: null as Product | null,
@@ -126,7 +132,9 @@ const AdminProductPage = () => {
     setFormModal({
       isOpen: true,
       product: null,
+      
     });
+    
   };
 
   const handleEdit = (product: Product) => {
@@ -138,10 +146,13 @@ const AdminProductPage = () => {
 
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
+      const productname=products.find(p=>p.id===id)
       try {
         setIsLoading(true);
         await deleteProduct(id);
         await loadProductsByCategory(selectedSubcategory);
+        setDeleteProductAlert(`Product "${productname?.name}" has been deleted`);
+        setTimeout(() => setDeleteProductAlert(""), 3000);
       } catch (error) {
         console.error("Error deleting product:", error);
       } finally {
@@ -158,24 +169,34 @@ const AdminProductPage = () => {
     });
   };
 
-  const handleSubmit = async (formData: FormData) => {
-    try {
-          // console.log("hangle name:",formData.get("name"),formData.get("description"),formData.get("categoryId"),formData.get("img"));
-      setIsLoading(true);
-      if (formModal.product) {
-        await updateProduct(formModal.product.id, formData);
-      } else {
-        // formData.append("categoryId", selectedSubcategory);
-        await createProduct(formData);
-      }
-      await loadProductsByCategory(selectedSubcategory);
-      setFormModal({ isOpen: false, product: null });
-    } catch (error) {
-      console.error("Error saving product:", error);
-    } finally {
-      setIsLoading(false);
+  const handleSubmit = async (fd: FormData) => {
+  try {
+    setIsLoading(true);
+
+    if (!fd.has("categoryId")) {
+      fd.append("categoryId", selectedSubcategory);
     }
-  };
+
+    if (formModal.product) {
+      await updateProduct(formModal.product.id, fd);
+      setUpdateProductAlert(`Product "${formModal.product.name}" has been updated`);
+      setTimeout(() => setUpdateProductAlert(""), 3000);
+    } else {
+      const newProduct = await createProduct(fd);
+      if(newProduct)
+      setCreateProductAlert(`Product "${newProduct.name}" has been created`);
+      setTimeout(() => setCreateProductAlert(""), 3000);
+    }
+
+    await loadProductsByCategory(selectedSubcategory);
+
+    setFormModal({ isOpen: false, product: null });
+  } catch (error) {
+    console.error("Error saving product:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleSendResponse = async (feedbackId: string, response: string) => {
     try {
@@ -304,6 +325,27 @@ const AdminProductPage = () => {
         onSendResponse={handleSendResponse}
         isLoading={isLoading}
       />
+      {deleteProductAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {deleteProductAlert}
+          </div>
+      )}
+      {createProductAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {createProductAlert}
+          </div>
+      )}
+      {updateProductAlert && (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 
+                  bg-white text-black px-6 py-3 rounded-lg shadow-lg 
+                  flex items-center gap-4 animate-slide-up z-50">
+      {updateProductAlert}
+          </div>
+      )}
     </div>
   );
 };

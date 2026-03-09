@@ -111,6 +111,7 @@ export const updateUser = async (
   return response.data;
 };
 
+
 export const deleteUser = async (id: string) => {
   const response = await api.delete(`/user/${id}`,{
       headers: {
@@ -156,6 +157,11 @@ export const createProduct = async (formData: FormData) => {
   // console.log("hangle name:",formData.get("name"),formData.get("description"),formData.get("categoryId"),formData.get("img"));
   const response = await api.post("/products", formData, {
     headers: {
+      
+      Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
       "Content-Type": "multipart/form-data",
       
       Authorization:
