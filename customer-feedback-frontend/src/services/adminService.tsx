@@ -164,11 +164,8 @@ export const createProduct = async (formData: FormData) => {
           )}`,
       "Content-Type": "multipart/form-data",
       
-      Authorization:
-          `Bearer ${localStorage.getItem(
-            "accessToken"
-          )}`,
-        }
+      
+    }
   });
   // console.log("Create product:",response.data);
   return response.data;

@@ -70,6 +70,13 @@ export class UserController {
   }
 
   // ADMIN ONLY: update user role
+@UseGuards(AuthGuard("jwt"),RolesGuard)
+  @Roles(Role.ADMIN)
+  @Patch(":id")
+  updateUser(@Param("id") id:string,@Body() dto: UpdateUserDto){
+    return this.userService.updateUser(id,dto)
+  }
+
   @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Roles(Role.ADMIN)
   @Delete(":id")
