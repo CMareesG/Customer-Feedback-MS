@@ -18,6 +18,7 @@ import { RolesGuard } from "./strategy/roles.guard";
 import { Roles } from "./roles.decorator";
 
 @Controller("user")
+
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -35,8 +36,9 @@ export class UserController {
   }
 
   // Logout
-  @UseGuards(AuthGuard("jwt"))
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Post("logout")
+  @Roles(Role.ADMIN,Role.CUSTOMER)
   logout(@Req() req, @Body() body: { refreshToken: string }) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const accessToken = req.headers.authorization.split(" ")[1];
@@ -49,14 +51,15 @@ export class UserController {
     return this.userService.refreshTokens(body.refreshToken);
   }
   // GET CURRENT USER
-  @UseGuards(AuthGuard("jwt"))
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Get("me")
+  @Roles(Role.ADMIN,Role.CUSTOMER)
   getMe(@Req() req) {
     return req.user;
   }
 
   // ADMIN ONLY: get all users
-  @UseGuards(AuthGuard("jwt"), RolesGuard)
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Roles(Role.ADMIN)
   @Get("all")
   getAllUsers() {
@@ -64,7 +67,7 @@ export class UserController {
   }
 
   // ADMIN ONLY: update user role
-  @UseGuards(AuthGuard("jwt"), RolesGuard)
+  @UseGuards(AuthGuard("jwt"),RolesGuard)
   @Roles(Role.ADMIN)
   @Patch(":id/role")
   updateRole(@Param("id") id: string, @Body() dto: { role: Role }) {
