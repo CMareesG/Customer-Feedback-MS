@@ -59,6 +59,17 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
 
                 <p className="text-text-primary mb-3">{feedback.review}</p>
 
+                {feedback.responses.length > 0 && (
+                    <div className="bg-green-100 p-3 rounded mb-3">
+                        <p className="text-green-800 font-medium">
+                            Admin Response:
+                        </p>
+                        <p className="text-green-700">
+                            {feedback.responses[0].message}
+                        </p>
+                    </div>
+                )}
+
                 <div className="flex items-center gap-4">
                     <span
                         className={`badge ${
@@ -85,18 +96,18 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                     onClick={() => setShowModal(false)}
                 >
                     <div
-                        className="bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))] p-10 w-[500px] items-center"
+                        className="bg-neutral-100 p-10 w-[500px] items-center rounded-[30px] w-[600px] h-[400px]"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-white-500 font-semibold mb-3">
+                        <h2 className="text-black font-semibold mb-3">
                             Feedback Details
                         </h2>
 
-                        <p className="text-white-500 font-medium mb-1">
+                        <p className="text-black font-medium mb-1">
                             Product: {feedback.product.name}
                         </p>
 
-                        <p className="text-sm text-white-500 mb-3">
+                        <p className="text-sm text-black mb-3">
                             {new Date(feedback.createdAt).toLocaleString()}
                         </p>
 
@@ -114,7 +125,7 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                             ))}
                         </div>
 
-                        <p className="text-white-700 mb-4">{feedback.review}</p>
+                        <p className="text-black mb-4">{feedback.review}</p>
 
                         {feedback.responses.length > 0 && (
                             <div className="bg-green-100 p-3 rounded mb-3">
@@ -130,7 +141,9 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                         <div className="flex justify-around mt-6">
                             <button
                                 onClick={() =>
-                                    navigate(`/product/feedback/${feedback.product.id}`)
+                                    navigate(
+                                        `/product/feedback/${feedback.product.id}`,
+                                    )
                                 }
                                 className="bg-blue-500 text-white px-4 py-2 rounded"
                             >

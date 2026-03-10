@@ -11,7 +11,7 @@ import { ExtendedProduct } from 'src/types/product';
 @Injectable()
 export class ProductsService {
   private products: CreateProductDto[] = [];
-  constructor(private prisma: PrismaService,private feedbackService: FeedbackService) {}
+  constructor(private prisma: PrismaService, private feedbackService: FeedbackService) { }
 
   async create(
     createProductDto: CreateProductDto,
@@ -37,14 +37,14 @@ export class ProductsService {
     const products = await this.prisma.product.findMany({
       where: { categoryId },
     });
-    const fproducts:ExtendedProduct[] = await Promise.all(products.map(async (product)=>{
-      const feedbacks:Feedback[] = await this.feedbackService.getFeedbackByProductId(product.id);
-      const review:number = feedbacks.length;
+    const fproducts: ExtendedProduct[] = await Promise.all(products.map(async (product) => {
+      const feedbacks: Feedback[] = await this.feedbackService.getFeedbackByProductId(product.id);
+      const review: number = feedbacks.length;
       return {
         ...product,
-        rating:review>0?feedbacks.reduce((rating:number,feedback:Feedback)=>{
-          return rating+feedback.rating;
-        },0)/review:0,
+        rating: review > 0 ? feedbacks.reduce((rating: number, feedback: Feedback) => {
+          return rating + feedback.rating;
+        }, 0) / review : 0,
         review
       };
     }));

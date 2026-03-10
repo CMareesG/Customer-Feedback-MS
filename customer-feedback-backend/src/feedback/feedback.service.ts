@@ -7,7 +7,7 @@ import { extendedFeedback } from 'src/types/feedback';
 
 @Injectable()
 export class FeedbackService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async createFeedback(
     dto: CreateFeedbackDto,
@@ -43,6 +43,28 @@ export class FeedbackService {
   async getFeedbackById(id: string) {
     const feedback = await this.prisma.feedback.findUnique({
       where: { id },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+          },
+        },
+      },
     });
 
     if (!feedback) {
@@ -175,7 +197,6 @@ export class FeedbackService {
     return feedbacks;
   }
 
-
   async getRecentFeedback(userId: string) {
     return this.prisma.feedback.findMany({
       where: { userId },
@@ -192,12 +213,14 @@ export class FeedbackService {
         product: {
           select: {
             name: true,
+            id: true,
           },
         },
 
         responses: {
           select: {
             id: true,
+            message: true,
           },
         },
       },

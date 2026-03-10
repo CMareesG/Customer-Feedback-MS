@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { createResponse } from "../../services/adminService";
-
-
 
 const FeedBackCard: React.FC<Props> = ({ feedback }) => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState<boolean>(false);
     const [response, setResponse] = useState<string>("");
-    const [status, setStatus] = useState<string>(feedback.responses.length > 0 ? "resolved" : "pending");
+    const [status, setStatus] = useState<string>(
+        feedback.responses.length > 0 ? "resolved" : "pending",
+    );
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setResponse(event.target.value);
-    }
-    const handleResponse = () => {
-        createResponse({feedbackId: feedback.id, message: response, adminId: feedback.userId});
-        alert("Response submitted!");
-    }
+    };
 
-    useEffect(() => {
+    const handleResponse = () => {
+        createResponse({
+            feedbackId: feedback.id,
+            message: response,
+            adminId: feedback.userId,
+        });
+        alert("Response submitted!");
+    };
+
+    useReducer(() => {
         setStatus(feedback.responses.length > 0 ? "resolved" : "pending");
     }, [feedback.responses.length]);
-    
 
     return (
         <>
@@ -31,10 +35,6 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                     <div>
                         <p className="font-medium text-text-primary">
                             Product : {feedback.product.name}
-                        </p>
-
-                        <p className="font-small text-text-primary">
-                            Reviewed By - {feedback.name}
                         </p>
 
                         <p className="text-sm text-text-muted">
@@ -85,26 +85,22 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                     onClick={() => setShowModal(false)}
                 >
                     <div
-                        className="bg-neutral-100 p-10 w-[500px] items-center rounded-[30px] w-[600px] h-[500px]"
+                        className="bg-neutral-100 p-10 w-[500px] items-center rounded-[30px] w-[600px] h-[400px]"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h2 className="text-black font-semibold mb-5">
+                        <h2 className="text-black font-semibold mb-3">
                             Feedback Details
                         </h2>
 
-                        <p className="text-black font-medium mb-4">
+                        <p className="text-black font-medium mb-1">
                             Product: {feedback.product.name}
                         </p>
 
-                        <p className="font-small text-black mb-4">
-                            Reviewed By - {feedback.name}
-                        </p>
-
-                        <p className="text-sm text-black mb-7">
+                        <p className="text-sm text-black mb-3">
                             {new Date(feedback.createdAt).toLocaleString()}
                         </p>
 
-                        <div className="flex mb-6">
+                        <div className="flex mb-4">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <Star
                                     key={star}
@@ -120,32 +116,25 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
 
                         <p className="text-black mb-4">{feedback.review}</p>
 
-                        {status === "pending" && 
-                        <div className="flex flex-col ">
-                            <textarea
-                                onChange={handleChange}
-                                placeholder="Give a response"
-                                className="border border-gray-300 rounded-md p-2 mb-6 text-black"
-                            />
-
-                            <input
-                                type="button"
-                                onClick={handleResponse}
-                                value="Submit Response"
-                                className="bg-green-500 text-white px-4 p-2 rounded h-max cursor-pointer justify-center"
-                            />
-                        </div>}
-
-                        {status === "resolved" && 
-                        <div className="text-red-500 bold ">Already Responded to this Feedback.</div>
-                        }
+                        {feedback.responses.length > 0 && (
+                            <div className="bg-green-100 p-3 rounded mb-3">
+                                <p className="text-green-800 font-medium">
+                                    Admin Response:
+                                </p>
+                                <p className="text-green-700">
+                                    {feedback.responses[0].message}
+                                </p>
+                            </div>
+                        )}
 
                         <div className="flex justify-around mt-6">
                             <button
                                 onClick={() =>
-                                    navigate(`/product/${feedback.product.id}`)
+                                    navigate(
+                                        `/product/feedback/${feedback.product.id}`,
+                                    )
                                 }
-                                className="bg-sky-500 text-white px-4 p-2 rounded "
+                                className="bg-blue-500 text-white px-4 py-2 rounded"
                             >
                                 Go To Product
                             </button>

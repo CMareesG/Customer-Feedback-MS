@@ -35,11 +35,8 @@ const AdminSidebarLayout = () => {
 
         <div className="flex-1">
           <div className="p-5 text-2xl font-bold border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-accent-1 to-accent-2 rounded-lg flex items-center justify-center font-bold text-white">
-                CF
-              </div>
-              Feedback360
+            <div className="ml-8 gap-3">
+              FeedbackMS
             </div>
             <span className="text-xs text-accent-1 font-semibold ml-[52px]">
               ADMIN
