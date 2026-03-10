@@ -154,8 +154,8 @@ export const deleteFeedback = async (id: string) => {
 
 export const createResponse = async (data: {
   feedbackId: string;
-  response: string;
-  userId: string;
+  message: string;
+  adminId: string;
 }) => {
   const response = await api.post("/response", data);
   return response.data;

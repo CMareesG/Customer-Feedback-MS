@@ -129,7 +129,7 @@ export class FeedbackService {
   }
 
   async getUserFeedbacks() {
-    return this.prisma.feedback.findMany({
+    const response = await this.prisma.feedback.findMany({
       select: {
         id: true,
 
@@ -138,6 +138,8 @@ export class FeedbackService {
         review: true,
 
         createdAt: true,
+
+        userId: true,
 
         product: {
           select: {
@@ -157,6 +159,20 @@ export class FeedbackService {
         createdAt: 'desc',
       },
     });
+
+    const feedbacks = Promise.all(
+      response.map(async (feedback) => {
+        const user: User | null = await this.prisma.user.findUnique({
+          where: { id: feedback.userId },
+        });
+        if (!user) throw new NotFoundException('User not found');
+        return {
+          ...feedback,
+          name: user.name,
+        };
+      }),
+    );
+    return feedbacks;
   }
 
 
