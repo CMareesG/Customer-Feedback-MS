@@ -11,7 +11,7 @@ sudo apt-get install -y docker-compose
 
 sudo apt-get install -y git
 
-cd /home/azureuser
+cd /home/testadmin
 
 git clone -b dev https://github.com/CMareesG/Customer-Feedback-MS.git
 
