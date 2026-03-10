@@ -16,7 +16,7 @@ az login --identity
 
 cd /home/testadmin
 
-git clone -b dev https://github.com/CMareesG/Customer-Feedback-MS.git
+git clone -b test-dev https://github.com/CMareesG/Customer-Feedback-MS.git
 
 cd Customer-Feedback-MS
 
