@@ -1,30 +1,42 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { createResponse } from "../../services/adminService";
+// import { createResponse } from "../../services/adminService";
+
+interface Props {
+    feedback: {
+        id: string;
+        product: { id: string; name: string };
+        rating: number;
+        review: string;
+        userId: string;
+        createdAt: string;
+        responses: { message: string }[];
+    };
+}
 
 const FeedBackCard: React.FC<Props> = ({ feedback }) => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [response, setResponse] = useState<string>("");
+    // const [response, setResponse] = useState<string>("");
     const [status, setStatus] = useState<string>(
         feedback.responses.length > 0 ? "resolved" : "pending",
     );
 
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setResponse(event.target.value);
-    };
+    // const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //     setResponse(event.target.value);
+    // };
 
-    const handleResponse = () => {
-        createResponse({
-            feedbackId: feedback.id,
-            message: response,
-            adminId: feedback.userId,
-        });
-        alert("Response submitted!");
-    };
+    // const handleResponse = () => {
+    //     createResponse({
+    //         feedbackId: feedback.id,
+    //         message: response,
+    //         adminId: feedback.userId,
+    //     });
+    //     alert("Response submitted!");
+    // };
 
-    useReducer(() => {
+    useEffect(() => {
         setStatus(feedback.responses.length > 0 ? "resolved" : "pending");
     }, [feedback.responses.length]);
 

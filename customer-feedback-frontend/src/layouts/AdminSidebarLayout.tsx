@@ -21,11 +21,11 @@ const AdminSidebarLayout = () => {
     if(refreshToken){
       await logout(refreshToken)
       navigate("/");
-      console.log("Loged out successfully");
+      // console.log("Loged out successfully");
       localStorage.clear();
     }
     else{
-      console.log("Refresh token not found");
+      // console.log("Refresh token not found");
     }
   };
 

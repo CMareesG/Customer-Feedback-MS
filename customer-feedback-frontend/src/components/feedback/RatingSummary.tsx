@@ -6,7 +6,7 @@ interface Props {
 }
 
 const RatingSummary: React.FC<Props> = ({ feedbacks }) => {
-  console.log("rate sum",feedbacks);
+  // console.log("rate sum",feedbacks);
   const totalFeedbacks = feedbacks.length;
 
   const averageRating =

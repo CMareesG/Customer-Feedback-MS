@@ -20,6 +20,11 @@ interface FeedbackItem {
     title: string;
     status: "resolved" | "pending";
     date: string;
+    product: any;
+    createdAt: string;
+    rating: number;
+    review: string;
+    responses: any[];
 }
 
 const AdminDashboard = () => {
@@ -47,12 +52,14 @@ const AdminDashboard = () => {
             const feedback = await getAllRecentFeedback();
             const formatted = feedback.map((f: any) => ({
                 id: f.id,
-
                 title: f.product.name,
-
                 status: f.responses.length > 0 ? "resolved" : "pending",
-
                 date: new Date(f.createdAt).toLocaleDateString(),
+                product: f.product,
+                createdAt: f.createdAt,
+                rating: f.rating,
+                review: f.review,
+                responses: f.responses,
             }));
 
             setFeedbacks(formatted);

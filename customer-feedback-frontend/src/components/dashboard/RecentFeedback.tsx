@@ -6,6 +6,11 @@ import { Star } from "lucide-react";
 import { getProductById } from "../../services/dashboardService";
 import { getRecentFeedback } from "../../services/dashboardService";
 interface Feedback {
+    product: any;
+    createdAt: string | number | Date;
+    rating: number;
+    review: string;
+    responses: any;
     id: string;
     title: string;
     status: "pending" | "resolved";
@@ -48,7 +53,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks, feedbackURL }) => {
     const getFeedbacks = async () => {
         try {
             const fetchData = await getRecentFeedback();
-            console.log(fetchData);
+            // // console.log(fetchData);
             setFeedbacks1(fetchData);
         } catch (error) {
             console.error(error);
@@ -63,7 +68,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks, feedbackURL }) => {
         if (feedbackId && showModal) {
             getProduct();
 
-            console.log("Feedback ID:", feedbackId);
+            // // console.log("Feedback ID:", feedbackId);
         }
     }, [feedbackId, showModal]);
 
@@ -86,7 +91,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks, feedbackURL }) => {
                         onClick={() => {
                             setShowModal(true);
                             setFeedbackId(item.id);
-                            console.log(item);
+                            // // console.log(item);
                         }}
                         className="feedback-row"
                     >

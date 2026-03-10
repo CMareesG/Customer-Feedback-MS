@@ -15,7 +15,7 @@ const ShowProduct = () => {
 	async function getProductName(): Promise<void> {
 		try{
 			const response = await fetchProductById(productId || "");
-			console.log(response);
+			// console.log(response);
 			setProductName(response.name);
 		} catch (error) {
 			console.error("Error fetching product details:", error);

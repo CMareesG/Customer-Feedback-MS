@@ -3,7 +3,7 @@ version: "3.8"
 services:
  
   db:
-    image: cmareesg/postgres:latest
+    image: postgres:latest
     container_name: feedback-db
     restart: always
     environment:
@@ -18,8 +18,8 @@ services:
       - app-network
  
   backend:
-    # build: ./customer-feedback-backend
-    image: cmareesg/customer-feedback-backend:latest
+    build: ./customer-feedback-backend
+    image: customer-feedback-backend:latest
     container_name: feedback-backend
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/feedbackdb
@@ -34,8 +34,8 @@ services:
       - "3000:3000"
  
   frontend:
-    # build: ./customer-feedback-frontend
-    image: cmareesg/customer-feedback-frontend:latest
+    build: ./customer-feedback-frontend
+    image: customer-feedback-frontend:latest
     container_name: feedback-frontend
     depends_on:
       - backend

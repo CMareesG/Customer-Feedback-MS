@@ -202,8 +202,8 @@ const AdminProductPage = () => {
       setIsLoading(true);
       await createResponse({
         feedbackId,
-        response,
-        userId: "current-user-id", // Replace with actual user ID from auth
+        message:response,
+        adminId: "current-user-id",
       });
       // Reload feedback
       if (feedbackModal.product) {

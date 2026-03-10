@@ -22,9 +22,14 @@ interface DashboardStats {
 
 interface FeedbackItem {
     id: string;
-    title: string;
-    status: "resolved" | "pending";
+    title:string;
     date: string;
+    product: { name: string };
+    status: "resolved" | "pending";
+    createdAt: string;
+    rating: number;
+    review: string;
+    responses: any[];
 }
 
 
@@ -64,28 +69,7 @@ const UserDashboard = () => {
 
             setStats(statsData);
 
-
-            const formatted =
-                feedbackData.map((f: any) => ({
-
-                    id: f.id,
-
-                    title: f.product.name,
-
-                    status:
-                        f.responses.length > 0
-                            ? "resolved"
-                            : "pending",
-
-                    date:
-                        new Date(
-                            f.createdAt
-                        ).toLocaleDateString(),
-
-                }));
-
-
-            setFeedbacks(formatted);
+            setFeedbacks(feedbackData);
 
         } catch (err) {
 

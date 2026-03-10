@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { User, Mail, Shield, Camera, Save, Users, ShoppingBag, BarChart3 } from "lucide-react";
+import { User, Mail, Shield, Camera, Save} from "lucide-react";
 
 import { getUser } from "../../../services/userService";
 

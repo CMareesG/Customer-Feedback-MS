@@ -6,7 +6,7 @@ import { fetchProductByCategoryId } from "../../../services/productService";
 
 
 const UserCategoryPage: React.FC = () => {
-  console.log(useParams());
+  // console.log(useParams());
   const { categoryName,categoryId } = useParams();
   const [products,setProducts]=useState<product[]>([]);
   const navigate = useNavigate();

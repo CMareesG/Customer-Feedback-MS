@@ -3,7 +3,21 @@ import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { createResponse } from "../../services/adminService";
 
-
+interface Props {
+    feedback: {
+        id: string;
+        product: {
+            id: string;
+            name: string;
+        };
+        name: string;
+        rating: number;
+        review: string;
+        createdAt: string;
+        userId: string;
+        responses: Array<any>;
+    };
+}
 
 const FeedBackCard: React.FC<Props> = ({ feedback }) => {
     const navigate = useNavigate();

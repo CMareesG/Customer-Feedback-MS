@@ -31,6 +31,6 @@ export const logout = async (
       },
     }
   );
-  console.log("logout service",response.data);
+  // console.log("logout service",response.data);
   return response.data;
 }

@@ -10,7 +10,7 @@ import UserDashboard from "../pages/user/dashboard/UserDashboard";
 import UserCategoryPage from "../pages/user/categories/UserCategoryPage";
 import UserFeedbackPage from "../pages/user/feedback/UserFeedbackPage";
 import UserProfile from "../pages/user/profile/UserProfile";
-import UserContact from "../pages/user/contact/UserContact";
+// import UserContact from "../pages/user/contact/UserContact";
 import ShowUserFeedbacks from "../pages/user/feedback/ShowUserFeedbacks";
 
 import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
@@ -23,7 +23,7 @@ import ShowProduct from "../pages/admin/products/ShowProduct";
 
 import AboutPage from "../pages/shared/AboutPage";
 
-import FeedBackCard from "../components/feedback/FeedBackCard";
+// import FeedBackCard from "../components/feedback/FeedBackCard";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -82,10 +82,7 @@ const AppRoutes = () => {
                         path="/admin/feedbacks"
                         element={<AdminFeedBack />}
                     />
-                    <Route
-                        path="/feedback/:feedbackId"
-                        element={<FeedBackCard />}
-                    />
+                    
                 </Route>
             </Route>
         </Routes>

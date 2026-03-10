@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getFeedbackByUser } from "../../../services/feedbackService"; 
-import UserFeedBackCard from "../../../components/feedback/UserFeedBackCard";
+import UserFeedbackCard from "../../../components/feedback/UserFeedbackCard";
 
 const ShowUserFeedbacks: React.FC = () => {
     const [feedbacks, setFeedbacks] = useState([]);
@@ -8,7 +8,7 @@ const ShowUserFeedbacks: React.FC = () => {
     const getFeedbacks = async () => {
         try {
             const res = await getFeedbackByUser();
-            console.log(res);
+            // console.log(res);
             setFeedbacks(res);
         } catch (error) {
             console.error(error);
@@ -22,8 +22,8 @@ const ShowUserFeedbacks: React.FC = () => {
     return (
         <>
             <div>
-                {feedbacks.map((feedback) => {
-                    return <UserFeedBackCard key={feedback.id} feedback={feedback} />;
+                {feedbacks.map((feedback,index:number) => {
+                    return <UserFeedbackCard key={index} feedback={feedback} />;
                 })}
             </div>
         </>

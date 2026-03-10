@@ -6,7 +6,6 @@ import {
   ChevronUp,
   ShoppingBag,
   Info,
-  Phone,
   User,
   LogOut,
   Menu,
@@ -31,11 +30,11 @@ const SidebarLayout = () => {
     if(refreshToken){
       await logout(refreshToken)
       navigate("/");
-      console.log("Loged out successfully");
+      // console.log("Loged out successfully");
       localStorage.clear();
     }
     else{
-      console.log("Refresh token not found");
+      // console.log("Refresh token not found");
     }
   };
 
@@ -67,8 +66,8 @@ const SidebarLayout = () => {
       setCategories(parentCategories);
       setSubcategories(subcategories);
       setIsSubcategoryOpen(parentCategoryStatus);
-      console.log(subcategories);
-      console.log(parentCategories);
+      // console.log(subcategories);
+      // console.log(parentCategories);
     }
   }
   function handleSubcategories(slug: string) {
@@ -160,7 +159,7 @@ const SidebarLayout = () => {
                               {subcategories.filter((subcategory:category):boolean=>{
                                 return subcategory.parentId===category.id;
                               }).map((subcategory:category,index:number)=>{
-                                console.log(subcategory);
+                                // console.log(subcategory);
                                 return <NavLink
                                   key={index}
                                   to={`categories/${subcategory.slug}/${subcategory.id}`}

@@ -20,7 +20,7 @@ const UserFeedbackPage = () => {
   async function getProductName(): Promise<void> {
       try{
         const response = await fetchProductById(productId || "");
-        console.log(response);
+        // // console.log(response);
         setProductName(response.name);
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -43,7 +43,7 @@ const UserFeedbackPage = () => {
         const userFeedback = await getUserFeedbackForProduct(productId);
         setUserExistingFeedback(userFeedback);
       } catch (error) {
-        console.log("No existing feedback found");
+        // // console.log("No existing feedback found");
         setUserExistingFeedback(null);
       }
     }
@@ -58,9 +58,9 @@ const UserFeedbackPage = () => {
 
   async function addFeedback(rating: number, review: string, productId: string) {
     const newFeedback: Feedback = await addFeedbackForProduct(rating, review, productId);
-    console.log("newfeedback", newFeedback);
+    // // console.log("newfeedback", newFeedback);
     setFeedbacks((prev: Feedback[]): Feedback[] => {
-      console.log("set", [...prev, newFeedback]);
+      // console.log("set", [...prev, newFeedback]);
       return [...prev, newFeedback];
     });
     setUserExistingFeedback(newFeedback);

@@ -35,7 +35,7 @@ const Login = () => {
     } catch (err: unknown) {
 
       setError("Invalid email or password");
-      console.log("Login error:", err);
+      // console.log("Login error:", err);
 
       setShowError(true);
 
