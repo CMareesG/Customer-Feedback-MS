@@ -221,12 +221,26 @@ export const getAllFeedback = async () => {
 };
 
 export const getAllRecentFeedback = async () => {
-  const response = await api.get('/feedback/admin/recent');
+  const response = await api.get('/feedback/admin/recent',{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
   return response.data;
 };
 
 export const getUserFeedbacks = async () => {
-  const response = await api.get('/feedback/admin/users');
+  const response = await api.get('/feedback/admin/users',{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
   return response.data;
 }
 

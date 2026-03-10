@@ -53,9 +53,9 @@ const Login = () => {
 
       <div className="auth-card">
 
-        <div className="auth-brand">
-          <div className="brand-mark">CF</div>
-          <div className="brand-name">Customer Feedback</div>
+        <div className="auth-brand flex justify-center gap-2 mb-6 font-bold text-2xl text-primary">
+          
+          <div className="brand-name">CUSTOMER FEEDBACK</div>
         </div>
 
         <h1 className="auth-title">Welcome Back</h1>

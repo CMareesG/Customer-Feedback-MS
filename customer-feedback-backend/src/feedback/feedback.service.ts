@@ -51,6 +51,8 @@ export class FeedbackService {
 
         review: true,
 
+        userId: true,
+
         createdAt: true,
 
         product: {

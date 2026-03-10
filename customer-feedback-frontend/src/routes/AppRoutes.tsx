@@ -48,7 +48,7 @@ const AppRoutes = () => {
                     />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/profile" element={<UserProfile />} />
-                    <Route path="/contact" element={<UserContact />} />
+                    {/* <Route path="/contact" element={<UserContact />} /> */}
                     <Route
                         path="/user/feedbacks"
                         element={<ShowUserFeedbacks />}

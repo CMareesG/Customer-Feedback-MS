@@ -37,11 +37,6 @@ const UserFeedbackPage = () => {
       setFeedbacks(feedbacks);
     }
     
-
-  async function addFeedback(rating:number,review:string,productId:string){
-    const newFeedback:Feedback = await addFeedbackForProduct(rating,review,productId);
-    console.log("newfeedback",newFeedback);
-    setFeedbacks((prev:Feedback[]):Feedback[]=>{
     async function checkUserFeedback(): Promise<void> {
       if (!productId) return;
       try {
