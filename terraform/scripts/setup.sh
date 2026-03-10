@@ -25,9 +25,10 @@ JWT_SECRET=$(az keyvault secret show --vault-name kv-cfms1 --name jwt-secret --q
 JWT_EXPIRES_IN=$(az keyvault secret show --vault-name kv-cfms1 --name jwt-expires-in --query value -o tsv)
 REFRESH_EXPIRES_IN=$(az keyvault secret show --vault-name kv-cfms1 --name refresh-expires-in --query value -o tsv)
 
+cd /home/testadmin/Customer-Feedback-MS/customer-feedback-backend
+
 echo "DATABASE_URL=$DATABASE_URL" > .env
 echo "JWT_SECRET=$JWT_SECRET" >> .env
 echo "JWT_EXPIRES_IN=$JWT_EXPIRES_IN" >> .env
 echo "REFRESH_EXPIRES_IN=$REFRESH_EXPIRES_IN" >> .env
-
 sudo docker-compose up -d
