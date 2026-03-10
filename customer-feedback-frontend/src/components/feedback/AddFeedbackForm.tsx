@@ -2,25 +2,41 @@ import React, { useState } from "react";
 import { Star } from "lucide-react";
 
 interface Props {
-  onAddFeedback: (rating: number, review: string, productId:string) => void;
-  productId:string;
+  onAddFeedback: (rating: number, review: string, productId: string) => void;
+  onUpdateFeedback?: (rating: number, review: string) => void;
+  productId: string;
+  initialRating?: number;
+  initialReview?: string;
+  isEditMode?: boolean;
 }
 
-const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
+const AddFeedbackForm: React.FC<Props> = ({ 
+  onAddFeedback, 
+  onUpdateFeedback,
+  productId,
+  initialRating = 0,
+  initialReview = "",
+  isEditMode = false 
+}) => {
+  const [rating, setRating] = useState(initialRating);
+  const [review, setReview] = useState(initialReview);
 
   const handleSubmit = () => {
     if (!rating || !review) return;
-    // console.log({rating,review,productId,userId:localStorage.getItem("userId")});
-    onAddFeedback(rating, review, productId);
+    
+    if (isEditMode && onUpdateFeedback) {
+      onUpdateFeedback(rating, review);
+    } else {
+      onAddFeedback(rating, review, productId);
+    }
+    
     setRating(0);
     setReview("");
   };
 
   return (
     <div className="card">
-      <h2 className="mb-4">Add a Feedback</h2>
+      <h2 className="mb-4">{isEditMode ? "Edit Your Feedback" : "Add a Feedback"}</h2>
 
       <div className="flex gap-1 mb-4">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -47,11 +63,13 @@ const AddFeedbackForm: React.FC<Props> = ({ onAddFeedback,productId }) => {
       <button
         onClick={handleSubmit}
         className="btn-primary w-full"
+        disabled={!rating || !review}
       >
-        Submit
+        {isEditMode ? "Update" : "Submit"}
       </button>
     </div>
   );
 };
 
 export default AddFeedbackForm;
+
