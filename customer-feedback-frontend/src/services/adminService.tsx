@@ -72,8 +72,6 @@ export const deleteUser = async (id: string) => {
   return response.data;
 };
 
-
-
 export const getAllProducts = async () => {
   const response = await api.get("/products");
   return response.data;
@@ -149,8 +147,6 @@ export const deleteFeedback = async (id: string) => {
   const response = await api.delete(`/feedback/${id}`);
   return response.data;
 };
-
-
 
 export const createResponse = async (data: {
   feedbackId: string;

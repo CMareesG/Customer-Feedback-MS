@@ -210,6 +210,40 @@ export class FeedbackService {
     });
   }
 
+  async getFeedbackByUser(userId: string) {
+    return this.prisma.feedback.findMany({
+      where: { userId },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+            message: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
   async updateFeedback(id: string, dto: UpdateFeedbackDto) {
     const existingFeedback = await this.prisma.feedback.findUnique({
       where: { id },

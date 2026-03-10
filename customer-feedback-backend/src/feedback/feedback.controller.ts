@@ -64,6 +64,12 @@ export class FeedbackController {
     return this.feedbackService.getUserFeedbacks();
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user')
+  getFeedbackByUser(@Req() req) {
+    return this.feedbackService.getFeedbackByUser(req.user.id);
+  }
+
   @Get(':id')
   getFeedbackById(@Param('id') id: string) {
     return this.feedbackService.getFeedbackById(id);

@@ -11,6 +11,7 @@ import UserCategoryPage from "../pages/user/categories/UserCategoryPage";
 import UserFeedbackPage from "../pages/user/feedback/UserFeedbackPage";
 import UserProfile from "../pages/user/profile/UserProfile";
 import UserContact from "../pages/user/contact/UserContact";
+import ShowUserFeedbacks from "../pages/user/feedback/ShowUserFeedbacks";
 
 import AdminDashboard from "../pages/admin/dashboard/AdminDashboard";
 import AdminCategoryPage from "../pages/admin/categories/AdminCategoryPage";
@@ -48,8 +49,8 @@ const AppRoutes = () => {
                     <Route path="/profile" element={<UserProfile />} />
                     <Route path="/contact" element={<UserContact />} />
                     <Route
-                        path="/feedback/:feedbackId"
-                        element={<FeedBackCard />}
+                        path="/user/feedbacks"
+                        element={<ShowUserFeedbacks />}
                     />
                 </Route>
             </Route>

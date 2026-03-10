@@ -7,20 +7,26 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState<boolean>(false);
     const [response, setResponse] = useState<string>("");
-    const [status, setStatus] = useState<string>(feedback.responses.length > 0 ? "resolved" : "pending");
+    const [status, setStatus] = useState<string>(
+        feedback.responses.length > 0 ? "resolved" : "pending",
+    );
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setResponse(event.target.value);
-    }
+    };
+
     const handleResponse = () => {
-        createResponse({feedbackId: feedback.id, message: response, adminId: feedback.userId});
+        createResponse({
+            feedbackId: feedback.id,
+            message: response,
+            adminId: feedback.userId,
+        });
         alert("Response submitted!");
-    }
+    };
 
     useReducer(() => {
         setStatus(feedback.responses.length > 0 ? "resolved" : "pending");
     }, [feedback.responses.length]);
-    
 
     return (
         <>
@@ -29,10 +35,6 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
                     <div>
                         <p className="font-medium text-text-primary">
                             Product : {feedback.product.name}
-                        </p>
-
-                        <p className="font-small text-text-primary">
-                            Reviewed By - {feedback.name}
                         </p>
 
                         <p className="text-sm text-text-muted">
@@ -114,24 +116,21 @@ const FeedBackCard: React.FC<Props> = ({ feedback }) => {
 
                         <p className="text-white-700 mb-4">{feedback.review}</p>
 
-                        <div className="flex flex-col ">
-                            <textarea
-                                onChange={handleChange}
-                                placeholder="Give a response"
-                                className="border border-gray-300 rounded-md p-2 mb-4 text-black"
-                            />
+                        {feedback.responses.length > 0 && (
+                            <div className="bg-green-100 p-3 rounded mb-3">
+                                <p className="text-green-800 font-medium">
+                                    Admin Response:
+                                </p>
+                                <p className="text-green-700">
+                                    {feedback.responses[0].message}
+                                </p>
+                            </div>
+                        )}
 
-                            <input
-                                type="button"
-                                onClick={handleResponse}
-                                value="Submit Response"
-                                className="bg-blue-500 text-white px-4 p-2 rounded mb-4 h-max cursor-pointer justify-center"
-                            />
-                        </div>
                         <div className="flex justify-around mt-6">
                             <button
                                 onClick={() =>
-                                    navigate(`/products/${feedback.product.id}`)
+                                    navigate(`/product/feedback/${feedback.product.id}`)
                                 }
                                 className="bg-blue-500 text-white px-4 py-2 rounded"
                             >

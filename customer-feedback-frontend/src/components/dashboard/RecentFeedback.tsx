@@ -53,7 +53,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks, feedbackURL }) => {
 			<div className="flex justify-between items-center mb-5">
 				<h2 className="text-text-primary">Recent Reviews</h2>
 				<button
-					onClick={() => navigate(feedbackURL || "/feedback")}
+					onClick={() => navigate(feedbackURL || "/user/feedbacks")}
 					className="flex items-center gap-2 text-accent-1 hover:text-accent-2 text-sm transition"
 				>
 					View All <ArrowRight size={16} />
@@ -91,7 +91,7 @@ const RecentFeedback: React.FC<Props> = ({ feedbacks, feedbackURL }) => {
 			{showModal && feedbackData && (
 				<div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm">
 
-					<div className="bg-white p-6 rounded-lg shadow-lg w-[400px]">
+					<div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))] p-6 rounded-lg shadow-lg w-[400px]">
 
 						<h2 className="text-xl font-semibold mb-3">Feedback Details</h2>
 

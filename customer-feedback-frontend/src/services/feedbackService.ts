@@ -1,13 +1,13 @@
 import type { AxiosResponse } from "axios";
 import { api } from "./api";
-import type { feedback } from '../types/feedback';
+import type { Feedback } from '../types/feedback';
 
-export const getFeedbackByProduct = async (productId:string):Promise<feedback[]> => {
+export const getFeedbackByProduct = async (productId:string):Promise<Feedback[]> => {
   const response:AxiosResponse = await api.get(`/feedback/product/${productId}`);
   return response.data;
 };
 
-export const addFeedbackForProduct = async (rating:number,review:string,productId:string):Promise<feedback> => {
+export const addFeedbackForProduct = async (rating:number,review:string,productId:string):Promise<Feedback> => {
   const response: AxiosResponse = await api.post(
     `/feedback`,
     {
@@ -23,3 +23,21 @@ export const addFeedbackForProduct = async (rating:number,review:string,productI
   );
   return response.data;
 }
+
+export const getFeedbackByUser = async () => {
+
+  const res = await api.get(
+    "/feedback/user",
+    {
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    }
+  );
+
+
+  return res.data;
+};
