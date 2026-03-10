@@ -1,0 +1,52 @@
+version: "3.8"
+ 
+services:
+ 
+  db:
+    image: cmareesg/postgres:latest
+    container_name: feedback-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: feedbackdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+ 
+  backend:
+    # build: ./customer-feedback-backend
+    image: cmareesg/customer-feedback-backend:latest
+    container_name: feedback-backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/feedbackdb
+    depends_on:
+      - db
+    networks:
+      - app-network
+    env_file:
+      - ./customer-feedback-backend/.env
+    
+    ports:
+      - "3000:3000"
+ 
+  frontend:
+    # build: ./customer-feedback-frontend
+    image: cmareesg/customer-feedback-frontend:latest
+    container_name: feedback-frontend
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    ports:
+      - "5173:80"
+ 
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+ 
