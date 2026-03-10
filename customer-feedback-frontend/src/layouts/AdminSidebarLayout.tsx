@@ -9,6 +9,7 @@ import {
   Menu,
   X,
   User,
+  Bell,
 } from "lucide-react";
 import { logout } from "../services/authService";
 
@@ -31,8 +32,9 @@ const AdminSidebarLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-bg-1 text-text-primary">
-
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      <div
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
+      >
         <div className="p-5">
           <button
             onClick={() => setIsSidebarOpen(false)}
@@ -56,7 +58,6 @@ const AdminSidebarLayout = () => {
           </div>
 
           <nav className="mt-5 space-y-2">
-
             <NavLink
               to="/admin/dashboard"
               className={({ isActive }) =>
@@ -132,11 +133,19 @@ const AdminSidebarLayout = () => {
               About
             </NavLink>
 
+            <NavLink
+              to="admin/notification"
+              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <Bell size={20} />
+              Notification
+            </NavLink>
+
           </nav>
         </div>
 
         <div className="mb-5 space-y-2">
-
           <NavLink
             to="/admin/profile"
             className="flex items-center gap-3 px-5 py-3 mx-3 rounded-lg hover:bg-white/10 text-text-muted"
@@ -176,7 +185,6 @@ const AdminSidebarLayout = () => {
           <Outlet />
         </div>
       </div>
-
     </div>
   );
 };

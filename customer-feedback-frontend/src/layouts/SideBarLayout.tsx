@@ -11,6 +11,7 @@ import {
   LogOut,
   Menu,
   X,
+  Bell,
 } from "lucide-react";
 import { getCategories } from "../services/categoryService";
 import type { category, categoryStatus } from "../types/category";
@@ -83,8 +84,9 @@ const SidebarLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-bg-1 text-text-primary">
-
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      <div
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-bg-2 text-text-primary flex flex-col justify-between transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}
+      >
         <div className="p-5">
           <button
             onClick={() => setIsSidebarOpen(false)}
@@ -96,9 +98,7 @@ const SidebarLayout = () => {
 
         <div className="flex-1">
           <div className="p-5 text-2xl font-bold border-b border-white/10">
-            <div className="ml-8 gap-3">
-              FeedbackMS
-            </div>
+            <div className="ml-8 gap-3">FeedbackMS</div>
           </div>
 
           <nav className="mt-5 space-y-2">
@@ -157,26 +157,28 @@ const SidebarLayout = () => {
                           </button>
                           {category.isOpen && (
                             <div className="ml-10 mt-2 space-y-2 text-sm">
-                              {subcategories.filter((subcategory:category):boolean=>{
-                                return subcategory.parentId===category.id;
-                              }).map((subcategory:category,index:number)=>{
-                                console.log(subcategory);
-                                return <NavLink
-                                  key={index}
-                                  to={`categories/${subcategory.slug}/${subcategory.id}`}
-                                  className="flex items-center gap-2 hover:text-white text-gray-400"
-                                >
-                                  {subcategory.name}
-                                </NavLink>
-                              })}
-                    
+                              {subcategories
+                                .filter((subcategory: category): boolean => {
+                                  return subcategory.parentId === category.id;
+                                })
+                                .map((subcategory: category, index: number) => {
+                                  console.log(subcategory);
+                                  return (
+                                    <NavLink
+                                      key={index}
+                                      to={`categories/${subcategory.slug}/${subcategory.id}`}
+                                      className="flex items-center gap-2 hover:text-white text-gray-400"
+                                    >
+                                      {subcategory.name}
+                                    </NavLink>
+                                  );
+                                })}
                             </div>
                           )}
                         </Fragment>
                       );
                     },
                   )}
-                  
                 </div>
               )}
             </div>
@@ -197,6 +199,15 @@ const SidebarLayout = () => {
             >
               <Phone size={20} />
               Contact
+            </NavLink>
+
+            <NavLink
+              to="/notification"
+              className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <Bell size={20} />
+              Notification
             </NavLink>
           </nav>
         </div>

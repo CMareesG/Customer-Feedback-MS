@@ -13,4 +13,6 @@ export class CreateNotificationDto {
     @MinLength(2)
     message:string;
 
+    isRead?:boolean;
+
 }

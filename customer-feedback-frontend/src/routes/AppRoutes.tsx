@@ -19,6 +19,7 @@ import AdminUserPage from "../pages/admin/users/AdminUserPage";
 import AdminProfile from "../pages/admin/profile/AdminProfile";
  
 import AboutPage from "../pages/shared/AboutPage";
+import NotificationPage from "../pages/shared/NotificationPage";
  
 import ProtectedRoute from "./ProtectedRoute";
  
@@ -42,6 +43,7 @@ return (
      <Route path="/about" element={<AboutPage />} />
      <Route path="/profile" element={<UserProfile />} />
      <Route path="/contact" element={<UserContact />} />
+     <Route path="/notification" element={<NotificationPage/>}/>
  
     </Route>
  
@@ -58,6 +60,7 @@ return (
      <Route path="/admin/users" element={<AdminUserPage />} />
      <Route path="/admin/about" element={<AboutPage />} />
      <Route path="/admin/profile" element={<AdminProfile />} />
+     <Route path="/admin/notification" element={<NotificationPage/>}/>
  
     </Route>
  

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import type { Feedback } from "../../../types/feedback";
 import { useParams, type Params } from "react-router-dom";
 import { addFeedbackForProduct, getFeedbackByProduct } from "../../../services/feedbackService";
+import { addNotificationforAdmins } from "../../../services/notificationService";
 
 const UserFeedbackPage = () => {
   const { productId }: Readonly<Params<string>> = useParams();
@@ -19,6 +20,7 @@ const UserFeedbackPage = () => {
   }, [productId]);
   async function addFeedback(rating:number,review:string,productId:string){
     const newFeedback:Feedback = await addFeedbackForProduct(rating,review,productId);
+    await addNotificationforAdmins();
     console.log("newfeedback",newFeedback);
     setFeedbacks((prev:Feedback[]):Feedback[]=>{
       console.log("set", [...prev, newFeedback]);

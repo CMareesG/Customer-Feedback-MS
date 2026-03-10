@@ -2,16 +2,33 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Notification, User } from '@prisma/client';
 
 @Injectable()
 export class NotificationService {
   constructor(private prisma: PrismaService) {}
 
   async createNotification(dto: CreateNotificationDto) {
-    await this.isUserExist(dto.userId);
+    // await this.isUserExist(dto.userId);
     return this.prisma.notification.create({
       data: dto,
     });
+  }
+
+  async createNotificationForAdmins(dto: CreateNotificationDto):Promise<Notification[]> {
+    // await this.isUserExist(dto.userId);
+    const admins:User[] = await this.prisma.user.findMany({where:{role:"ADMIN"}});
+    return Promise.all(
+      admins.map(
+        async (admin) =>
+          await this.prisma.notification.create({
+            data: {
+              ...dto,
+              userId: admin.id,
+            },
+          }),
+      ),
+    );
   }
 
   async getAllNotification() {
@@ -36,7 +53,13 @@ export class NotificationService {
   async getNotificationByUserId(id: string) {
     await this.isUserExist(id);
     const notifications = await this.prisma.notification.findMany({
-      where: { userId: id },
+      where: {
+        userId: id,
+        isRead: false,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     if (!notifications) {
@@ -62,22 +85,23 @@ export class NotificationService {
   }
 
   async deleteNotification(id: string) {
-    const notification = await this.prisma.notification.findUnique({
-      where: { id },
-    });
+    return await this.updateNotification(id, { isRead: true });
+    //   const notification = await this.prisma.notification.findUnique({
+    //     where: { id },
+    //   });
 
-    if (!notification) {
-      throw new NotFoundException('Notification not found');
-    }
+    //   if (!notification) {
+    //     throw new NotFoundException('Notification not found');
+    //   }
 
-    await this.prisma.notification.delete({
-      where: { id },
-    });
+    //   await this.prisma.notification.delete({
+    //     where: { id },
+    //   });
 
-    return {
-      success: true,
-      message: 'Notification deleted successfully',
-    };
+    //   return {
+    //     success: true,
+    //     message: 'Notification deleted successfully',
+    //   };
   }
 
   async isUserExist(userId: string): Promise<void> {

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { NotificationService } from './notification.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
@@ -17,32 +18,49 @@ import { Role } from '@prisma/client';
 import { Roles } from 'src/user/roles.decorator';
 
 @Controller('notification')
-@UseGuards(AuthGuard('jwt'),RolesGuard)
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @Post()
+  // @Post()
+  // @Roles(Role.ADMIN)
+  // create(@Body() createNotificationDto: CreateNotificationDto) {
+  //   return this.notificationService.createNotification(createNotificationDto);
+  // }
+
+  @Post('user')
   @Roles(Role.ADMIN)
-  create(@Body() createNotificationDto: CreateNotificationDto) {
+  addNotificationForUser(@Body() createNotificationDto: CreateNotificationDto) {
     return this.notificationService.createNotification(createNotificationDto);
   }
 
+  @Post('admin')
+  @Roles(Role.CUSTOMER)
+  addNotificationForAdmins(
+    @Body() createNotificationDto: CreateNotificationDto,
+  ) {
+    return this.notificationService.createNotificationForAdmins(
+      createNotificationDto,
+    );
+  }
+
   @Get()
-  @Roles(Role.ADMIN,Role.CUSTOMER)
+  @Roles(Role.ADMIN, Role.CUSTOMER)
   findAll() {
     return this.notificationService.getAllNotification();
   }
 
-  @Get(':id')
-  @Roles(Role.ADMIN,Role.CUSTOMER)
-  findOne(@Param('id') id: string) {
-    return this.notificationService.getNotificationById(id);
+  @Get('user')
+  @Roles(Role.ADMIN, Role.CUSTOMER)
+  findAllByUser(@Req() req) {
+    console.log('get notification:', req.user.id);
+    return this.notificationService.getNotificationByUserId(req.user.id);
   }
 
-  @Get('user/:id')
-  @Roles(Role.ADMIN,Role.CUSTOMER)
-  findAllByUser(@Param('id') id: string) {
-    return this.notificationService.getNotificationByUserId(id);
+  @Get(':id')
+  @Roles(Role.ADMIN, Role.CUSTOMER)
+  findOne(@Param('id') id: string) {
+    return this.notificationService.getNotificationById(id);
   }
 
   @Patch(':id')
@@ -58,7 +76,7 @@ export class NotificationController {
   }
 
   @Delete(':id')
-  @Roles(Role.ADMIN)
+  @Roles(Role.CUSTOMER, Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.notificationService.deleteNotification(id);
   }
