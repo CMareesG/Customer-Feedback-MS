@@ -21,7 +21,7 @@ interface DashboardStats {
 
 
 interface FeedbackItem {
-    id: number;
+    id: string;
     title: string;
     status: "resolved" | "pending";
     date: string;
@@ -68,7 +68,7 @@ const UserDashboard = () => {
             const formatted =
                 feedbackData.map((f: any) => ({
 
-                    id: Number(f.id),
+                    id: f.id,
 
                     title: f.product.name,
 

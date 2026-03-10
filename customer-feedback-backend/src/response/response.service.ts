@@ -5,16 +5,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ResponseService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async createResponse(dto: CreateResponseDto) {
-    
-    const admin = await this.prisma.user.findUnique({
+    console.log(dto);
+    const admin = await this.prisma.user.findFirst({
       where: { id: dto.adminId },
     });
     if (!admin) throw new NotFoundException('admin not found');
 
-    const feedback = await this.prisma.feedback.findUnique({
+    const feedback = await this.prisma.feedback.findFirst({
       where: { id: dto.feedbackId },
     });
     if (!feedback) throw new NotFoundException('feedback not found');

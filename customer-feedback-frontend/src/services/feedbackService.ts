@@ -26,7 +26,26 @@ export const addFeedbackForProduct = async (rating:number,review:string,productI
     },
   );
   return response.data;
+}
+
+export const getFeedbackByUser = async () => {
+
+  const res = await api.get(
+    "/feedback/user",
+    {
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    }
+  );
+
+
+  return res.data;
 };
+
 
 export const getUserFeedbackForProduct = async (productId:string):Promise<Feedback | null> => {
   const response: AxiosResponse = await api.get(`/feedback/user/product/${productId}`,{

@@ -71,6 +71,22 @@ export class FeedbackController {
     return this.feedbackService.getRecentFeedback(req.user.id);
   }
 
+  @Get('admin/recent')
+  getAllRecentFeedback() {
+    return this.feedbackService.getAllRecentFeedback();
+  }
+
+  @Get('admin/users')
+  getUserFeedbacks() {
+    return this.feedbackService.getUserFeedbacks();
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user')
+  getFeedbackByUser(@Req() req) {
+    return this.feedbackService.getFeedbackByUser(req.user.id);
+  }
+
   @UseGuards(AuthGuard('jwt'),RolesGuard)
   @Get(':id')
   @Roles(Role.ADMIN,Role.CUSTOMER)
