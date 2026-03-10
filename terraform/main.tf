@@ -80,6 +80,10 @@ resource "azurerm_virtual_machine" "vm-cfms" {
   network_interface_ids = [azurerm_network_interface.nic-cfms.id]
   vm_size               = "Standard_D2s_v3"
 
+  identity {
+      type = "SystemAssigned"
+  }
+
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
 
@@ -103,6 +107,7 @@ resource "azurerm_virtual_machine" "vm-cfms" {
     admin_username = "testadmin"
     admin_password = "Password1234!"
     custom_data = base64encode(file("${path.module}/scripts/setup.sh"))
+    
   }
   os_profile_linux_config {
     disable_password_authentication = false
