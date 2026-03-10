@@ -6,9 +6,9 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "tfstate-rg"
-    storage_account_name = "tfstatefile18"
-    container_name       = "tfstate"
+    resource_group_name  = "rg-cfms-tf"
+    storage_account_name = "sacfmstf"
+    container_name       = "bccfmstf"
     key                  = "terraform.tfstate"
   }
 }

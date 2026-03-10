@@ -1,65 +1,38 @@
-version: "3.8"
- 
 services:
- 
   db:
-    image: postgres:15
-    container_name: feedback-db
-    restart: always
+    image: postgres:15-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: feedbackdb
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: my_db
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
- 
+
   backend:
     build: ./customer-feedback-backend
-    image: customer-feedback-backend:latest
-    container_name: feedback-backend
+    env_file:
+      - ./customer-feedback-backend/.env
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/feedbackdb
+      - DATABASE_URL=postgresql://user:password@db:5432/my_db
     depends_on:
       - db
     networks:
       - app-network
-    env_file:
-      - ./customer-feedback-backend/.env
-    
-    # ports:
-    #   - "3000:3000"
- 
+
   frontend:
     build: ./customer-feedback-frontend
-    image: customer-feedback-frontend:latest
-    container_name: feedback-frontend
-    depends_on:
-      - backend
-    networks:
-      - app-network
-    # ports:
-    #   - "5173:80"
-    
-  nginx:
-    image: nginx:latest
-    container_name: gateway
     ports:
       - "80:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - frontend
       - backend
     networks:
       - app-network
 
 volumes:
-  postgres-data:
+  pgdata:
 
 networks:
   app-network:
- 
+    driver: bridge
