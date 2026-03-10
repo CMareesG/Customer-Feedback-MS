@@ -148,20 +148,7 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card text-center">
-          <div className="text-3xl font-bold text-accent-1">12</div>
-          <div className="text-text-muted text-sm mt-1">Feedback Given</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-3xl font-bold text-accent-2">8</div>
-          <div className="text-text-muted text-sm mt-1">Products Reviewed</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-3xl font-bold text-green-400">5</div>
-          <div className="text-text-muted text-sm mt-1">Responses Received</div>
-        </div>
-      </div>
+      
     </div>
   );
 };

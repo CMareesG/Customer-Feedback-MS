@@ -11,3 +11,15 @@ export async function fetchProductByCategoryId(categoryId:string){
     });
     return response.data;
 }
+
+export async function fetchProductById(productId:string){
+    const response = await api.get(`/products/${productId}`,{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
+    return response.data;
+}

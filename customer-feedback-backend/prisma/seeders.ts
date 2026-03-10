@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import * as dotenv from 'dotenv';
+import * as bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -22,18 +23,27 @@ async function main() {
 
   const category = await prisma.category.create({
     data: {
-      name: 'Electronic123',
-      slug: 'electronic123',
-      description: 'Electronic items123',
+      name: 'Electronic',
+      slug: 'electronic',
+      description: 'Electronic items',
     },
   });
 
   const user = await prisma.user.create({
     data: {
-      name: 'Marees123',
-      email: 'mare123e@gmail.com',
-      password: 'hiii123',
+      name: 'test',
+      email: 'test@gmail.com',
+      password: await bcrypt.hash('test123', 10),
       role: 'CUSTOMER',
+    },
+  });
+
+  const admin = await prisma.user.create({
+    data: {
+      name: 'admin',
+      email: 'admin@gmail.com',
+      password: await bcrypt.hash('admin123', 10),
+      role: 'ADMIN',
     },
   });
 

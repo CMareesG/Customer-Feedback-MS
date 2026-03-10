@@ -9,6 +9,16 @@ class Seed {
 
     await this.prisma.category.deleteMany();
 
+    const user = await this.prisma.user.create({
+    data: {
+      name: 'Marees123',
+      email: 'mare123e@gmail.com',
+      password: 'hiii123',
+      role: 'CUSTOMER',
+    },
+  });
+
+
     const electronics = await this.prisma.category.create({
       data: {
         name: 'Electronics',

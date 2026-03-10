@@ -1,7 +1,5 @@
 import { api } from "./api";
 
-
-
 export const getAllCategories = async () => {
   const response = await api.get("/categories",{
       headers: {
@@ -124,8 +122,6 @@ export const deleteUser = async (id: string) => {
   return response.data;
 };
 
-
-
 export const getAllProducts = async () => {
   const response = await api.get("/products",{
       headers: {
@@ -224,6 +220,30 @@ export const getAllFeedback = async () => {
   return response.data;
 };
 
+export const getAllRecentFeedback = async () => {
+  const response = await api.get('/feedback/admin/recent',{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
+  return response.data;
+};
+
+export const getUserFeedbacks = async () => {
+  const response = await api.get('/feedback/admin/users',{
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem(
+            "accessToken"
+          )}`,
+      },
+    });
+  return response.data;
+}
+
 export const updateFeedback = async (
   id: string,
   data: {
@@ -254,12 +274,10 @@ export const deleteFeedback = async (id: string) => {
   return response.data;
 };
 
-
-
 export const createResponse = async (data: {
   feedbackId: string;
-  response: string;
-  userId: string;
+  message: string;
+  adminId: string;
 }) => {
   const response = await api.post("/response", data,{
       headers: {

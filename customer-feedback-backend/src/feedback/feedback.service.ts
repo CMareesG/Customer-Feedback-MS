@@ -7,11 +7,14 @@ import { extendedFeedback } from 'src/types/feedback';
 
 @Injectable()
 export class FeedbackService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
-  async createFeedback(dto: CreateFeedbackDto,userId:string): Promise<extendedFeedback> {
-    console.log("feedback",userId);
-    const feedback =  await this.prisma.feedback.create({
+  async createFeedback(
+    dto: CreateFeedbackDto,
+    userId: string,
+  ): Promise<extendedFeedback> {
+    console.log('feedback', userId);
+    const feedback = await this.prisma.feedback.create({
       data: {
         productId: dto.productId,
         userId,
@@ -40,6 +43,30 @@ export class FeedbackService {
   async getFeedbackById(id: string) {
     const feedback = await this.prisma.feedback.findUnique({
       where: { id },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        userId: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+          },
+        },
+      },
     });
 
     if (!feedback) {
@@ -89,10 +116,8 @@ export class FeedbackService {
     };
   }
 
-  async getRecentFeedback(userId: string) {
+  async getAllRecentFeedback() {
     return this.prisma.feedback.findMany({
-      where: { userId },
-
       select: {
         id: true,
 
@@ -120,6 +145,123 @@ export class FeedbackService {
       },
 
       take: 5,
+    });
+  }
+
+  async getUserFeedbacks() {
+    const response = await this.prisma.feedback.findMany({
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        userId: true,
+
+        product: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    const feedbacks = Promise.all(
+      response.map(async (feedback) => {
+        const user: User | null = await this.prisma.user.findUnique({
+          where: { id: feedback.userId },
+        });
+        if (!user) throw new NotFoundException('User not found');
+        return {
+          ...feedback,
+          name: user.name,
+        };
+      }),
+    );
+    return feedbacks;
+  }
+
+  async getRecentFeedback(userId: string) {
+    return this.prisma.feedback.findMany({
+      where: { userId },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+            message: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+
+      take: 5,
+    });
+  }
+
+  async getFeedbackByUser(userId: string) {
+    return this.prisma.feedback.findMany({
+      where: { userId },
+
+      select: {
+        id: true,
+
+        rating: true,
+
+        review: true,
+
+        createdAt: true,
+
+        product: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+
+        responses: {
+          select: {
+            id: true,
+            message: true,
+          },
+        },
+      },
+
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
@@ -158,15 +300,21 @@ export class FeedbackService {
   }
 
   async getFeedbackByProductId(productId: string): Promise<extendedFeedback[]> {
-    const response: Feedback[] = await this.prisma.feedback.findMany({ where: { productId } });
-    const feedbacks: Promise<extendedFeedback[]> = Promise.all(response.map(async (feedback:Feedback):Promise<extendedFeedback> => {
-      const user: User | null = await this.prisma.user.findUnique({ where: { id: feedback.userId } });
-      if (!user) throw new NotFoundException('User not found');
-      return {
-        ...feedback,
-        name: user.name
-      }
-    }))
+    const response: Feedback[] = await this.prisma.feedback.findMany({
+      where: { productId },
+    });
+    const feedbacks: Promise<extendedFeedback[]> = Promise.all(
+      response.map(async (feedback: Feedback): Promise<extendedFeedback> => {
+        const user: User | null = await this.prisma.user.findUnique({
+          where: { id: feedback.userId },
+        });
+        if (!user) throw new NotFoundException('User not found');
+        return {
+          ...feedback,
+          name: user.name,
+        };
+      }),
+    );
     return feedbacks;
   }
 

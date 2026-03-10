@@ -5,7 +5,6 @@ import ProductList from "./ProductList";
 import FeedbackSection from "./FeedbackSection";
 import {
   getAllCategories,
-  getAllProducts,
   getProductsByCategory,
   createProduct,
   updateProduct,

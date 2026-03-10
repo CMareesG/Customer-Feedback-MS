@@ -190,14 +190,14 @@ const SidebarLayout = () => {
               About
             </NavLink>
 
-            <NavLink
+            {/* <NavLink
               to="/contact"
               className="flex items-center gap-3 px-5 py-3 rounded-lg mx-3 hover:bg-white/10 text-text-muted"
               onClick={() => setIsSidebarOpen(false)}
             >
               <Phone size={20} />
               Contact
-            </NavLink>
+            </NavLink> */}
           </nav>
         </div>
 

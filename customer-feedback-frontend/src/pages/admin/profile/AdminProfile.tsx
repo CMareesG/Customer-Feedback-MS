@@ -160,57 +160,9 @@ const AdminProfile = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card flex items-center gap-4">
-          <div className="w-14 h-14 bg-accent-1/20 rounded-xl flex items-center justify-center">
-            <Users className="text-accent-1" size={24} />
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-text-primary">156</div>
-            <div className="text-text-muted text-sm">Total Users</div>
-          </div>
-        </div>
-        <div className="card flex items-center gap-4">
-          <div className="w-14 h-14 bg-accent-2/20 rounded-xl flex items-center justify-center">
-            <ShoppingBag className="text-accent-2" size={24} />
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-text-primary">42</div>
-            <div className="text-text-muted text-sm">Products</div>
-          </div>
-        </div>
-        <div className="card flex items-center gap-4">
-          <div className="w-14 h-14 bg-green-400/20 rounded-xl flex items-center justify-center">
-            <BarChart3 className="text-green-400" size={24} />
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-text-primary">1.2K</div>
-            <div className="text-text-muted text-sm">Total Feedback</div>
-          </div>
-        </div>
-      </div>
+      
 
-      <div className="card">
-        <h2 className="text-lg font-semibold text-text-primary mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <button className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition text-left">
-            <div className="text-text-primary font-medium">Manage Users</div>
-            <div className="text-text-muted text-sm">View and manage user accounts</div>
-          </button>
-          <button className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition text-left">
-            <div className="text-text-primary font-medium">View Reports</div>
-            <div className="text-text-muted text-sm">Access analytics and reports</div>
-          </button>
-          <button className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition text-left">
-            <div className="text-text-primary font-medium">System Settings</div>
-            <div className="text-text-muted text-sm">Configure system preferences</div>
-          </button>
-          <button className="p-4 bg-white/5 rounded-lg hover:bg-white/10 transition text-left">
-            <div className="text-text-primary font-medium">Audit Logs</div>
-            <div className="text-text-muted text-sm">View activity and changes</div>
-          </button>
-        </div>
-      </div>
+      
     </div>
   );
 };
