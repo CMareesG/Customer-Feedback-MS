@@ -76,8 +76,13 @@ const AdminCategoryPage = () => {
         setIsLoading(true);
         await deleteCategory(id);
         await loadCategories();
-        setDeleteCategoryAlert(`Category "${categoryname?.name}" has been deleted`);
-        setTimeout(() => setDeleteCategoryAlert(""), 3000);
+        if(!categoryname?.parentId){
+          setDeleteCategoryAlert(`Category "${categoryname?.name}" has been deleted`);
+          setTimeout(() => setDeleteCategoryAlert(""), 3000);}
+        else{
+          setDeleteCategoryAlert(`Subcategory "${categoryname?.name}" has been deleted`);
+          setTimeout(() => setDeleteCategoryAlert(""), 3000);
+        }
       } catch (error) {
         console.error("Error deleting category:", error);
       } finally {
@@ -95,12 +100,22 @@ const AdminCategoryPage = () => {
       setIsLoading(true);
       if (formModal.category) {
         await updateCategory(formModal.category.id, data);
-        setUpdateCategoryAlert(`Category "${data.name}" has been updated`);
-        setTimeout(() => setUpdateCategoryAlert(""), 3000);
+        if(!data.parentId){
+          setUpdateCategoryAlert(`Category "${data.name}" has been updated`);
+          setTimeout(() => setUpdateCategoryAlert(""), 3000);}
+        else{
+          setUpdateCategoryAlert(`Subcategory "${data.name}" has been updated`);
+          setTimeout(() => setUpdateCategoryAlert(""), 3000);
+        }
       } else {
         await createCategory(data);
-        setCreateCategoryAlert(`Category "${data.name}" has been created`);
-        setTimeout(() => setCreateCategoryAlert(""), 3000);
+        if(!data.parentId){
+          setCreateCategoryAlert(`Category "${data.name}" has been created`);
+          setTimeout(() => setCreateCategoryAlert(""), 3000);}
+        else{
+          setCreateCategoryAlert(`Subcategory "${data.name}" has been created`);
+          setTimeout(() => setCreateCategoryAlert(""), 3000);
+        }
       }
       await loadCategories();
       setFormModal({ isOpen: false, isSubcategory: false, category: null });
