@@ -13,7 +13,7 @@ sudo apt-get install -y git
 
 cd /home/azureuser
 
-git clone https://github.com/CMareesG/Customer-Feedback-MS.git
+git clone -b dev https://github.com/CMareesG/Customer-Feedback-MS.git
 
 cd Customer-Feedback-MS
 
