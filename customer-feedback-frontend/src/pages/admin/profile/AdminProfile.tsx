@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, Mail, Shield, Camera, Save, Users, ShoppingBag, BarChart3 } from "lucide-react";
+
+import { getUser } from "../../../services/userService";
 
 interface AdminData {
   name: string;
@@ -11,12 +13,26 @@ const AdminProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [adminData, setAdminData] = useState<AdminData>({
-    name: "Admin User",
-    email: "admin@feedback360.com",
-    role: "ADMIN",
+    name: "",
+    email: "",
+    role: "",
   });
 
   const [formData, setFormData] = useState<AdminData>(adminData);
+
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const u = await getUser();
+          setAdminData(u);
+          setFormData(u);
+        } catch (err) {
+          console.error("failed to load user:", err);
+        }
+      };
+  
+      fetchUser();
+    }, []);
 
   const handleSave = async () => {
     setIsLoading(true);
