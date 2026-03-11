@@ -27,3 +27,6 @@ terraform.rc
 *.tfplan
 
 terraform/.terraform.lock.hcl
+
+secrets.tf
+setup.sh

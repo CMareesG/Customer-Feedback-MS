@@ -17,10 +17,10 @@ git clone -b prod https://github.com/CMareesG/Customer-Feedback-MS.git
 
 cd /home/testadmin/Customer-Feedback-MS/customer-feedback-backend
 
-echo "DATABASE_URL=postgresql://user:password@db:5432/my_db" > .env
-echo "JWT_SECRET=8f3b4c7a9e2d1f6a5b8c3d9e7f2a1b6c4d8e3f1a7b9c2d6e5f8a3c7d1e9b2f4" >> .env
-echo "JWT_EXPIRES_IN=900" >> .env
-echo "REFRESH_EXPIRES_IN=36000" >> .env
+echo "DATABASE_URL=" > .env
+echo "JWT_SECRET=" >> .env
+echo "JWT_EXPIRES_IN=" >> .env
+echo "REFRESH_EXPIRES_IN=" >> .env
 
 
 cd /home/testadmin/Customer-Feedback-MS
