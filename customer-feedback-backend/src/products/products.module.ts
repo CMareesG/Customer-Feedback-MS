@@ -2,26 +2,14 @@ import { PrismaModule } from './../prisma/prisma.module';
 import { Module } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { extname, join } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { memoryStorage } from 'multer';
 import { FeedbackModule } from 'src/feedback/feedback.module';
-
-const uploadDir = join(process.cwd(), 'uploads');
 
 @Module({
   imports: [FeedbackModule,PrismaModule,
     MulterModule.register({
-      storage: diskStorage({
-        destination: (req, file, cb) => {
-          cb(null, uploadDir);
-        },
-        filename: (req, file, cb) => {
-          const ext = extname(file.originalname);
-          const filename = `${Date.now()}${ext}`;
-          cb(null, filename);
-        },
-      }),
+      storage: memoryStorage(),
       fileFilter: (req, file, cb) => {
         if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
           cb(null, true);

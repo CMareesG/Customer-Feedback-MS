@@ -2,11 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { join } from 'path';
-import * as fs from 'fs/promises';
 import { Feedback, Product } from '@prisma/client';
 import { FeedbackService } from 'src/feedback/feedback.service';
 import { ExtendedProduct } from 'src/types/product';
+import { uploadImage, deleteImage } from 'src/utils/azureupload';
 
 @Injectable()
 export class ProductsService {
@@ -17,13 +16,17 @@ export class ProductsService {
     createProductDto: CreateProductDto,
     file: Express.Multer.File,
   ): Promise<object> {
-    const fileUrl: string = `http://localhost:3000/uploads/${file.filename}`;
+    if (!file) {
+      throw new Error('File is required');
+    }
+
+    const imageUrl = await uploadImage(file);
 
     const product: CreateProductDto = {
       name: createProductDto.name,
       description: createProductDto.description,
       categoryId: createProductDto.categoryId,
-      img: fileUrl,
+      img: imageUrl,
     };
 
     return await this.prisma.product.create({ data: product });
@@ -78,8 +81,9 @@ export class ProductsService {
     };
 
     if (file) {
-      await this.deleteImage(existingProduct.img);
-      data.img = `http://localhost:3000/uploads/${file?.filename}`;
+      await deleteImage(existingProduct.img);
+      const imageUrl = await uploadImage(file);
+      data.img = imageUrl;
     }
     return await this.prisma.product.update({ data, where: { id } });
   }
@@ -89,23 +93,11 @@ export class ProductsService {
       where: { id },
     });
     if (!product) throw new NotFoundException('Product not found');
-    await this.deleteImage(product.img);
+    await deleteImage(product.img);
     await this.prisma.product.delete({ where: { id } });
     return {
       success: true,
       message: 'Product deleted successfully',
     };
-  }
-  async deleteImage(fileurl: string): Promise<void> {
-    try {
-      const filename: string = fileurl.split('/')[4];
-      const filePath: string = join(process.cwd(), 'uploads', filename);
-      await fs.access(filePath);
-      await fs.unlink(filePath);
-    } catch (error) {
-      console.log(
-        'while handling seeders product image, there is no image to handle in uploads',
-      );
-    }
   }
 }
