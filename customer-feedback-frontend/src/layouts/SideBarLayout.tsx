@@ -163,7 +163,8 @@ const SidebarLayout = () => {
                                 console.log(subcategory);
                                 return <NavLink
                                   key={index}
-                                  to={`categories/${subcategory.slug}/${subcategory.id}`}
+                                  to={`categories/${subcategory.id}`}
+                                  state={{categoryName:subcategory.name}}
                                   className="flex items-center gap-2 hover:text-white text-gray-400"
                                 >
                                   {subcategory.name}
